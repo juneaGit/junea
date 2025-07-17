@@ -6,30 +6,34 @@ import {
 import { ReactNode } from 'react';
 
 import { AppProvider } from '@/app/provider';
+import { ReduxProvider } from '@/providers/ReduxProvider';
 import { getUserQueryOptions } from '@/lib/auth';
 
 import '@/styles/globals.css';
 
 export const metadata = {
-  title: 'Bulletproof React',
-  description: 'Showcasing Best Practices For Building React Applications',
+  title: 'Mon Mariage - Organisez votre mariage de rêve',
+  description: 'Application SaaS pour organiser votre mariage facilement avec IA et recommandations personnalisées',
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(getUserQueryOptions());
+  // Commenté temporairement pour éviter les erreurs
+  // await queryClient.prefetchQuery(getUserQueryOptions());
 
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <html lang="en">
+    <html lang="fr">
       <body>
-        <AppProvider>
-          <HydrationBoundary state={dehydratedState}>
-            {children}
-          </HydrationBoundary>
-        </AppProvider>
+        <ReduxProvider>
+          <AppProvider>
+            <HydrationBoundary state={dehydratedState}>
+              {children}
+            </HydrationBoundary>
+          </AppProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
