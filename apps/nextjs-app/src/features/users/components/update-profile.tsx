@@ -53,10 +53,10 @@ export const UpdateProfile = () => {
         }}
         options={{
           defaultValues: {
-            firstName: user.data?.firstName ?? '',
-            lastName: user.data?.lastName ?? '',
+            firstName: '',
+            lastName: '',
             email: user.data?.email ?? '',
-            bio: user.data?.bio ?? '',
+            bio: '',
           },
         }}
         schema={updateProfileInputSchema}
@@ -80,11 +80,15 @@ export const UpdateProfile = () => {
               registration={register('email')}
             />
 
-            <Textarea
-              label="Bio"
-              error={formState.errors['bio']}
-              registration={register('bio')}
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+              <Textarea
+                {...register('bio')}
+              />
+              {formState.errors['bio'] && (
+                <p className="mt-1 text-sm text-red-600">{formState.errors['bio']?.message}</p>
+              )}
+            </div>
           </>
         )}
       </Form>
