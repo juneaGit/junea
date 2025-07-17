@@ -11,9 +11,9 @@ import {
   Switch,
   Textarea,
 } from '@/components/ui/form';
+import { FieldWrapper } from '@/components/ui/form/field-wrapper';
 import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
-import { canCreateDiscussion } from '@/lib/authorization';
 
 import {
   createDiscussionInputSchema,
@@ -35,7 +35,8 @@ export const CreateDiscussion = () => {
 
   const user = useUser();
 
-  if (!canCreateDiscussion(user?.data)) {
+  // TODO: Implémenter la vérification des rôles avec Supabase
+  if (!user?.data) {
     return null;
   }
 
@@ -81,11 +82,14 @@ export const CreateDiscussion = () => {
               registration={register('title')}
             />
 
-            <Textarea
+            <FieldWrapper
               label="Body"
               error={formState.errors['body']}
-              registration={register('body')}
-            />
+            >
+              <Textarea
+                {...register('body')}
+              />
+            </FieldWrapper>
 
             <div className="flex items-center space-x-2">
               <Switch

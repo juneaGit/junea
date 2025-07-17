@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/dialog';
 import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
-import { canDeleteDiscussion } from '@/lib/authorization';
 
 import { useDeleteDiscussion } from '../api/delete-discussion';
 
@@ -28,7 +27,8 @@ export const DeleteDiscussion = ({ id }: DeleteDiscussionProps) => {
     },
   });
 
-  if (!canDeleteDiscussion(user?.data)) {
+  // TODO: Implémenter la vérification des rôles avec Supabase
+  if (!user?.data) {
     return null;
   }
 

@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/form';
 import { useNotifications } from '@/components/ui/notifications';
 import { useUser } from '@/lib/auth';
-import { canUpdateDiscussion } from '@/lib/authorization';
 
 import { useDiscussion } from '../api/get-discussion';
 import {
@@ -41,7 +40,8 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
 
   const user = useUser();
 
-  if (!canUpdateDiscussion(user?.data)) {
+  // TODO: Implémenter la vérification des rôles avec Supabase
+  if (!user?.data) {
     return null;
   }
 
@@ -91,11 +91,15 @@ export const UpdateDiscussion = ({ discussionId }: UpdateDiscussionProps) => {
               error={formState.errors['title']}
               registration={register('title')}
             />
-            <Textarea
-              label="Body"
-              error={formState.errors['body']}
-              registration={register('body')}
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Body</label>
+              <Textarea
+                {...register('body')}
+              />
+              {formState.errors['body'] && (
+                <p className="mt-1 text-sm text-red-600">{formState.errors['body']?.message}</p>
+              )}
+            </div>
 
             <div className="flex items-center space-x-2">
               <Switch
