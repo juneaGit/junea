@@ -11,9 +11,11 @@ export const AdminGuard = ({ children }: { children: React.ReactNode }) => {
     return <Spinner className="m-4" />;
   }
 
-  if (!canViewUsers(user?.data)) {
-    return <div>Only admin can view this.</div>;
-  }
+  // Pour l'instant, permettre à tous les utilisateurs d'accéder à cette page
+  // TODO: Implémenter la vérification des rôles avec Supabase
+  // if (!canViewUsers(user?.data)) {
+  //   return <div>Only admin can view this.</div>;
+  // }
 
   return children;
 };

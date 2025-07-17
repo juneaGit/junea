@@ -8,6 +8,7 @@ import { FormDrawer } from './form-drawer';
 import { Input } from './input';
 import { Select } from './select';
 import { Textarea } from './textarea';
+import { FieldWrapper } from './field-wrapper';
 
 const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
   return (
@@ -29,11 +30,14 @@ const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
             error={formState.errors['title']}
             registration={register('title')}
           />
-          <Textarea
+          <FieldWrapper
             label="Description"
             error={formState.errors['description']}
-            registration={register('description')}
-          />
+          >
+            <Textarea
+              {...register('description')}
+            />
+          </FieldWrapper>
           <Select
             label="Type"
             error={formState.errors['type']}

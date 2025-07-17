@@ -30,7 +30,8 @@ export const useWeddingProfile = () => {
       // TEMPORAIRE : Toujours utiliser le mode demo pour éviter les problèmes RLS
       console.log('🎮 Mode demo - récupération depuis localStorage');
       
-      const demoProfile = localStorage.getItem('wedding-profile-demo');
+      // Vérifier que nous sommes côté client avant d'accéder à localStorage
+      const demoProfile = typeof window !== 'undefined' ? localStorage.getItem('wedding-profile-demo') : null;
       if (demoProfile) {
         const parsed = JSON.parse(demoProfile);
         console.log('✅ Profil trouvé en mode demo:', parsed);
@@ -55,8 +56,9 @@ export const useHasCompletedOnboarding = () => {
   console.log('🔍 useHasCompletedOnboarding - User:', user.data);
   
   // En mode demo, toujours considérer l'onboarding comme terminé si on a un profil
+  // Vérifier que nous sommes côté client avant d'accéder à localStorage
   const hasCompleted = !!weddingProfile.data || 
-                      (!user.data && !!localStorage.getItem('wedding-profile-demo'));
+                      (!user.data && typeof window !== 'undefined' && !!localStorage.getItem('wedding-profile-demo'));
   
   console.log('🔍 useHasCompletedOnboarding - Has completed:', hasCompleted);
   

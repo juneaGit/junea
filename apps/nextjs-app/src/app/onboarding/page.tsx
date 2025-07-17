@@ -145,8 +145,11 @@ export default function OnboardingPage() {
         updated_at: new Date().toISOString()
       };
       
-      localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
-      localStorage.setItem('demo-user', JSON.stringify(demoUser));
+      // Vérifier que nous sommes côté client avant d'accéder à localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
+        localStorage.setItem('demo-user', JSON.stringify(demoUser));
+      }
       
       console.log('✅ Profil sauvegardé en mode demo sans auth');
       
@@ -193,7 +196,10 @@ export default function OnboardingPage() {
           updated_at: new Date().toISOString()
         };
         
-        localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
+        // Vérifier que nous sommes côté client avant d'accéder à localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
+        }
         console.log('✅ Profil sauvegardé en mode demo (temporaire)');
         
       } else {
@@ -215,7 +221,10 @@ export default function OnboardingPage() {
           updated_at: new Date().toISOString()
         };
         
-        localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
+        // Vérifier que nous sommes côté client avant d'accéder à localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('wedding-profile-demo', JSON.stringify(profileData));
+        }
         console.log('✅ Profil sauvegardé en mode demo');
       }
 
