@@ -20,6 +20,10 @@ const nextConfig = {
       };
     }
     
+    // Améliorer la résolution des modules pour Vercel
+    config.resolve.extensions = ['.tsx', '.ts', '.jsx', '.js', '.json'];
+    config.resolve.modules = ['node_modules', 'src'];
+    
     // Réduire les avertissements de bundle
     config.resolve.fallback = {
       ...config.resolve.fallback,
