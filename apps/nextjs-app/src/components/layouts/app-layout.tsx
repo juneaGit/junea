@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Sidebar } from '@/components/navigation/sidebar';
+import { Sidebar } from '@/components/navigation';
 import { useAuth } from '@/hooks/use-auth';
 import { cn } from '@/utils/cn';
 

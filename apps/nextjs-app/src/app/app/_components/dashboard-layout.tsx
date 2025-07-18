@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { Sidebar } from '@/components/navigation/sidebar';
+import { Sidebar } from '@/components/navigation';
 import { useLogout, useUser } from '@/lib/auth';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
