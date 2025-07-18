@@ -1,7 +1,5 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   BellIcon,
   LightBulbIcon,
@@ -15,6 +13,8 @@ import {
   ClockIcon,
   BookmarkIcon,
 } from '@heroicons/react/24/outline';
+import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -51,13 +51,16 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
   const [encouragementMessage, setEncouragementMessage] = useState('');
 
   // Messages d'encouragement personnalisés
-  const encouragementMessages = [
-    '🌸 Vous progressez magnifiquement ! Chaque étape vous rapproche de votre jour magique.',
-    '💕 Bravo ! Votre organisation méthodique impressionne. Junea est fière de vous !',
-    '🎉 Fantastique ! Votre mariage prend forme grâce à votre dévouement.',
-    '✨ Excellent travail ! Vous transformez vos rêves en réalité, une tâche à la fois.',
-    '🌟 Continuez ainsi ! Votre attention aux détails fera de ce mariage un moment inoubliable.',
-  ];
+  const encouragementMessages = useMemo(
+    () => [
+      '🌸 Vous progressez magnifiquement ! Chaque étape vous rapproche de votre jour magique.',
+      '💕 Bravo ! Votre organisation méthodique impressionne. Junea est fière de vous !',
+      '🎉 Fantastique ! Votre mariage prend forme grâce à votre dévouement.',
+      '✨ Excellent travail ! Vous transformez vos rêves en réalité, une tâche à la fois.',
+      '🌟 Continuez ainsi ! Votre attention aux détails fera de ce mariage un moment inoubliable.',
+    ],
+    [],
+  );
 
   // Conseils personnalisés basés sur les tâches
   const getPersonalizedTips = () => {
@@ -199,7 +202,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
     }, 60000); // Chaque minute
 
     return () => clearInterval(interval);
-  }, []);
+  }, [encouragementMessages]);
 
   return (
     <div className="space-y-6">
@@ -210,7 +213,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
             initial={{ opacity: 0, y: -50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -50, scale: 0.9 }}
-            className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-pink-500 to-rose-500 text-white p-4 rounded-lg shadow-lg max-w-md text-center"
+            className="fixed left-1/2 top-20 z-50 max-w-md -translate-x-1/2 rounded-lg bg-gradient-to-r from-pink-500 to-rose-500 p-4 text-center text-white shadow-lg"
           >
             <p className="text-sm font-medium">{encouragementMessage}</p>
           </motion.div>
@@ -218,10 +221,10 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
       </AnimatePresence>
 
       {/* Notifications intelligentes */}
-      <Card className="bg-white/80 backdrop-blur-sm border-pink-200">
+      <Card className="border-pink-200 bg-white/80 backdrop-blur-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <BellIcon className="size-5 text-pink-500" />
               Notifications & Rappels
             </CardTitle>
@@ -251,7 +254,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg"
+                      className="flex items-start gap-3 rounded-lg bg-gray-50 p-3"
                     >
                       <notification.icon
                         className={cn('size-5 mt-0.5', notification.color)}
@@ -260,7 +263,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                         <h4 className="font-medium text-gray-900">
                           {notification.title}
                         </h4>
-                        <p className="text-sm text-gray-600 mt-1">
+                        <p className="mt-1 text-sm text-gray-600">
                           {notification.message}
                         </p>
                         {notification.tasks.length > 0 && (
@@ -284,12 +287,12 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                     </motion.div>
                   ))
                 ) : (
-                  <div className="text-center py-6">
-                    <CheckCircleIcon className="size-12 text-green-500 mx-auto mb-2" />
+                  <div className="py-6 text-center">
+                    <CheckCircleIcon className="mx-auto mb-2 size-12 text-green-500" />
                     <p className="text-gray-600">
                       Excellent ! Aucune notification urgente.
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="mt-1 text-sm text-gray-500">
                       Continuez votre excellent travail ! 🎉
                     </p>
                   </div>
@@ -301,10 +304,10 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
       </Card>
 
       {/* Conseils personnalisés */}
-      <Card className="bg-white/80 backdrop-blur-sm border-pink-200">
+      <Card className="border-pink-200 bg-white/80 backdrop-blur-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <LightBulbIcon className="size-5 text-yellow-500" />
               Conseils Personnalisés
             </CardTitle>
@@ -333,9 +336,9 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg"
+                    className="flex items-start gap-3 rounded-lg bg-yellow-50 p-3"
                   >
-                    <InformationCircleIcon className="size-5 text-yellow-600 mt-0.5" />
+                    <InformationCircleIcon className="mt-0.5 size-5 text-yellow-600" />
                     <p className="text-sm text-gray-700">{tip}</p>
                   </motion.div>
                 ))}
@@ -346,10 +349,10 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
       </Card>
 
       {/* Métriques et insights */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-white/80 backdrop-blur-sm border-green-200">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Card className="border-green-200 bg-white/80 backdrop-blur-sm">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="mb-3 flex items-center gap-3">
               <CurrencyDollarIcon className="size-6 text-green-500" />
               <h3 className="font-medium text-gray-900">Budget Progress</h3>
             </div>
@@ -362,9 +365,9 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                 <span className="text-gray-600">Budget total estimé</span>
                 <span className="font-medium">{metrics.totalBudget}€</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="h-2 w-full rounded-full bg-gray-200">
                 <div
-                  className="bg-green-500 h-2 rounded-full transition-all duration-500"
+                  className="h-2 rounded-full bg-green-500 transition-all duration-500"
                   style={{
                     width: `${metrics.totalBudget > 0 ? (metrics.completedBudget / metrics.totalBudget) * 100 : 0}%`,
                   }}
@@ -374,9 +377,9 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
           </CardContent>
         </Card>
 
-        <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+        <Card className="border-purple-200 bg-white/80 backdrop-blur-sm">
           <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-3">
+            <div className="mb-3 flex items-center gap-3">
               <UserGroupIcon className="size-6 text-purple-500" />
               <h3 className="font-medium text-gray-900">Catégories</h3>
             </div>
@@ -386,19 +389,19 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
                 .map(([category, progress]) => (
                   <div
                     key={category}
-                    className="flex justify-between items-center text-sm"
+                    className="flex items-center justify-between text-sm"
                   >
                     <span className="text-gray-600">{category}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-16 bg-gray-200 rounded-full h-1">
+                      <div className="h-1 w-16 rounded-full bg-gray-200">
                         <div
-                          className="bg-purple-500 h-1 rounded-full transition-all duration-500"
+                          className="h-1 rounded-full bg-purple-500 transition-all duration-500"
                           style={{
                             width: `${(progress.completed / progress.total) * 100}%`,
                           }}
                         />
                       </div>
-                      <span className="font-medium w-8 text-right">
+                      <span className="w-8 text-right font-medium">
                         {progress.completed}/{progress.total}
                       </span>
                     </div>
@@ -412,7 +415,7 @@ export const TaskManagement: React.FC<TaskManagementProps> = ({
       {/* Assistant IA flottant */}
       <Button
         onClick={onShowAIAssistant}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg rounded-full p-4 z-40"
+        className="fixed bottom-6 right-6 z-40 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 p-4 text-white shadow-lg hover:from-pink-600 hover:to-rose-600"
         size="lg"
       >
         <ChatBubbleLeftEllipsisIcon className="size-6" />

@@ -64,7 +64,7 @@ export const Countdown = ({ targetDate, className }: CountdownProps) => {
       <div className="hidden sm:grid sm:grid-cols-4 sm:gap-2 md:gap-4">
         {timeUnits.map((unit, index) => (
           <div key={index} className="text-center">
-            <div className="relative overflow-hidden rounded-xl bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/30 hover:scale-105">
+            <div className="relative overflow-hidden rounded-xl bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:bg-white/30">
               <div className="text-2xl font-bold leading-none transition-all duration-500">
                 {unit.value.toString().padStart(2, '0')}
               </div>
@@ -72,7 +72,7 @@ export const Countdown = ({ targetDate, className }: CountdownProps) => {
                 {unit.label}
               </div>
               {/* Petit effet sparkle */}
-              <div className="absolute top-1 right-1 size-2 rounded-full bg-white/40 animate-pulse"></div>
+              <div className="absolute right-1 top-1 size-2 animate-pulse rounded-full bg-white/40"></div>
             </div>
           </div>
         ))}
@@ -89,7 +89,7 @@ export const Countdown = ({ targetDate, className }: CountdownProps) => {
               <div className="mt-1 text-xs font-medium opacity-90">
                 {unit.label}
               </div>
-              <div className="absolute top-1 right-1 size-2 rounded-full bg-white/40 animate-pulse"></div>
+              <div className="absolute right-1 top-1 size-2 animate-pulse rounded-full bg-white/40"></div>
             </div>
           </div>
         ))}

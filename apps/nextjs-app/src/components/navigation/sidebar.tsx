@@ -248,7 +248,7 @@ export function Sidebar({ className }: SidebarProps) {
         {isMobileOpen && (
           <div className="fixed inset-0 z-40 lg:hidden">
             <div
-              className="fixed inset-0 bg-black bg-opacity-50"
+              className="fixed inset-0 bg-black/50"
               onClick={toggleMobileSidebar}
             />
             <div className="fixed left-0 top-0 h-full w-80 bg-white shadow-xl">

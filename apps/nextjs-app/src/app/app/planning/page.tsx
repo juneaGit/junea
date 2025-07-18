@@ -1,8 +1,5 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {
   CalendarDaysIcon,
   CheckCircleIcon,
@@ -17,6 +14,9 @@ import {
   ChevronUpIcon,
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useMemo } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -507,19 +507,19 @@ export default function PlanningPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-white">
       {/* Header avec progression */}
-      <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-pink-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div className="sticky top-0 z-10 border-b border-pink-200 bg-white/80 shadow-sm backdrop-blur-sm">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4">
               <div className="relative">
                 <HeartIcon className="size-8 text-pink-500" />
-                <SparklesIcon className="size-4 text-pink-400 absolute -top-1 -right-1" />
+                <SparklesIcon className="absolute -right-1 -top-1 size-4 text-pink-400" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+                <h1 className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-3xl font-bold text-transparent">
                   Rétro-Planning
                 </h1>
-                <p className="text-gray-600 mt-1">
+                <p className="mt-1 text-gray-600">
                   Votre feuille de route vers le mariage parfait ♥
                 </p>
               </div>
@@ -533,9 +533,9 @@ export default function PlanningPage() {
                 </div>
                 <div className="text-sm text-gray-500">Accompli</div>
               </div>
-              <div className="w-48 bg-gray-200 rounded-full h-3 overflow-hidden">
+              <div className="h-3 w-48 overflow-hidden rounded-full bg-gray-200">
                 <motion.div
-                  className="h-full bg-gradient-to-r from-pink-500 to-rose-500 rounded-full"
+                  className="h-full rounded-full bg-gradient-to-r from-pink-500 to-rose-500"
                   initial={{ width: 0 }}
                   animate={{ width: `${stats.progress}%` }}
                   transition={{ duration: 1, ease: 'easeOut' }}
@@ -554,7 +554,7 @@ export default function PlanningPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-gradient-to-r from-pink-100 to-rose-100 rounded-lg"
+            className="mt-4 rounded-lg bg-gradient-to-r from-pink-100 to-rose-100 p-4"
           >
             <p className="text-center text-gray-700">
               {stats.progress < 25 &&
@@ -576,9 +576,9 @@ export default function PlanningPage() {
       </div>
 
       {/* Statistiques rapides */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="bg-white/80 backdrop-blur-sm border-pink-200">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mb-6 grid grid-cols-1 gap-4 md:grid-cols-4">
+          <Card className="border-pink-200 bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -592,7 +592,7 @@ export default function PlanningPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 backdrop-blur-sm border-green-200">
+          <Card className="border-green-200 bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -606,7 +606,7 @@ export default function PlanningPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 backdrop-blur-sm border-yellow-200">
+          <Card className="border-yellow-200 bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -620,7 +620,7 @@ export default function PlanningPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/80 backdrop-blur-sm border-red-200">
+          <Card className="border-red-200 bg-white/80 backdrop-blur-sm">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -636,17 +636,17 @@ export default function PlanningPage() {
         </div>
 
         {/* Barre de recherche et filtres */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-pink-200 p-4 mb-6">
-          <div className="flex flex-col lg:flex-row gap-4">
+        <div className="mb-6 rounded-lg border border-pink-200 bg-white/80 p-4 shadow-sm backdrop-blur-sm">
+          <div className="flex flex-col gap-4 lg:flex-row">
             {/* Recherche */}
-            <div className="flex-1 relative">
-              <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-gray-400" />
+            <div className="relative flex-1">
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
               <input
                 type="text"
                 placeholder="Rechercher une tâche..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-4 focus:border-pink-500 focus:ring-2 focus:ring-pink-500"
               />
             </div>
 
@@ -673,11 +673,11 @@ export default function PlanningPage() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-4 pt-4 border-t border-gray-200"
+                className="mt-4 border-t border-gray-200 pt-4"
               >
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Catégorie
                     </label>
                     <select
@@ -688,7 +688,7 @@ export default function PlanningPage() {
                           category: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       {CATEGORIES.map((cat) => (
                         <option key={cat} value={cat}>
@@ -699,7 +699,7 @@ export default function PlanningPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Timeline
                     </label>
                     <select
@@ -710,7 +710,7 @@ export default function PlanningPage() {
                           timeline: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       {TIMELINES.map((timeline) => (
                         <option key={timeline} value={timeline}>
@@ -721,7 +721,7 @@ export default function PlanningPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Statut
                     </label>
                     <select
@@ -732,7 +732,7 @@ export default function PlanningPage() {
                           status: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       {STATUSES.map((status) => (
                         <option key={status} value={status}>
@@ -749,7 +749,7 @@ export default function PlanningPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Urgence
                     </label>
                     <select
@@ -760,7 +760,7 @@ export default function PlanningPage() {
                           urgency: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       {URGENCIES.map((urgency) => (
                         <option key={urgency} value={urgency}>
@@ -788,10 +788,10 @@ export default function PlanningPage() {
               ([timeline, timelineTasks]) => (
                 <div
                   key={timeline}
-                  className="bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-pink-200 p-6"
+                  className="rounded-lg border border-pink-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-4 h-4 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full"></div>
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className="size-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500"></div>
                     <h2 className="text-xl font-semibold text-gray-900">
                       {timeline}
                     </h2>
@@ -865,21 +865,21 @@ export default function PlanningPage() {
                                         >
                                           {task.title}
                                         </h3>
-                                        <p className="text-sm text-gray-600 mb-2">
+                                        <p className="mb-2 text-sm text-gray-600">
                                           {task.description}
                                         </p>
 
-                                        <div className="flex flex-wrap gap-2 mb-2">
-                                          <span className="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded-full">
+                                        <div className="mb-2 flex flex-wrap gap-2">
+                                          <span className="rounded-full bg-pink-100 px-2 py-1 text-xs text-pink-700">
                                             {task.category}
                                           </span>
                                           {task.estimatedDuration && (
-                                            <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                                            <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
                                               ⏱️ {task.estimatedDuration}
                                             </span>
                                           )}
                                           {task.relatedBudget && (
-                                            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                                            <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">
                                               💰 {task.relatedBudget}€
                                             </span>
                                           )}
@@ -893,7 +893,7 @@ export default function PlanningPage() {
                                         )}
                                       </div>
 
-                                      <div className="flex items-center gap-2 ml-4">
+                                      <div className="ml-4 flex items-center gap-2">
                                         {task.urgency === 'high' && (
                                           <ExclamationTriangleIcon className="size-4 text-red-500" />
                                         )}
@@ -905,7 +905,7 @@ export default function PlanningPage() {
                                               e.target.value as Task['status'],
                                             )
                                           }
-                                          className="text-xs border border-gray-300 rounded px-2 py-1"
+                                          className="rounded border border-gray-300 px-2 py-1 text-xs"
                                           onClick={(e) => e.stopPropagation()}
                                         >
                                           <option value="todo">À faire</option>
@@ -926,7 +926,7 @@ export default function PlanningPage() {
                                       initial={{ opacity: 0, scale: 0.8 }}
                                       animate={{ opacity: 1, scale: 1 }}
                                       exit={{ opacity: 0, scale: 0.8 }}
-                                      className="absolute inset-0 flex items-center justify-center bg-pink-500/20 rounded-lg"
+                                      className="absolute inset-0 flex items-center justify-center rounded-lg bg-pink-500/20"
                                     >
                                       <div className="text-4xl">🎉</div>
                                     </motion.div>
@@ -950,9 +950,9 @@ export default function PlanningPage() {
         <div className="fixed bottom-6 right-6">
           <Button
             size="lg"
-            className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg rounded-full"
+            className="rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg hover:from-pink-600 hover:to-rose-600"
           >
-            <HeartIcon className="size-5 mr-2" />
+            <HeartIcon className="mr-2 size-5" />
             Besoin d'aide ?
           </Button>
         </div>
