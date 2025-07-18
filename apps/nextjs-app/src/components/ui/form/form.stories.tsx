@@ -3,12 +3,12 @@ import { z } from 'zod';
 
 import { Button } from '../button';
 
+import { FieldWrapper } from './field-wrapper';
 import { Form } from './form';
 import { FormDrawer } from './form-drawer';
 import { Input } from './input';
 import { Select } from './select';
 import { Textarea } from './textarea';
-import { FieldWrapper } from './field-wrapper';
 
 const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
   return (
@@ -34,9 +34,7 @@ const MyForm = ({ hideSubmit = false }: { hideSubmit?: boolean }) => {
             label="Description"
             error={formState.errors['description']}
           >
-            <Textarea
-              {...register('description')}
-            />
+            <Textarea {...register('description')} />
           </FieldWrapper>
           <Select
             label="Type"

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+
 import { WeddingProfile, Task, BudgetItem, Guest } from '@/config/supabase';
 
 interface WeddingState {
@@ -27,9 +28,13 @@ export const createWeddingProfile = createAsyncThunk(
       // TODO: Implémenter l'appel au service
       return profileData as WeddingProfile;
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Erreur lors de la création du profil');
+      return rejectWithValue(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la création du profil',
+      );
     }
-  }
+  },
 );
 
 export const updateWeddingProfile = createAsyncThunk(
@@ -39,9 +44,13 @@ export const updateWeddingProfile = createAsyncThunk(
       // TODO: Implémenter l'appel au service
       return updates as WeddingProfile;
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Erreur lors de la mise à jour');
+      return rejectWithValue(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la mise à jour',
+      );
     }
-  }
+  },
 );
 
 export const weddingSlice = createSlice({
@@ -62,14 +71,22 @@ export const weddingSlice = createSlice({
     addTask: (state, action: PayloadAction<Task>) => {
       state.tasks.push(action.payload);
     },
-    updateTask: (state, action: PayloadAction<{ id: string; updates: Partial<Task> }>) => {
-      const taskIndex = state.tasks.findIndex(task => task.id === action.payload.id);
+    updateTask: (
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<Task> }>,
+    ) => {
+      const taskIndex = state.tasks.findIndex(
+        (task) => task.id === action.payload.id,
+      );
       if (taskIndex !== -1) {
-        state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...action.payload.updates };
+        state.tasks[taskIndex] = {
+          ...state.tasks[taskIndex],
+          ...action.payload.updates,
+        };
       }
     },
     removeTask: (state, action: PayloadAction<string>) => {
-      state.tasks = state.tasks.filter(task => task.id !== action.payload);
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload);
     },
     setBudgetItems: (state, action: PayloadAction<BudgetItem[]>) => {
       state.budgetItems = action.payload;
@@ -77,14 +94,24 @@ export const weddingSlice = createSlice({
     addBudgetItem: (state, action: PayloadAction<BudgetItem>) => {
       state.budgetItems.push(action.payload);
     },
-    updateBudgetItem: (state, action: PayloadAction<{ id: string; updates: Partial<BudgetItem> }>) => {
-      const itemIndex = state.budgetItems.findIndex(item => item.id === action.payload.id);
+    updateBudgetItem: (
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<BudgetItem> }>,
+    ) => {
+      const itemIndex = state.budgetItems.findIndex(
+        (item) => item.id === action.payload.id,
+      );
       if (itemIndex !== -1) {
-        state.budgetItems[itemIndex] = { ...state.budgetItems[itemIndex], ...action.payload.updates };
+        state.budgetItems[itemIndex] = {
+          ...state.budgetItems[itemIndex],
+          ...action.payload.updates,
+        };
       }
     },
     removeBudgetItem: (state, action: PayloadAction<string>) => {
-      state.budgetItems = state.budgetItems.filter(item => item.id !== action.payload);
+      state.budgetItems = state.budgetItems.filter(
+        (item) => item.id !== action.payload,
+      );
     },
     setGuests: (state, action: PayloadAction<Guest[]>) => {
       state.guests = action.payload;
@@ -92,14 +119,24 @@ export const weddingSlice = createSlice({
     addGuest: (state, action: PayloadAction<Guest>) => {
       state.guests.push(action.payload);
     },
-    updateGuest: (state, action: PayloadAction<{ id: string; updates: Partial<Guest> }>) => {
-      const guestIndex = state.guests.findIndex(guest => guest.id === action.payload.id);
+    updateGuest: (
+      state,
+      action: PayloadAction<{ id: string; updates: Partial<Guest> }>,
+    ) => {
+      const guestIndex = state.guests.findIndex(
+        (guest) => guest.id === action.payload.id,
+      );
       if (guestIndex !== -1) {
-        state.guests[guestIndex] = { ...state.guests[guestIndex], ...action.payload.updates };
+        state.guests[guestIndex] = {
+          ...state.guests[guestIndex],
+          ...action.payload.updates,
+        };
       }
     },
     removeGuest: (state, action: PayloadAction<string>) => {
-      state.guests = state.guests.filter(guest => guest.id !== action.payload);
+      state.guests = state.guests.filter(
+        (guest) => guest.id !== action.payload,
+      );
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -164,4 +201,4 @@ export const {
   setError,
   clearError,
   reset,
-} = weddingSlice.actions; 
+} = weddingSlice.actions;

@@ -6,14 +6,15 @@ import {
 import { ReactNode } from 'react';
 
 import { AppProvider } from '@/app/provider';
-import { ReduxProvider } from '@/providers/ReduxProvider';
 import { getUserQueryOptions } from '@/lib/auth';
+import { ReduxProvider } from '@/providers/redux-provider';
 
 import '@/styles/globals.css';
 
 export const metadata = {
   title: 'Mon Mariage - Organisez votre mariage de rêve',
-  description: 'Application SaaS pour organiser votre mariage facilement avec IA et recommandations personnalisées',
+  description:
+    'Application SaaS pour organiser votre mariage facilement avec IA et recommandations personnalisées',
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {

@@ -82,13 +82,8 @@ export const CreateDiscussion = () => {
               registration={register('title')}
             />
 
-            <FieldWrapper
-              label="Body"
-              error={formState.errors['body']}
-            >
-              <Textarea
-                {...register('body')}
-              />
+            <FieldWrapper label="Body" error={formState.errors['body']}>
+              <Textarea {...register('body')} />
             </FieldWrapper>
 
             <div className="flex items-center space-x-2">

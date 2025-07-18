@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { authService, AuthUser } from '@/services/auth';
 import type { Session } from '@supabase/supabase-js';
+
+import { authService, AuthUser } from '@/services/auth';
 
 interface AuthState {
   user: AuthUser | null;
@@ -21,26 +22,40 @@ const initialState: AuthState = {
 // Actions asynchrones
 export const signIn = createAsyncThunk(
   'auth/signIn',
-  async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
+  async (
+    { email, password }: { email: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
       const result = await authService.signIn(email, password);
       return result;
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Erreur de connexion');
+      return rejectWithValue(
+        error instanceof Error ? error.message : 'Erreur de connexion',
+      );
     }
-  }
+  },
 );
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
-  async ({ email, password, fullName }: { email: string; password: string; fullName?: string }, { rejectWithValue }) => {
+  async (
+    {
+      email,
+      password,
+      fullName,
+    }: { email: string; password: string; fullName?: string },
+    { rejectWithValue },
+  ) => {
     try {
       const result = await authService.signUp(email, password, fullName);
       return result;
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Erreur d\'inscription');
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Erreur d'inscription",
+      );
     }
-  }
+  },
 );
 
 export const signOut = createAsyncThunk(
@@ -49,9 +64,11 @@ export const signOut = createAsyncThunk(
     try {
       await authService.signOut();
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Erreur de déconnexion');
+      return rejectWithValue(
+        error instanceof Error ? error.message : 'Erreur de déconnexion',
+      );
     }
-  }
+  },
 );
 
 export const getCurrentUser = createAsyncThunk(
@@ -60,7 +77,7 @@ export const getCurrentUser = createAsyncThunk(
     const user = await authService.getCurrentUser();
     const session = await authService.getCurrentSession();
     return { user, session };
-  }
+  },
 );
 
 export const authSlice = createSlice({
@@ -97,12 +114,14 @@ export const authSlice = createSlice({
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user ? {
-          id: action.payload.user.id,
-          email: action.payload.user.email!,
-          full_name: action.payload.user.user_metadata?.full_name,
-          avatar_url: action.payload.user.user_metadata?.avatar_url,
-        } : null;
+        state.user = action.payload.user
+          ? {
+              id: action.payload.user.id,
+              email: action.payload.user.email!,
+              full_name: action.payload.user.user_metadata?.full_name,
+              avatar_url: action.payload.user.user_metadata?.avatar_url,
+            }
+          : null;
         state.session = action.payload.session;
         state.isAuthenticated = !!action.payload.user;
       })
@@ -117,12 +136,14 @@ export const authSlice = createSlice({
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user ? {
-          id: action.payload.user.id,
-          email: action.payload.user.email!,
-          full_name: action.payload.user.user_metadata?.full_name,
-          avatar_url: action.payload.user.user_metadata?.avatar_url,
-        } : null;
+        state.user = action.payload.user
+          ? {
+              id: action.payload.user.id,
+              email: action.payload.user.email!,
+              full_name: action.payload.user.user_metadata?.full_name,
+              avatar_url: action.payload.user.user_metadata?.avatar_url,
+            }
+          : null;
         state.session = action.payload.session;
         state.isAuthenticated = !!action.payload.user;
       })
@@ -144,12 +165,14 @@ export const authSlice = createSlice({
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user ? {
-          id: action.payload.user.id,
-          email: action.payload.user.email!,
-          full_name: action.payload.user.user_metadata?.full_name,
-          avatar_url: action.payload.user.user_metadata?.avatar_url,
-        } : null;
+        state.user = action.payload.user
+          ? {
+              id: action.payload.user.id,
+              email: action.payload.user.email!,
+              full_name: action.payload.user.user_metadata?.full_name,
+              avatar_url: action.payload.user.user_metadata?.avatar_url,
+            }
+          : null;
         state.session = action.payload.session;
         state.isAuthenticated = !!action.payload.user;
       })
@@ -160,4 +183,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser, setSession, setLoading, clearError, reset } = authSlice.actions; 
+export const { setUser, setSession, setLoading, clearError, reset } =
+  authSlice.actions;

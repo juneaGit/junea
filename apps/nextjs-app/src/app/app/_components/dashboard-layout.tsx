@@ -3,7 +3,7 @@
 import { useRouter, usePathname } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { Sidebar } from '@/components/navigation/Sidebar';
+import { Sidebar } from '@/components/navigation/sidebar';
 import { useLogout, useUser } from '@/lib/auth';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -18,7 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
       <Sidebar />
-      
+
       {/* Main content */}
       <div className="lg:pl-80">
         <main className="py-6">
@@ -33,13 +33,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 function Fallback({ error }: { error: Error }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Oops! Une erreur s'est produite</h1>
-        <p className="text-gray-600 mb-4">{error.message ?? 'Quelque chose s\'est mal passé!'}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          className="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 transition-colors"
+        <h1 className="mb-4 text-2xl font-bold text-gray-900">
+          Oops! Une erreur s'est produite
+        </h1>
+        <p className="mb-4 text-gray-600">
+          {error.message ?? "Quelque chose s'est mal passé!"}
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="rounded-md bg-pink-600 px-4 py-2 text-white transition-colors hover:bg-pink-700"
         >
           Recharger la page
         </button>

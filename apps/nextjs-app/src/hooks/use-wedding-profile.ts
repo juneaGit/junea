@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { supabase } from '@/config/supabase';
 import { useUser } from '@/lib/auth';
 
@@ -26,21 +27,24 @@ export const useWeddingProfile = () => {
     queryKey: ['wedding-profile', user.data?.id || 'demo'],
     queryFn: async (): Promise<WeddingProfile | null> => {
       console.log('🔍 Récupération du profil de mariage...');
-      
+
       // TEMPORAIRE : Toujours utiliser le mode demo pour éviter les problèmes RLS
       console.log('🎮 Mode demo - récupération depuis localStorage');
-      
+
       // Vérifier que nous sommes côté client avant d'accéder à localStorage
-      const demoProfile = typeof window !== 'undefined' ? localStorage.getItem('wedding-profile-demo') : null;
+      const demoProfile =
+        typeof window !== 'undefined'
+          ? localStorage.getItem('wedding-profile-demo')
+          : null;
       if (demoProfile) {
         const parsed = JSON.parse(demoProfile);
         console.log('✅ Profil trouvé en mode demo:', parsed);
         return {
           id: 'demo-profile',
-          ...parsed
+          ...parsed,
         };
       }
-      
+
       console.log('❌ Aucun profil trouvé en mode demo');
       return null;
     },
@@ -51,20 +55,26 @@ export const useWeddingProfile = () => {
 export const useHasCompletedOnboarding = () => {
   const weddingProfile = useWeddingProfile();
   const user = useUser();
-  
-  console.log('🔍 useHasCompletedOnboarding - Wedding profile:', weddingProfile.data);
+
+  console.log(
+    '🔍 useHasCompletedOnboarding - Wedding profile:',
+    weddingProfile.data,
+  );
   console.log('🔍 useHasCompletedOnboarding - User:', user.data);
-  
+
   // En mode demo, toujours considérer l'onboarding comme terminé si on a un profil
   // Vérifier que nous sommes côté client avant d'accéder à localStorage
-  const hasCompleted = !!weddingProfile.data || 
-                      (!user.data && typeof window !== 'undefined' && !!localStorage.getItem('wedding-profile-demo'));
-  
+  const hasCompleted =
+    !!weddingProfile.data ||
+    (!user.data &&
+      typeof window !== 'undefined' &&
+      !!localStorage.getItem('wedding-profile-demo'));
+
   console.log('🔍 useHasCompletedOnboarding - Has completed:', hasCompleted);
-  
+
   return {
     hasCompleted,
     isLoading: weddingProfile.isLoading,
     profile: weddingProfile.data,
   };
-}; 
+};

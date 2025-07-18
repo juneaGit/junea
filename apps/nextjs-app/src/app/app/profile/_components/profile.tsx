@@ -38,7 +38,14 @@ export const Profile = () => {
         <dl className="sm:divide-y sm:divide-gray-200">
           <Entry label="Email Address" value={user.data?.email ?? ''} />
           <Entry label="User ID" value={user.data?.id ?? ''} />
-          <Entry label="Created At" value={user.data?.created_at ? new Date(user.data.created_at).toLocaleDateString() : ''} />
+          <Entry
+            label="Created At"
+            value={
+              user.data?.created_at
+                ? new Date(user.data.created_at).toLocaleDateString()
+                : ''
+            }
+          />
         </dl>
       </div>
     </div>

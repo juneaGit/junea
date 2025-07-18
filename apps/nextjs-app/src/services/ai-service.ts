@@ -1,9 +1,10 @@
 import OpenAI from 'openai';
+
 import { WeddingProfile, UserProfile } from '../config/supabase';
 
 const openai = new OpenAI({
   apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true // Note: En production, utilisez un endpoint backend
+  dangerouslyAllowBrowser: true, // Note: En production, utilisez un endpoint backend
 });
 
 export interface AIRecommendation {
@@ -25,7 +26,7 @@ export interface AIInsight {
 
 export class AIService {
   private static instance: AIService;
-  
+
   public static getInstance(): AIService {
     if (!AIService.instance) {
       AIService.instance = new AIService();
@@ -33,7 +34,10 @@ export class AIService {
     return AIService.instance;
   }
 
-  private buildUserContext(userProfile: UserProfile, weddingProfile: WeddingProfile): string {
+  private buildUserContext(
+    userProfile: UserProfile,
+    weddingProfile: WeddingProfile,
+  ): string {
     return `
 Profil utilisateur:
 - Type de mariage: ${weddingProfile.wedding_type}
@@ -49,10 +53,10 @@ Profil utilisateur:
 
   async generateInitialRecommendations(
     userProfile: UserProfile,
-    weddingProfile: WeddingProfile
+    weddingProfile: WeddingProfile,
   ): Promise<AIRecommendation[]> {
     const context = this.buildUserContext(userProfile, weddingProfile);
-    
+
     const prompt = `
 ${context}
 
@@ -82,24 +86,25 @@ Adapte les recommandations au type de mariage et au budget. Sois spécifique et 
         messages: [
           {
             role: 'system',
-            content: 'Tu es un expert en organisation de mariage qui donne des conseils personnalisés et pratiques.'
+            content:
+              'Tu es un expert en organisation de mariage qui donne des conseils personnalisés et pratiques.',
           },
           {
             role: 'user',
-            content: prompt
-          }
+            content: prompt,
+          },
         ],
         temperature: 0.7,
-        max_tokens: 1500
+        max_tokens: 1500,
       });
 
       const content = response.choices[0]?.message?.content;
-      if (!content) throw new Error('Pas de réponse de l\'IA');
+      if (!content) throw new Error("Pas de réponse de l'IA");
 
       const parsed = JSON.parse(content);
       return parsed.recommendations.map((rec: any, index: number) => ({
         id: `rec_${Date.now()}_${index}`,
-        ...rec
+        ...rec,
       }));
     } catch (error) {
       console.error('Erreur lors de la génération des recommandations:', error);
@@ -109,10 +114,10 @@ Adapte les recommandations au type de mariage et au budget. Sois spécifique et 
 
   async generateVenueRecommendations(
     userProfile: UserProfile,
-    weddingProfile: WeddingProfile
+    weddingProfile: WeddingProfile,
   ): Promise<AIRecommendation[]> {
     const context = this.buildUserContext(userProfile, weddingProfile);
-    
+
     const prompt = `
 ${context}
 
@@ -128,25 +133,26 @@ Format JSON avec des lieux réels ou réalistes pour la région mentionnée.
         messages: [
           {
             role: 'system',
-            content: 'Tu es un expert en lieux de mariage qui connaît les venues par région et type.'
+            content:
+              'Tu es un expert en lieux de mariage qui connaît les venues par région et type.',
           },
           {
             role: 'user',
-            content: prompt
-          }
+            content: prompt,
+          },
         ],
         temperature: 0.6,
-        max_tokens: 1000
+        max_tokens: 1000,
       });
 
       const content = response.choices[0]?.message?.content;
-      if (!content) throw new Error('Pas de réponse de l\'IA');
+      if (!content) throw new Error("Pas de réponse de l'IA");
 
       const parsed = JSON.parse(content);
       return parsed.recommendations.map((rec: any, index: number) => ({
         id: `venue_${Date.now()}_${index}`,
         type: 'venue' as const,
-        ...rec
+        ...rec,
       }));
     } catch (error) {
       console.error('Erreur lors de la génération des lieux:', error);
@@ -156,10 +162,10 @@ Format JSON avec des lieux réels ou réalistes pour la région mentionnée.
 
   async generateCateringRecommendations(
     userProfile: UserProfile,
-    weddingProfile: WeddingProfile
+    weddingProfile: WeddingProfile,
   ): Promise<AIRecommendation[]> {
     const context = this.buildUserContext(userProfile, weddingProfile);
-    
+
     const prompt = `
 ${context}
 
@@ -175,25 +181,26 @@ Inclus des suggestions de menus spécifiques avec prix estimés par personne.
         messages: [
           {
             role: 'system',
-            content: 'Tu es un expert en restauration de mariage qui connaît les tendances culinaires.'
+            content:
+              'Tu es un expert en restauration de mariage qui connaît les tendances culinaires.',
           },
           {
             role: 'user',
-            content: prompt
-          }
+            content: prompt,
+          },
         ],
         temperature: 0.7,
-        max_tokens: 1000
+        max_tokens: 1000,
       });
 
       const content = response.choices[0]?.message?.content;
-      if (!content) throw new Error('Pas de réponse de l\'IA');
+      if (!content) throw new Error("Pas de réponse de l'IA");
 
       const parsed = JSON.parse(content);
       return parsed.recommendations.map((rec: any, index: number) => ({
         id: `catering_${Date.now()}_${index}`,
         type: 'catering' as const,
-        ...rec
+        ...rec,
       }));
     } catch (error) {
       console.error('Erreur lors de la génération des traiteurs:', error);
@@ -204,13 +211,13 @@ Inclus des suggestions de menus spécifiques avec prix estimés par personne.
   async generateBudgetInsights(
     userProfile: UserProfile,
     weddingProfile: WeddingProfile,
-    currentBudget: any[]
+    currentBudget: any[],
   ): Promise<AIInsight[]> {
     const context = this.buildUserContext(userProfile, weddingProfile);
-    const budgetSummary = currentBudget.map(item => 
-      `${item.category}: ${item.amount}€`
-    ).join('\n');
-    
+    const budgetSummary = currentBudget
+      .map((item) => `${item.category}: ${item.amount}€`)
+      .join('\n');
+
     const prompt = `
 ${context}
 
@@ -239,34 +246,35 @@ Format JSON:
         messages: [
           {
             role: 'system',
-            content: 'Tu es un consultant en budget mariage qui aide à optimiser les dépenses.'
+            content:
+              'Tu es un consultant en budget mariage qui aide à optimiser les dépenses.',
           },
           {
             role: 'user',
-            content: prompt
-          }
+            content: prompt,
+          },
         ],
         temperature: 0.5,
-        max_tokens: 800
+        max_tokens: 800,
       });
 
       const content = response.choices[0]?.message?.content;
-      if (!content) throw new Error('Pas de réponse de l\'IA');
+      if (!content) throw new Error("Pas de réponse de l'IA");
 
       const parsed = JSON.parse(content);
       return parsed.insights;
     } catch (error) {
-      console.error('Erreur lors de l\'analyse du budget:', error);
+      console.error("Erreur lors de l'analyse du budget:", error);
       return [];
     }
   }
 
   async generateTimelineRecommendations(
     userProfile: UserProfile,
-    weddingProfile: WeddingProfile
+    weddingProfile: WeddingProfile,
   ): Promise<any[]> {
     const context = this.buildUserContext(userProfile, weddingProfile);
-    
+
     const prompt = `
 ${context}
 
@@ -284,19 +292,20 @@ Format JSON avec mois, tâches et priorités.
         messages: [
           {
             role: 'system',
-            content: 'Tu es un wedding planner expérimenté qui crée des plannings détaillés.'
+            content:
+              'Tu es un wedding planner expérimenté qui crée des plannings détaillés.',
           },
           {
             role: 'user',
-            content: prompt
-          }
+            content: prompt,
+          },
         ],
         temperature: 0.6,
-        max_tokens: 1200
+        max_tokens: 1200,
       });
 
       const content = response.choices[0]?.message?.content;
-      if (!content) throw new Error('Pas de réponse de l\'IA');
+      if (!content) throw new Error("Pas de réponse de l'IA");
 
       return JSON.parse(content);
     } catch (error) {
@@ -313,28 +322,30 @@ Format JSON avec mois, tâches et priorités.
         title: 'Recherche de lieu adapté',
         description: `Pour un mariage ${weddingType}, privilégiez un lieu qui correspond à l'ambiance souhaitée.`,
         priority: 'high' as const,
-        tags: ['lieu', weddingType]
+        tags: ['lieu', weddingType],
       },
       {
         id: 'fallback_catering',
         type: 'catering' as const,
         title: 'Sélection du traiteur',
-        description: 'Choisissez un traiteur qui maîtrise le style culinaire souhaité.',
+        description:
+          'Choisissez un traiteur qui maîtrise le style culinaire souhaité.',
         priority: 'high' as const,
-        tags: ['traiteur', 'menu']
+        tags: ['traiteur', 'menu'],
       },
       {
         id: 'fallback_photo',
         type: 'photography' as const,
         title: 'Photographe spécialisé',
-        description: 'Trouvez un photographe expérimenté dans votre type de mariage.',
+        description:
+          'Trouvez un photographe expérimenté dans votre type de mariage.',
         priority: 'medium' as const,
-        tags: ['photographie', weddingType]
-      }
+        tags: ['photographie', weddingType],
+      },
     ];
 
     return baseRecommendations;
   }
 }
 
-export const aiService = AIService.getInstance(); 
+export const aiService = AIService.getInstance();

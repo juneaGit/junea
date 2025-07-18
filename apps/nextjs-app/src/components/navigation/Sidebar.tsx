@@ -1,11 +1,5 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useAppSelector } from '@/store/hooks';
-import { weddingTypeThemes } from '@/styles/theme';
-import { cn } from '@/utils/cn';
 import {
   HomeIcon,
   CalendarIcon,
@@ -23,13 +17,20 @@ import {
   Cog6ToothIcon,
   ClipboardDocumentListIcon,
 } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React, { useState } from 'react';
+
+import { useAppSelector } from '@/store/hooks';
+import { weddingTypeThemes } from '@/styles/theme';
+import { cn } from '@/utils/cn';
 
 const navigationItems = [
   {
     name: 'Accueil',
     href: '/app',
     icon: HomeIcon,
-    description: 'Vue d\'ensemble de votre mariage',
+    description: "Vue d'ensemble de votre mariage",
   },
   {
     name: 'Tâches',
@@ -107,10 +108,14 @@ export function Sidebar({ className }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const pathname = usePathname();
-  const weddingProfile = useAppSelector((state) => (state as any).wedding.profile);
-  
-  const currentTheme = weddingProfile?.wedding_type 
-    ? weddingTypeThemes[weddingProfile.wedding_type as keyof typeof weddingTypeThemes]
+  const weddingProfile = useAppSelector(
+    (state) => (state as any).wedding.profile,
+  );
+
+  const currentTheme = weddingProfile?.wedding_type
+    ? weddingTypeThemes[
+        weddingProfile.wedding_type as keyof typeof weddingTypeThemes
+      ]
     : weddingTypeThemes.romantique;
 
   const toggleSidebar = () => {
@@ -122,33 +127,34 @@ export function Sidebar({ className }: SidebarProps) {
   };
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="flex items-center justify-between border-b border-gray-200 p-4">
         <div className="flex items-center space-x-2">
-          <HeartIcon className="h-8 w-8 text-pink-500" />
+          <HeartIcon className="size-8 text-pink-500" />
           {!isCollapsed && (
             <div>
               <h1 className="text-xl font-bold text-gray-900">
                 {weddingProfile?.couple_name || 'Mon Mariage'}
               </h1>
               <p className="text-sm text-gray-500">
-                {weddingProfile?.wedding_date 
-                  ? new Date(weddingProfile.wedding_date).toLocaleDateString('fr-FR')
-                  : 'Date à définir'
-                }
+                {weddingProfile?.wedding_date
+                  ? new Date(weddingProfile.wedding_date).toLocaleDateString(
+                      'fr-FR',
+                    )
+                  : 'Date à définir'}
               </p>
             </div>
           )}
         </div>
         <button
           onClick={toggleSidebar}
-          className="hidden lg:block p-1 rounded-md hover:bg-gray-100 transition-colors"
+          className="hidden rounded-md p-1 transition-colors hover:bg-gray-100 lg:block"
         >
           {isCollapsed ? (
-            <Bars3Icon className="h-5 w-5 text-gray-500" />
+            <Bars3Icon className="size-5 text-gray-500" />
           ) : (
-            <XMarkIcon className="h-5 w-5 text-gray-500" />
+            <XMarkIcon className="size-5 text-gray-500" />
           )}
         </button>
       </div>
@@ -159,7 +165,7 @@ export function Sidebar({ className }: SidebarProps) {
           {navigationItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
-            
+
             return (
               <li key={item.name}>
                 <Link
@@ -169,28 +175,34 @@ export function Sidebar({ className }: SidebarProps) {
                     isActive
                       ? 'bg-gradient-to-r text-white shadow-md'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900',
-                    isActive && `bg-gradient-to-r ${currentTheme.gradient}`
+                    isActive && `bg-gradient-to-r ${currentTheme.gradient}`,
                   )}
                   style={{
-                    background: isActive 
+                    background: isActive
                       ? `linear-gradient(135deg, ${currentTheme.primary}, ${currentTheme.secondary})`
                       : undefined,
                   }}
                   onClick={() => setIsMobileOpen(false)}
                 >
-                  <Icon className={cn(
-                    'h-5 w-5 flex-shrink-0 transition-colors',
-                    isActive ? 'text-white' : 'text-gray-500 group-hover:text-gray-700'
-                  )} />
+                  <Icon
+                    className={cn(
+                      'h-5 w-5 flex-shrink-0 transition-colors',
+                      isActive
+                        ? 'text-white'
+                        : 'text-gray-500 group-hover:text-gray-700',
+                    )}
+                  />
                   {!isCollapsed && (
                     <div className="ml-3 flex-1">
                       <div className="flex items-center justify-between">
                         <span>{item.name}</span>
                       </div>
-                      <p className={cn(
-                        'text-xs mt-1 transition-colors',
-                        isActive ? 'text-white/80' : 'text-gray-500'
-                      )}>
+                      <p
+                        className={cn(
+                          'text-xs mt-1 transition-colors',
+                          isActive ? 'text-white/80' : 'text-gray-500',
+                        )}
+                      >
                         {item.description}
                       </p>
                     </div>
@@ -203,13 +215,13 @@ export function Sidebar({ className }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="border-t border-gray-200 p-4">
         {!isCollapsed && (
           <div className="text-center">
-            <div className="text-xs text-gray-500 mb-2">
+            <div className="mb-2 text-xs text-gray-500">
               Thème : {weddingProfile?.wedding_type || 'Romantique'}
             </div>
-            <div 
+            <div
               className="h-2 rounded-full"
               style={{
                 background: `linear-gradient(90deg, ${currentTheme.primary}, ${currentTheme.secondary})`,
@@ -227,15 +239,18 @@ export function Sidebar({ className }: SidebarProps) {
       <div className="lg:hidden">
         <button
           onClick={toggleMobileSidebar}
-          className="fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-lg border border-gray-200"
+          className="fixed left-4 top-4 z-50 rounded-md border border-gray-200 bg-white p-2 shadow-lg"
         >
-          <Bars3Icon className="h-6 w-6 text-gray-600" />
+          <Bars3Icon className="size-6 text-gray-600" />
         </button>
 
         {/* Mobile Overlay */}
         {isMobileOpen && (
           <div className="fixed inset-0 z-40 lg:hidden">
-            <div className="fixed inset-0 bg-black bg-opacity-50" onClick={toggleMobileSidebar} />
+            <div
+              className="fixed inset-0 bg-black bg-opacity-50"
+              onClick={toggleMobileSidebar}
+            />
             <div className="fixed left-0 top-0 h-full w-80 bg-white shadow-xl">
               <SidebarContent />
             </div>
@@ -244,13 +259,15 @@ export function Sidebar({ className }: SidebarProps) {
       </div>
 
       {/* Desktop Sidebar */}
-      <div className={cn(
-        'hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:z-30 bg-white border-r border-gray-200 transition-all duration-300',
-        isCollapsed ? 'lg:w-16' : 'lg:w-80',
-        className
-      )}>
+      <div
+        className={cn(
+          'hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:z-30 bg-white border-r border-gray-200 transition-all duration-300',
+          isCollapsed ? 'lg:w-16' : 'lg:w-80',
+          className,
+        )}
+      >
         <SidebarContent />
       </div>
     </>
   );
-} 
+}

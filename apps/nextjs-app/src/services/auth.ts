@@ -1,5 +1,6 @@
-import { supabase } from '@/config/supabase';
 import type { User, Session } from '@supabase/supabase-js';
+
+import { supabase } from '@/config/supabase';
 
 export interface AuthUser {
   id: string;
@@ -33,7 +34,9 @@ class AuthService {
 
       return { user: data.user, session: data.session };
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de l\'inscription');
+      throw new Error(
+        error instanceof Error ? error.message : "Erreur lors de l'inscription",
+      );
     }
   }
 
@@ -49,7 +52,9 @@ class AuthService {
 
       return { user: data.user, session: data.session };
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de la connexion');
+      throw new Error(
+        error instanceof Error ? error.message : 'Erreur lors de la connexion',
+      );
     }
   }
 
@@ -67,7 +72,11 @@ class AuthService {
 
       return data;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de la connexion Google');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la connexion Google',
+      );
     }
   }
 
@@ -77,17 +86,23 @@ class AuthService {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de la déconnexion');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la déconnexion',
+      );
     }
   }
 
   // Récupérer l'utilisateur actuel
   async getCurrentUser(): Promise<User | null> {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       return user;
     } catch (error) {
-      console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+      console.error("Erreur lors de la récupération de l'utilisateur:", error);
       return null;
     }
   }
@@ -95,7 +110,9 @@ class AuthService {
   // Récupérer la session actuelle
   async getCurrentSession(): Promise<Session | null> {
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       return session;
     } catch (error) {
       console.error('Erreur lors de la récupération de la session:', error);
@@ -104,7 +121,9 @@ class AuthService {
   }
 
   // Écouter les changements d'authentification
-  onAuthStateChange(callback: (event: string, session: Session | null) => void) {
+  onAuthStateChange(
+    callback: (event: string, session: Session | null) => void,
+  ) {
     return supabase.auth.onAuthStateChange(callback);
   }
 
@@ -117,7 +136,11 @@ class AuthService {
 
       if (error) throw error;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de la réinitialisation');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la réinitialisation',
+      );
     }
   }
 
@@ -130,9 +153,13 @@ class AuthService {
 
       if (error) throw error;
     } catch (error) {
-      throw new Error(error instanceof Error ? error.message : 'Erreur lors de la mise à jour du profil');
+      throw new Error(
+        error instanceof Error
+          ? error.message
+          : 'Erreur lors de la mise à jour du profil',
+      );
     }
   }
 }
 
-export const authService = new AuthService(); 
+export const authService = new AuthService();

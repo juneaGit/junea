@@ -1,10 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
 
-if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-  console.warn('⚠️  Variables d\'environnement Supabase manquantes. Créez un fichier .env.local avec:');
+if (
+  !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+) {
+  console.warn(
+    "⚠️  Variables d'environnement Supabase manquantes. Créez un fichier .env.local avec:",
+  );
   console.warn('NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co');
   console.warn('NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key');
 }
@@ -26,7 +33,13 @@ export interface WeddingProfile {
   user_id: string;
   couple_name: string;
   wedding_date?: string;
-  wedding_type: 'romantique' | 'bohemien' | 'oriental' | 'bollywood' | 'bonne_franquette' | 'autre';
+  wedding_type:
+    | 'romantique'
+    | 'bohemien'
+    | 'oriental'
+    | 'bollywood'
+    | 'bonne_franquette'
+    | 'autre';
   venue_type?: string;
   meal_format?: string;
   dietary_restrictions?: string[];
@@ -72,4 +85,4 @@ export interface Guest {
   rsvp_status: 'pending' | 'accepted' | 'declined';
   created_at: string;
   updated_at: string;
-} 
+}

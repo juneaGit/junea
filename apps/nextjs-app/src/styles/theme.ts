@@ -140,4 +140,4 @@ export const weddingTypeThemes = {
     accent: '#f8fafc',
     gradient: 'from-indigo-50 to-purple-50',
   },
-}; 
+};

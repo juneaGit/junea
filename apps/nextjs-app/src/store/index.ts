@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice } from './slices/authSlice';
-import { weddingSlice } from './slices/weddingSlice';
+
+import { authSlice } from './slices/auth-slice';
+import { weddingSlice } from './slices/wedding-slice';
 
 export const store = configureStore({
   reducer: {
@@ -17,4 +18,4 @@ export const store = configureStore({
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch; 
+export type AppDispatch = typeof store.dispatch;

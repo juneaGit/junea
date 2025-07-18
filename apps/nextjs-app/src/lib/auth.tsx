@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
+import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
 import {
   queryOptions,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { z } from 'zod';
 
-import { authService } from '@/services/auth';
-import { UserProfile } from '@/config/supabase';
 import { paths } from '@/config/paths';
-import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { UserProfile } from '@/config/supabase';
+import { authService } from '@/services/auth';
 
 // Schémas de validation pour l'authentification
 export const loginInputSchema = z.object({
@@ -21,15 +21,17 @@ export const loginInputSchema = z.object({
   password: z.string().min(6, 'Mot de passe requis (min 6 caractères)'),
 });
 
-export const registerInputSchema = z.object({
-  email: z.string().min(1, 'Email requis').email('Email invalide'),
-  password: z.string().min(6, 'Mot de passe requis (min 6 caractères)'),
-  fullName: z.string().min(1, 'Nom complet requis'),
-  confirmPassword: z.string().min(6, 'Confirmation requise'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Les mots de passe ne correspondent pas",
-  path: ["confirmPassword"],
-});
+export const registerInputSchema = z
+  .object({
+    email: z.string().min(1, 'Email requis').email('Email invalide'),
+    password: z.string().min(6, 'Mot de passe requis (min 6 caractères)'),
+    fullName: z.string().min(1, 'Nom complet requis'),
+    confirmPassword: z.string().min(6, 'Confirmation requise'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Les mots de passe ne correspondent pas',
+    path: ['confirmPassword'],
+  });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
 export type RegisterInput = z.infer<typeof registerInputSchema>;
@@ -43,7 +45,7 @@ export const getUser = async (): Promise<User | null> => {
     const user = await authService.getCurrentUser();
     return user;
   } catch (error) {
-    console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+    console.error("Erreur lors de la récupération de l'utilisateur:", error);
     return null;
   }
 };
@@ -61,11 +63,11 @@ export const getUserQueryOptions = () => {
 // Hook pour récupérer l'utilisateur actuel
 export const useUser = () => {
   const query = useQuery(getUserQueryOptions());
-  
+
   console.log('🔍 useUser - Loading:', query.isLoading);
   console.log('🔍 useUser - Data:', query.data);
   console.log('🔍 useUser - Error:', query.error);
-  
+
   return query;
 };
 
@@ -97,7 +99,11 @@ export const useRegister = ({ onSuccess }: { onSuccess?: () => void } = {}) => {
 
   return useMutation({
     mutationFn: async (data: RegisterInput) => {
-      const result = await authService.signUp(data.email, data.password, data.fullName);
+      const result = await authService.signUp(
+        data.email,
+        data.password,
+        data.fullName,
+      );
       return result;
     },
     onSuccess: (data) => {
@@ -110,7 +116,7 @@ export const useRegister = ({ onSuccess }: { onSuccess?: () => void } = {}) => {
       router.push('/onboarding');
     },
     onError: (error) => {
-      console.error('Erreur d\'inscription:', error);
+      console.error("Erreur d'inscription:", error);
     },
   });
 };
@@ -141,7 +147,9 @@ export const useAuthStateChange = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const { data: { subscription } } = authService.onAuthStateChange(
+    const {
+      data: { subscription },
+    } = authService.onAuthStateChange(
       async (event: string, session: Session | null) => {
         if (event === 'SIGNED_IN' && session) {
           const user = await authService.getCurrentUser();
@@ -150,7 +158,7 @@ export const useAuthStateChange = () => {
           queryClient.removeQueries({ queryKey: userQueryKey });
           queryClient.clear();
         }
-      }
+      },
     );
 
     return () => subscription.unsubscribe();

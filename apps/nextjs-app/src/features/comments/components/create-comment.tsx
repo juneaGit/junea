@@ -67,12 +67,14 @@ export const CreateComment = ({ discussionId }: CreateCommentProps) => {
       >
         {({ register, formState }) => (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Body</label>
-            <Textarea
-              {...register('body')}
-            />
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Body
+            </label>
+            <Textarea {...register('body')} />
             {formState.errors['body'] && (
-              <p className="mt-1 text-sm text-red-600">{formState.errors['body']?.message}</p>
+              <p className="mt-1 text-sm text-red-600">
+                {formState.errors['body']?.message}
+              </p>
             )}
           </div>
         )}

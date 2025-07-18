@@ -1,8 +1,9 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { useAuth } from '@/hooks/use-auth';
 
 const HomePage = () => {
   const { isAuthenticated, loading } = useAuth();
@@ -20,8 +21,8 @@ const HomePage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 to-rose-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500"></div>
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50">
+        <div className="size-12 animate-spin rounded-full border-b-2 border-pink-500"></div>
       </div>
     );
   }
