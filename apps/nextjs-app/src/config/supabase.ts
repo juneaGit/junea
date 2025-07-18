@@ -1,22 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-const supabaseAnonKey =
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (
-  !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-  !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-) {
-  console.warn(
-    "⚠️  Variables d'environnement Supabase manquantes. Créez un fichier .env.local avec:",
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error(
+    "❌ Variables d'environnement Supabase manquantes. Créez un fichier .env.local avec:",
   );
-  console.warn('NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co');
-  console.warn('NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key');
+  console.error('NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co');
+  console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key');
+  console.error('Et configurez-les aussi sur Vercel dans Settings > Environment Variables');
+  throw new Error('Missing Supabase environment variables');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+  },
+});
 
 // Types pour la base de données
 export interface UserProfile {

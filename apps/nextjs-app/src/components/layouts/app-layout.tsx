@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Sidebar } from '@/components/navigation';
 import { useAuth } from '@/hooks/use-auth';
+import { useSidebar } from '@/hooks/use-sidebar';
 import { cn } from '@/utils/cn';
 
 interface AppLayoutProps {
@@ -13,6 +14,7 @@ interface AppLayoutProps {
 
 export function AppLayout({ children, className }: AppLayoutProps) {
   const { isAuthenticated, loading } = useAuth();
+  const { getMainContentMarginClasses } = useSidebar();
 
   // Afficher un spinner pendant le chargement de l'authentification
   if (loading) {
@@ -50,8 +52,8 @@ export function AppLayout({ children, className }: AppLayoutProps) {
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex flex-1 flex-col lg:ml-80">
+      {/* Main Content avec adaptation dynamique */}
+      <div className={`flex flex-1 flex-col transition-all duration-500 ease-in-out ${getMainContentMarginClasses()}`}>
         {/* Header mobile */}
         <div className="flex h-16 items-center border-b border-gray-200 bg-white px-4 lg:hidden">
           <h1 className="text-xl font-semibold text-gray-900">Mon Mariage</h1>

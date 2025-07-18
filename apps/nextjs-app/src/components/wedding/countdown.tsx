@@ -59,17 +59,37 @@ export const Countdown = ({ targetDate, className }: CountdownProps) => {
   ];
 
   return (
-    <div className={cn('flex justify-center space-x-4', className)}>
-      {timeUnits.map((unit, index) => (
-        <div key={index} className="text-center">
-          <div className="min-w-[60px] rounded-lg bg-white/20 p-2 backdrop-blur-sm">
-            <div className="text-2xl font-bold">
-              {unit.value.toString().padStart(2, '0')}
+    <div className={cn('w-full', className)}>
+      {/* Desktop : Grid horizontal */}
+      <div className="hidden sm:grid sm:grid-cols-4 sm:gap-2 md:gap-4">
+        {timeUnits.map((unit, index) => (
+          <div key={index} className="text-center">
+            <div className="relative overflow-hidden rounded-xl bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/30 hover:scale-105">
+              <div className="text-2xl font-bold leading-none transition-all duration-500">
+                {unit.value.toString().padStart(2, '0')}
+              </div>
+              <div className="mt-1 text-xs opacity-90 font-medium">{unit.label}</div>
+              {/* Petit effet sparkle */}
+              <div className="absolute top-1 right-1 size-2 rounded-full bg-white/40 animate-pulse"></div>
             </div>
-            <div className="text-xs opacity-90">{unit.label}</div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+      
+      {/* Mobile : Grid 2x2 */}
+      <div className="grid grid-cols-2 gap-3 sm:hidden">
+        {timeUnits.map((unit, index) => (
+          <div key={index} className="text-center">
+            <div className="relative overflow-hidden rounded-xl bg-white/20 p-4 backdrop-blur-sm transition-all duration-300 hover:bg-white/30">
+              <div className="text-xl font-bold leading-none transition-all duration-500">
+                {unit.value.toString().padStart(2, '0')}
+              </div>
+              <div className="mt-1 text-xs opacity-90 font-medium">{unit.label}</div>
+              <div className="absolute top-1 right-1 size-2 rounded-full bg-white/40 animate-pulse"></div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

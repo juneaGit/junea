@@ -4,10 +4,12 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Sidebar } from '@/components/navigation';
+import { useSidebar } from '@/hooks/use-sidebar';
 import { useLogout } from '@/lib/auth';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
+  const { getMainContentClasses } = useSidebar();
   const logout = useLogout({
     onSuccess: () => router.push('/auth/login'),
   });
@@ -17,8 +19,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Main content */}
-      <div className="lg:pl-80">
+      {/* Main content avec adaptation dynamique */}
+      <div className={`transition-all duration-500 ease-in-out ${getMainContentClasses()}`}>
         <main className="py-6">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {children}
