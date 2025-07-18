@@ -12,7 +12,7 @@ interface LoginFormProps {
   onSuccess?: () => void;
 }
 
-export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+export const LoginFormVariant1 = ({ onSuccess }: LoginFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -25,7 +25,6 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     },
   });
 
-  // Phrases pour l'effet typewriter
   const phrases = [
     'à organiser le mariage de vos rêves',
     'à planifier votre budget parfaitement',
@@ -35,7 +34,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
     'à simplifier votre organisation',
   ];
 
-  // Effet typewriter
+  // Effet typewriter identique
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
     
@@ -76,54 +75,86 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
 
   return (
     <div className="flex min-h-screen bg-white">
-      {/* Section gauche - Engageante avec typewriter */}
-      <div className="hidden bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100 lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:px-12">
-        <div className="mx-auto max-w-md">
-          {/* Logo et nom */}
+      {/* Section gauche - Plus d'éléments visuels */}
+      <div className="hidden bg-gradient-to-br from-rose-50 via-pink-50 to-rose-100 lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:px-12 relative overflow-hidden">
+        
+        {/* Éléments décoratifs de fond */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-20 size-32 rounded-full bg-rose-300 blur-2xl"></div>
+          <div className="absolute bottom-20 right-20 size-40 rounded-full bg-pink-300 blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/2 size-24 rounded-full bg-rose-200 blur-xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+
+        <div className="mx-auto max-w-md relative z-10">
+          {/* Logo et nom avec plus de style */}
           <div className="mb-8 flex items-center">
-            <div className="flex size-12 items-center justify-center rounded-full bg-blue-100">
-              <svg className="size-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="flex size-14 items-center justify-center rounded-full bg-gradient-to-r from-blue-100 to-blue-200 shadow-lg">
+              <svg className="size-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h1 className="ml-3 text-2xl font-bold text-gray-900">Junea</h1>
+            <h1 className="ml-4 text-3xl font-bold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">Junea</h1>
           </div>
 
           {/* Texte avec animation typewriter */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div className="text-4xl font-bold text-gray-900">
               <span>Junea vous aide</span>
               <span className="block text-rose-600">
                 {currentText}
-                <span className="animate-pulse">|</span>
+                <span className="animate-pulse text-rose-400">|</span>
               </span>
             </div>
             
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 leading-relaxed">
               La plateforme complète pour organiser votre mariage parfait, 
               de la planification au jour J.
             </p>
 
-            {/* Éléments visuels subtils */}
-            <div className="flex items-center space-x-6 pt-8">
-              <div className="flex items-center space-x-2">
-                <div className="size-3 rounded-full bg-rose-400"></div>
-                <span className="text-sm text-gray-600">Planification</span>
+            {/* Statistiques visuelles */}
+            <div className="grid grid-cols-2 gap-4 pt-6">
+              <div className="bg-white/50 rounded-lg p-4 backdrop-blur-sm">
+                <div className="text-2xl font-bold text-rose-600">10k+</div>
+                <div className="text-sm text-gray-600">Mariages organisés</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="size-3 rounded-full bg-pink-400"></div>
-                <span className="text-sm text-gray-600">Budget</span>
+              <div className="bg-white/50 rounded-lg p-4 backdrop-blur-sm">
+                <div className="text-2xl font-bold text-pink-600">98%</div>
+                <div className="text-sm text-gray-600">Satisfaction client</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="size-3 rounded-full bg-rose-300"></div>
-                <span className="text-sm text-gray-600">Invités</span>
+            </div>
+
+            {/* Fonctionnalités avec icônes */}
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center space-x-3">
+                <div className="size-8 rounded-full bg-rose-100 flex items-center justify-center">
+                  <svg className="size-4 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Planification complète</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="size-8 rounded-full bg-pink-100 flex items-center justify-center">
+                  <svg className="size-4 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Gestion du budget</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="size-8 rounded-full bg-rose-100 flex items-center justify-center">
+                  <svg className="size-4 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <span className="text-gray-700">Organisation des invités</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Section droite - Formulaire */}
+      {/* Section droite - Identique au design principal */}
       <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           
@@ -149,7 +180,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             </p>
           </div>
 
-          {/* Formulaire */}
+          {/* Formulaire identique */}
           <Form
             onSubmit={handleSubmit}
             schema={loginInputSchema}
@@ -269,4 +300,4 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       </div>
     </div>
   );
-};
+}; 
