@@ -22,8 +22,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
-import { useUser } from '@/lib/auth';
 
 interface Guest {
   id: string;
@@ -101,8 +99,6 @@ const defaultGuests: Guest[] = [
 ];
 
 export default function GuestsPage() {
-  const user = useUser();
-  const { data: weddingProfile } = useWeddingProfile();
   const [guests, setGuests] = useState<Guest[]>(defaultGuests);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<
@@ -172,17 +168,6 @@ export default function GuestsPage() {
       default:
         return 'bg-yellow-100 text-yellow-800';
     }
-  };
-
-  const updateRSVP = (
-    guestId: string,
-    status: 'confirmed' | 'declined' | 'pending',
-  ) => {
-    setGuests(
-      guests.map((guest) =>
-        guest.id === guestId ? { ...guest, rsvp_status: status } : guest,
-      ),
-    );
   };
 
   const deleteGuest = (guestId: string) => {

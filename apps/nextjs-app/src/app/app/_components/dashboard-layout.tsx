@@ -4,11 +4,9 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { Sidebar } from '@/components/navigation';
-import { useLogout, useUser } from '@/lib/auth';
+import { useLogout } from '@/lib/auth';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const user = useUser();
-  const pathname = usePathname();
   const router = useRouter();
   const logout = useLogout({
     onSuccess: () => router.push('/auth/login'),

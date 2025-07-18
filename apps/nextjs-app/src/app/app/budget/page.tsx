@@ -33,8 +33,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
-import { useUser } from '@/lib/auth';
 
 interface BudgetItem {
   id: string;
@@ -427,7 +425,7 @@ export default function BudgetPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <CurrencyEuroIcon className="size-5 text-purple-500" />
-            Suggestions d'optimisation
+            Suggestions d&apos;optimisation
           </CardTitle>
         </CardHeader>
         <CardContent>

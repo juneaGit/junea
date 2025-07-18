@@ -18,8 +18,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
-import { useUser } from '@/lib/auth';
 
 interface Task {
   id: string;
@@ -88,8 +86,6 @@ const defaultTasks: Task[] = [
 ];
 
 export default function PlanningPage() {
-  const user = useUser();
-  const { data: weddingProfile } = useWeddingProfile();
   const [tasks, setTasks] = useState<Task[]>(defaultTasks);
   const [loading, setLoading] = useState(true);
 

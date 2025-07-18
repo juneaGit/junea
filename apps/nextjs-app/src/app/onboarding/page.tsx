@@ -20,7 +20,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
-import { supabase } from '@/config/supabase';
 import { useHasCompletedOnboarding } from '@/hooks/use-wedding-profile';
 import { useUser } from '@/lib/auth';
 

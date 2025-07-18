@@ -1,6 +1,6 @@
 'use client';
 
-import type { User, AuthChangeEvent, Session } from '@supabase/supabase-js';
+import type { User, Session } from '@supabase/supabase-js';
 import {
   queryOptions,
   useMutation,
@@ -12,7 +12,6 @@ import { useEffect } from 'react';
 import { z } from 'zod';
 
 import { paths } from '@/config/paths';
-import { UserProfile } from '@/config/supabase';
 import { authService } from '@/services/auth';
 
 // Schémas de validation pour l'authentification

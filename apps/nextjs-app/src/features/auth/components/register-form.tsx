@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ interface RegisterFormProps {
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const registerMutation = useRegister({
     onSuccess: () => {

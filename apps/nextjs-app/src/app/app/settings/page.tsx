@@ -7,9 +7,7 @@ import {
   ShieldCheckIcon,
   PaintBrushIcon,
   TrashIcon,
-  PencilIcon,
   EyeIcon,
-  EyeSlashIcon,
   KeyIcon,
 } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';
@@ -24,7 +22,6 @@ import {
 } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/spinner';
 import { useWeddingProfile } from '@/hooks/use-wedding-profile';
-import { useUser } from '@/lib/auth';
 
 interface UserProfile {
   id: string;
@@ -49,13 +46,11 @@ interface AppearanceSettings {
 }
 
 export default function SettingsPage() {
-  const user = useUser();
   const { data: weddingProfile } = useWeddingProfile();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<
     'profile' | 'notifications' | 'appearance' | 'security' | 'danger'
   >('profile');
-  const [showPassword, setShowPassword] = useState(false);
 
   const [userProfile, setUserProfile] = useState<UserProfile>({
     id: '1',

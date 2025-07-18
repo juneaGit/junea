@@ -6,7 +6,6 @@ import {
 import { ReactNode } from 'react';
 
 import { AppProvider } from '@/app/provider';
-import { getUserQueryOptions } from '@/lib/auth';
 import { ReduxProvider } from '@/providers/redux-provider';
 
 import '@/styles/globals.css';

@@ -2,7 +2,6 @@
 
 import { Spinner } from '@/components/ui/spinner';
 import { useUser } from '@/lib/auth';
-import { canViewUsers } from '@/lib/authorization';
 
 export const AdminGuard = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
