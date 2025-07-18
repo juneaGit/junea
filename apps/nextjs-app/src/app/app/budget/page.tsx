@@ -121,12 +121,9 @@ const COLORS = [
 ];
 
 export default function BudgetPage() {
-  const user = useUser();
-  const { data: weddingProfile } = useWeddingProfile();
   const [budgetItems, setBudgetItems] =
     useState<BudgetItem[]>(defaultBudgetItems);
   const [loading, setLoading] = useState(true);
-  const [editingItem, setEditingItem] = useState<string | null>(null);
 
   useEffect(() => {
     // Simuler le chargement des données
