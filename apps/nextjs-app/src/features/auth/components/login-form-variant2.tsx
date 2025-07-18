@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
@@ -25,18 +25,21 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
     },
   });
 
-  const phrases = [
-    'organisez votre mariage',
-    'planifiez votre budget',
-    'gérez vos invités',
-    'créez vos souvenirs',
-    'réalisez vos rêves',
-  ];
+  const phrases = useMemo(
+    () => [
+      'organisez votre mariage',
+      'planifiez votre budget',
+      'gérez vos invités',
+      'créez vos souvenirs',
+      'réalisez vos rêves',
+    ],
+    [],
+  );
 
   // Effet typewriter plus rapide et minimaliste
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    
+
     if (isTyping) {
       if (currentText.length < currentPhrase.length) {
         const timeout = setTimeout(() => {
@@ -77,26 +80,35 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
       {/* Section gauche - Très minimaliste */}
       <div className="hidden bg-gradient-to-br from-rose-50 to-pink-50 lg:flex lg:w-1/2 lg:flex-col lg:justify-center lg:px-16">
         <div className="mx-auto max-w-sm">
-          
           {/* Logo simple */}
           <div className="mb-12 flex items-center justify-center">
             <div className="flex size-16 items-center justify-center rounded-full bg-white shadow-sm">
-              <svg className="size-8 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <svg
+                className="size-8 text-rose-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
               </svg>
             </div>
           </div>
 
           {/* Texte avec animation typewriter - Plus simple */}
-          <div className="text-center space-y-6">
+          <div className="space-y-6 text-center">
             <div className="text-2xl font-light text-gray-900">
               <span className="block">Junea vous aide à</span>
-              <span className="block text-rose-600 font-medium h-8">
+              <span className="block h-8 font-medium text-rose-600">
                 {currentText}
                 <span className="animate-pulse">|</span>
               </span>
             </div>
-            
+
             <p className="text-gray-600">
               Votre compagnon pour un mariage parfait
             </p>
@@ -107,13 +119,22 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
       {/* Section droite - Formulaire épuré */}
       <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-24">
         <div className="mx-auto w-full max-w-sm">
-          
           {/* Header mobile minimaliste */}
           <div className="mb-8 lg:hidden">
             <div className="flex items-center justify-center">
               <div className="flex size-12 items-center justify-center rounded-full bg-rose-50">
-                <svg className="size-6 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                <svg
+                  className="size-6 text-rose-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
                 </svg>
               </div>
               <h1 className="ml-3 text-xl font-medium text-gray-900">Junea</h1>
@@ -122,12 +143,8 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
 
           {/* Titre simple */}
           <div className="mb-8">
-            <h2 className="text-2xl font-medium text-gray-900">
-              Connexion
-            </h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Accédez à votre espace
-            </p>
+            <h2 className="text-2xl font-medium text-gray-900">Connexion</h2>
+            <p className="mt-2 text-sm text-gray-600">Accédez à votre espace</p>
           </div>
 
           {/* Formulaire minimaliste */}
@@ -150,7 +167,7 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
                     placeholder="votre@email.com"
                     error={formState.errors.email}
                     registration={register('email')}
-                    className="block w-full appearance-none rounded-md border border-gray-200 px-3 py-3 placeholder:text-gray-400 focus:border-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-gray-200 p-3 placeholder:text-gray-400 focus:border-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400 sm:text-sm"
                   />
                 </div>
 
@@ -161,15 +178,12 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
                     placeholder="••••••••"
                     error={formState.errors.password}
                     registration={register('password')}
-                    className="block w-full appearance-none rounded-md border border-gray-200 px-3 py-3 placeholder:text-gray-400 focus:border-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-gray-200 p-3 placeholder:text-gray-400 focus:border-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400 sm:text-sm"
                   />
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
-                  <Link
-                    href="#"
-                    className="text-rose-600 hover:text-rose-500"
-                  >
+                  <Link href="#" className="text-rose-600 hover:text-rose-500">
                     Mot de passe oublié ?
                   </Link>
                 </div>
@@ -185,7 +199,7 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
                 <Button
                   type="submit"
                   disabled={isLoading || loginMutation.isPending}
-                  className="w-full justify-center rounded-md bg-gray-900 px-3 py-3 text-sm font-medium text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 disabled:opacity-50"
+                  className="w-full justify-center rounded-md bg-gray-900 p-3 text-sm font-medium text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 disabled:opacity-50"
                 >
                   {isLoading || loginMutation.isPending ? (
                     <>
@@ -234,4 +248,4 @@ export const LoginFormVariant2 = ({ onSuccess }: LoginFormProps) => {
       </div>
     </div>
   );
-}; 
+};

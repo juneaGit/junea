@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, Input } from '@/components/ui/form';
@@ -26,19 +26,22 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   });
 
   // Phrases pour l'effet typewriter
-  const phrases = [
-    'à organiser le mariage de vos rêves',
-    'à planifier votre budget parfaitement',
-    'à gérer vos invités facilement',
-    'à créer des souvenirs inoubliables',
-    'à réaliser votre vision unique',
-    'à simplifier votre organisation',
-  ];
+  const phrases = useMemo(
+    () => [
+      'à organiser le mariage de vos rêves',
+      'à planifier votre budget parfaitement',
+      'à gérer vos invités facilement',
+      'à créer des souvenirs inoubliables',
+      'à réaliser votre vision unique',
+      'à simplifier votre organisation',
+    ],
+    [],
+  );
 
   // Effet typewriter
   useEffect(() => {
     const currentPhrase = phrases[currentPhraseIndex];
-    
+
     if (isTyping) {
       if (currentText.length < currentPhrase.length) {
         const timeout = setTimeout(() => {
@@ -82,8 +85,18 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
           {/* Logo et nom */}
           <div className="mb-8 flex items-center">
             <div className="flex size-12 items-center justify-center rounded-full bg-blue-100">
-              <svg className="size-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              <svg
+                className="size-6 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
               </svg>
             </div>
             <h1 className="ml-3 text-2xl font-bold text-gray-900">Junea</h1>
@@ -98,10 +111,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 <span className="animate-pulse">|</span>
               </span>
             </div>
-            
+
             <p className="text-lg text-gray-600">
-              La plateforme complète pour organiser votre mariage parfait, 
-              de la planification au jour J.
+              La plateforme complète pour organiser votre mariage parfait, de la
+              planification au jour J.
             </p>
 
             {/* Éléments visuels subtils */}
@@ -126,13 +139,22 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       {/* Section droite - Formulaire */}
       <div className="flex w-full flex-col justify-center px-4 py-12 sm:px-6 lg:w-1/2 lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          
           {/* Header mobile */}
           <div className="mb-8 lg:hidden">
             <div className="flex items-center justify-center">
               <div className="flex size-12 items-center justify-center rounded-full bg-blue-100">
-                <svg className="size-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                <svg
+                  className="size-6 text-blue-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
                 </svg>
               </div>
               <h1 className="ml-3 text-2xl font-bold text-gray-900">Junea</h1>
@@ -169,7 +191,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     placeholder="votre@email.com"
                     error={formState.errors.email}
                     registration={register('email')}
-                    className="block w-full appearance-none rounded-lg border border-gray-300 px-3 py-3 placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 sm:text-sm"
+                    className="block w-full appearance-none rounded-lg border border-gray-300 p-3 placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 sm:text-sm"
                   />
                 </div>
 
@@ -180,7 +202,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     placeholder="Votre mot de passe"
                     error={formState.errors.password}
                     registration={register('password')}
-                    className="block w-full appearance-none rounded-lg border border-gray-300 px-3 py-3 placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 sm:text-sm"
+                    className="block w-full appearance-none rounded-lg border border-gray-300 p-3 placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/20 sm:text-sm"
                   />
                 </div>
 
@@ -192,7 +214,10 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                       type="checkbox"
                       className="size-4 rounded border-gray-300 text-rose-600 focus:ring-rose-500"
                     />
-                    <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-600">
+                    <label
+                      htmlFor="remember-me"
+                      className="ml-2 block text-sm text-gray-600"
+                    >
                       Se souvenir de moi
                     </label>
                   </div>
@@ -220,7 +245,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 <Button
                   type="submit"
                   disabled={isLoading || loginMutation.isPending}
-                  className="group relative flex w-full justify-center rounded-lg bg-rose-600 px-3 py-3 text-sm font-semibold text-white shadow-sm hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group relative flex w-full justify-center rounded-lg bg-rose-600 p-3 text-sm font-semibold text-white shadow-sm hover:bg-rose-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isLoading || loginMutation.isPending ? (
                     <>
