@@ -16,7 +16,10 @@ interface TimeLeft {
   seconds: number;
 }
 
-export const CountdownCircular = ({ targetDate, className }: CountdownCircularProps) => {
+export const CountdownCircular = ({
+  targetDate,
+  className,
+}: CountdownCircularProps) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -52,20 +55,50 @@ export const CountdownCircular = ({ targetDate, className }: CountdownCircularPr
   }, [targetDate]);
 
   const timeUnits = [
-    { value: timeLeft.days, label: 'Jours', max: 365, color: 'stroke-pink-500' },
-    { value: timeLeft.hours, label: 'Heures', max: 24, color: 'stroke-rose-500' },
-    { value: timeLeft.minutes, label: 'Minutes', max: 60, color: 'stroke-pink-400' },
-    { value: timeLeft.seconds, label: 'Secondes', max: 60, color: 'stroke-rose-400' },
+    {
+      value: timeLeft.days,
+      label: 'Jours',
+      max: 365,
+      color: 'stroke-pink-500',
+    },
+    {
+      value: timeLeft.hours,
+      label: 'Heures',
+      max: 24,
+      color: 'stroke-rose-500',
+    },
+    {
+      value: timeLeft.minutes,
+      label: 'Minutes',
+      max: 60,
+      color: 'stroke-pink-400',
+    },
+    {
+      value: timeLeft.seconds,
+      label: 'Secondes',
+      max: 60,
+      color: 'stroke-rose-400',
+    },
   ];
 
-  const CircularProgress = ({ value, max, color, size = 80 }: { value: number; max: number; color: string; size?: number }) => {
+  const CircularProgress = ({
+    value,
+    max,
+    color,
+    size = 80,
+  }: {
+    value: number;
+    max: number;
+    color: string;
+    size?: number;
+  }) => {
     const radius = (size - 8) / 2;
     const circumference = 2 * Math.PI * radius;
     const progress = (value / max) * circumference;
 
     return (
       <div className="relative">
-        <svg width={size} height={size} className="transform -rotate-90">
+        <svg width={size} height={size} className="-rotate-90">
           {/* Background circle */}
           <circle
             cx={size / 2}
@@ -91,7 +124,9 @@ export const CountdownCircular = ({ targetDate, className }: CountdownCircularPr
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">{value.toString().padStart(2, '0')}</span>
+          <span className="text-2xl font-bold text-white">
+            {value.toString().padStart(2, '0')}
+          </span>
         </div>
       </div>
     );
@@ -110,7 +145,9 @@ export const CountdownCircular = ({ targetDate, className }: CountdownCircularPr
               size={90}
             />
             <div className="text-center">
-              <p className="text-sm font-semibold text-white/90">{unit.label}</p>
+              <p className="text-sm font-semibold text-white/90">
+                {unit.label}
+              </p>
             </div>
           </div>
         ))}
@@ -127,11 +164,13 @@ export const CountdownCircular = ({ targetDate, className }: CountdownCircularPr
               size={80}
             />
             <div className="text-center">
-              <p className="text-sm font-semibold text-white/90">{unit.label}</p>
+              <p className="text-sm font-semibold text-white/90">
+                {unit.label}
+              </p>
             </div>
           </div>
         ))}
       </div>
     </div>
   );
-}; 
+};

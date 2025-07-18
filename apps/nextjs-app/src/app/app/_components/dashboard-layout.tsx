@@ -20,7 +20,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Sidebar />
 
       {/* Main content avec adaptation dynamique */}
-      <div className={`transition-all duration-500 ease-in-out ${getMainContentClasses()}`}>
+      <div
+        className={`transition-all duration-500 ease-in-out ${getMainContentClasses()}`}
+      >
         <main className="py-6">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {children}

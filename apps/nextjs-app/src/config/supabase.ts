@@ -9,7 +9,9 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
   console.error('NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co');
   console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key');
-  console.error('Et configurez-les aussi sur Vercel dans Settings > Environment Variables');
+  console.error(
+    'Et configurez-les aussi sur Vercel dans Settings > Environment Variables',
+  );
   throw new Error('Missing Supabase environment variables');
 }
 

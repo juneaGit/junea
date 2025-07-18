@@ -55,4 +55,4 @@ export const useSidebar = () => {
     getMainContentMarginClasses,
     getSidebarWidth,
   };
-}; 
+};

@@ -53,7 +53,9 @@ export function AppLayout({ children, className }: AppLayoutProps) {
       <Sidebar />
 
       {/* Main Content avec adaptation dynamique */}
-      <div className={`flex flex-1 flex-col transition-all duration-500 ease-in-out ${getMainContentMarginClasses()}`}>
+      <div
+        className={`flex flex-1 flex-col transition-all duration-500 ease-in-out ${getMainContentMarginClasses()}`}
+      >
         {/* Header mobile */}
         <div className="flex h-16 items-center border-b border-gray-200 bg-white px-4 lg:hidden">
           <h1 className="text-xl font-semibold text-gray-900">Mon Mariage</h1>
