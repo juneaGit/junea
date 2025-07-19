@@ -19,7 +19,10 @@ import {
   XMarkIcon,
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolidIcon, CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
+import {
+  StarIcon as StarSolidIcon,
+  CheckCircleIcon as CheckCircleIconSolid,
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -84,14 +87,14 @@ interface Caterer {
 }
 
 // Image Fallback Component avec error handling robuste
-const SafeImage = ({ 
-  src, 
-  alt, 
-  className, 
-  fill = false, 
-  width, 
+const SafeImage = ({
+  src,
+  alt,
+  className,
+  fill = false,
+  width,
   height,
-  priority = false 
+  priority = false,
 }: {
   src: string;
   alt: string;
@@ -107,11 +110,12 @@ const SafeImage = ({
   // Images de fallback thématiques
   const fallbackImages = [
     'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop', // Restaurant élégant
-    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop', // Plats gastronomiques  
+    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop', // Plats gastronomiques
     'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&h=600&fit=crop', // Cuisine végétale
   ];
-  
-  const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+
+  const randomFallback =
+    fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -126,7 +130,12 @@ const SafeImage = ({
 
   if (imageError) {
     return (
-      <div className={cn("bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center", className)}>
+      <div
+        className={cn(
+          'bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center',
+          className,
+        )}
+      >
         <div className="text-center p-4">
           <CakeIcon className="size-8 text-pink-400 mx-auto mb-2" />
           <p className="text-xs text-pink-600">Image indisponible</p>
@@ -136,12 +145,12 @@ const SafeImage = ({
   }
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div className={cn('relative overflow-hidden', className)}>
       {/* Loading skeleton */}
       {isLoading && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
       )}
-      
+
       <Image
         src={imageError ? randomFallback : src}
         alt={alt}
@@ -150,9 +159,9 @@ const SafeImage = ({
         height={height}
         priority={priority}
         className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100",
-          fill ? "object-cover" : ""
+          'transition-opacity duration-300',
+          isLoading ? 'opacity-0' : 'opacity-100',
+          fill ? 'object-cover' : '',
         )}
         onLoad={handleImageLoad}
         onError={handleImageError}
@@ -182,7 +191,13 @@ const CatererSkeleton = () => (
 );
 
 // Error Fallback Component
-const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
+const ErrorFallback = ({
+  error,
+  resetErrorBoundary,
+}: {
+  error: Error;
+  resetErrorBoundary: () => void;
+}) => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
     <div className="text-center max-w-md">
       <ExclamationTriangleIcon className="size-16 text-red-500 mx-auto mb-4" />
@@ -190,14 +205,19 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetError
         Oops ! Une erreur s'est produite
       </h2>
       <p className="text-gray-600 mb-6">
-        La page des traiteurs a rencontré un problème. Ne vous inquiétez pas, nous pouvons la réparer !
+        La page des traiteurs a rencontré un problème. Ne vous inquiétez pas,
+        nous pouvons la réparer !
       </p>
       <div className="space-y-3">
         <Button onClick={resetErrorBoundary} className="w-full">
           <SparklesIcon className="size-4 mr-2" />
           Réessayer
         </Button>
-        <Button variant="outline" className="w-full" onClick={() => window.location.href = '/app'}>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => (window.location.href = '/app')}
+        >
           Retour au tableau de bord
         </Button>
       </div>
@@ -220,27 +240,37 @@ const DEMO_CATERERS: Caterer[] = [
     location: 'Paris, France',
     rating: 4.8,
     reviewCount: 156,
-    images: ['https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop'],
-    description: 'Traiteur haut de gamme spécialisé dans la cuisine française raffinée avec des produits locaux et de saison.',
+    images: [
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Traiteur haut de gamme spécialisé dans la cuisine française raffinée avec des produits locaux et de saison.',
     specialties: ['Cuisine française', 'Produits bio', 'Présentation raffinée'],
     cuisineTypes: ['Française', 'Méditerranéenne', 'Contemporaine'],
-    services: ['Service en salle', 'Vaisselle incluse', 'Animation culinaire', 'Accords mets-vins'],
+    services: [
+      'Service en salle',
+      'Vaisselle incluse',
+      'Animation culinaire',
+      'Accords mets-vins',
+    ],
     priceRange: { min: 85, max: 150 },
     certifications: ['Certifié Bio', 'Label Rouge', 'Agriculture raisonnée'],
     isFavorite: false,
     contact: {
       phone: '+33 1 23 45 67 89',
       email: 'contact@maison-gourmet.fr',
-      website: 'www.maison-gourmet.fr'
+      website: 'www.maison-gourmet.fr',
     },
     menus: [
       {
         id: 'menu-1',
         name: 'Menu Excellence',
         type: 'repas-assis',
-        description: 'Un menu raffiné mettant en valeur les saveurs françaises traditionnelles',
+        description:
+          'Un menu raffiné mettant en valeur les saveurs françaises traditionnelles',
         pricePerPerson: 120,
-        servingStyle: 'Service à l\'assiette',
+        servingStyle: "Service à l'assiette",
         minimumGuests: 30,
         items: [
           {
@@ -251,30 +281,32 @@ const DEMO_CATERERS: Caterer[] = [
             category: 'entrée',
             dietaryInfo: ['Sans gluten disponible'],
             allergens: ['Œufs', 'Lait'],
-            popular: true
+            popular: true,
           },
           {
             id: '2',
             name: 'Filet de bœuf Wellington',
-            description: 'Filet de bœuf en croûte, sauce aux morilles, légumes de saison',
+            description:
+              'Filet de bœuf en croûte, sauce aux morilles, légumes de saison',
             price: 45,
             category: 'plat',
             dietaryInfo: [],
             allergens: ['Gluten', 'Lait'],
-            popular: true
+            popular: true,
           },
           {
             id: '3',
             name: 'Tarte au citron revisitée',
-            description: 'Tarte au citron yuzu, meringue italienne, sorbet basilic',
+            description:
+              'Tarte au citron yuzu, meringue italienne, sorbet basilic',
             price: 18,
             category: 'dessert',
             dietaryInfo: ['Végétarien'],
             allergens: ['Gluten', 'Œufs', 'Lait'],
-          }
-        ]
-      }
-    ]
+          },
+        ],
+      },
+    ],
   },
   {
     id: '2',
@@ -283,17 +315,25 @@ const DEMO_CATERERS: Caterer[] = [
     location: 'Lyon, France',
     rating: 4.6,
     reviewCount: 89,
-    images: ['https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop'], // URL CORRIGÉE
-    description: 'Traiteur multiculturel proposant des cuisines du monde entier avec des options halal et casher.',
+    images: [
+      'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=600&fit=crop',
+    ], // URL CORRIGÉE
+    description:
+      'Traiteur multiculturel proposant des cuisines du monde entier avec des options halal et casher.',
     specialties: ['Cuisine multiculturelle', 'Halal', 'Casher', 'Végétalien'],
     cuisineTypes: ['Orientale', 'Indienne', 'Méditerranéenne', 'Fusion'],
-    services: ['Cuisine halal certifiée', 'Options véganes', 'Décoration orientale', 'Animation musicale'],
+    services: [
+      'Cuisine halal certifiée',
+      'Options véganes',
+      'Décoration orientale',
+      'Animation musicale',
+    ],
     priceRange: { min: 45, max: 95 },
     certifications: ['Certification Halal', 'Certification Casher'],
     isFavorite: true,
     contact: {
       phone: '+33 4 78 12 34 56',
-      email: 'info@saveurs-monde.fr'
+      email: 'info@saveurs-monde.fr',
     },
     menus: [
       {
@@ -308,7 +348,7 @@ const DEMO_CATERERS: Caterer[] = [
           {
             id: '4',
             name: 'Mezze variés',
-            description: 'Houmous, taboulé, caviar d\'aubergine, falafel',
+            description: "Houmous, taboulé, caviar d'aubergine, falafel",
             price: 15,
             category: 'entrée',
             dietaryInfo: ['Végétarien', 'Végan', 'Halal'],
@@ -316,17 +356,17 @@ const DEMO_CATERERS: Caterer[] = [
           },
           {
             id: '5',
-            name: 'Tajine d\'agneau',
+            name: "Tajine d'agneau",
             description: 'Agneau aux pruneaux et amandes, semoule parfumée',
             price: 28,
             category: 'plat',
             dietaryInfo: ['Halal'],
             allergens: ['Fruits à coque'],
-            popular: true
-          }
-        ]
-      }
-    ]
+            popular: true,
+          },
+        ],
+      },
+    ],
   },
   {
     id: '3',
@@ -335,20 +375,28 @@ const DEMO_CATERERS: Caterer[] = [
     location: 'Bordeaux, France',
     rating: 4.9,
     reviewCount: 67,
-    images: ['https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&h=600&fit=crop'],
-    description: 'Chef à domicile spécialisé dans la cuisine végétale créative et les produits bio locaux.',
+    images: [
+      'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Chef à domicile spécialisé dans la cuisine végétale créative et les produits bio locaux.',
     specialties: ['Cuisine végétale', '100% Bio', 'Locavore', 'Zéro déchet'],
     cuisineTypes: ['Végétarienne', 'Végane', 'Crudivore'],
-    services: ['Chef sur place', 'Produits 100% bio', 'Cours de cuisine', 'Compost fourni'],
+    services: [
+      'Chef sur place',
+      'Produits 100% bio',
+      'Cours de cuisine',
+      'Compost fourni',
+    ],
     priceRange: { min: 70, max: 120 },
     certifications: ['Certifié Bio', 'Label Végane', 'Commerce équitable'],
     isFavorite: false,
     contact: {
       phone: '+33 5 56 12 34 56',
       email: 'chef@green-kitchen.fr',
-      website: 'www.green-kitchen.bio'
+      website: 'www.green-kitchen.bio',
     },
-    menus: []
+    menus: [],
   },
 ];
 
@@ -384,7 +432,9 @@ function CateringPageContent() {
   const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
-  const [activeTab, setActiveTab] = useState<'traiteurs' | 'menus'>('traiteurs');
+  const [activeTab, setActiveTab] = useState<'traiteurs' | 'menus'>(
+    'traiteurs',
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState({
@@ -403,10 +453,10 @@ function CateringPageContent() {
         console.log('🔄 Loading caterers data...');
         setLoading(true);
         setError(null);
-        
+
         // Simuler un appel API ou charger depuis Supabase
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Simule network delay
-        
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simule network delay
+
         setCaterers(DEMO_CATERERS);
         console.log('✅ Caterers loaded successfully:', DEMO_CATERERS.length);
       } catch (err) {
@@ -422,11 +472,13 @@ function CateringPageContent() {
 
   const toggleFavorite = (catererId: string) => {
     console.log('💝 Toggling favorite for caterer:', catererId);
-    setCaterers(prev => prev.map(caterer => 
-      caterer.id === catererId 
-        ? { ...caterer, isFavorite: !caterer.isFavorite }
-        : caterer
-    ));
+    setCaterers((prev) =>
+      prev.map((caterer) =>
+        caterer.id === catererId
+          ? { ...caterer, isFavorite: !caterer.isFavorite }
+          : caterer,
+      ),
+    );
   };
 
   const generateAIRecommendations = async () => {
@@ -435,7 +487,7 @@ function CateringPageContent() {
       const recommendations = await generateRecommendations(
         user,
         profile,
-        'catering'
+        'catering',
       );
       console.log('✅ AI recommendations generated:', recommendations);
     } catch (error) {
@@ -443,21 +495,39 @@ function CateringPageContent() {
     }
   };
 
-  const filteredCaterers = caterers.filter(caterer => {
-    const matchesSearch = caterer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         caterer.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         caterer.cuisineTypes.some(type => type.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesPrice = caterer.priceRange.min >= filters.priceRange[0] && caterer.priceRange.max <= filters.priceRange[1];
+  const filteredCaterers = caterers.filter((caterer) => {
+    const matchesSearch =
+      caterer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      caterer.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      caterer.cuisineTypes.some((type) =>
+        type.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    const matchesPrice =
+      caterer.priceRange.min >= filters.priceRange[0] &&
+      caterer.priceRange.max <= filters.priceRange[1];
     const matchesRating = caterer.rating >= filters.rating;
-    const matchesCuisine = filters.cuisineType === 'all' || 
-                          caterer.cuisineTypes.some(type => type.toLowerCase().includes(filters.cuisineType));
+    const matchesCuisine =
+      filters.cuisineType === 'all' ||
+      caterer.cuisineTypes.some((type) =>
+        type.toLowerCase().includes(filters.cuisineType),
+      );
     const matchesType = filters.type === 'all' || caterer.type === filters.type;
 
-    return matchesSearch && matchesPrice && matchesRating && matchesCuisine && matchesType;
+    return (
+      matchesSearch &&
+      matchesPrice &&
+      matchesRating &&
+      matchesCuisine &&
+      matchesType
+    );
   });
 
-  const allMenus = caterers.flatMap(caterer => 
-    caterer.menus.map(menu => ({ ...menu, _catererName: caterer.name, _catererRating: caterer.rating }))
+  const allMenus = caterers.flatMap((caterer) =>
+    caterer.menus.map((menu) => ({
+      ...menu,
+      _catererName: caterer.name,
+      _catererRating: caterer.rating,
+    })),
   );
 
   // États de chargement et d'erreur
@@ -495,9 +565,7 @@ function CateringPageContent() {
             Erreur de chargement
           </h3>
           <p className="text-gray-600 mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>
-            Réessayer
-          </Button>
+          <Button onClick={() => window.location.reload()}>Réessayer</Button>
         </div>
       </div>
     );
@@ -533,10 +601,10 @@ function CateringPageContent() {
           <button
             onClick={() => setActiveTab('traiteurs')}
             className={cn(
-              "py-2 px-1 border-b-2 font-medium text-sm transition-colors",
+              'py-2 px-1 border-b-2 font-medium text-sm transition-colors',
               activeTab === 'traiteurs'
-                ? "border-pink-500 text-pink-600"
-                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                ? 'border-pink-500 text-pink-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
             )}
           >
             Traiteurs ({caterers.length})
@@ -544,10 +612,10 @@ function CateringPageContent() {
           <button
             onClick={() => setActiveTab('menus')}
             className={cn(
-              "py-2 px-1 border-b-2 font-medium text-sm transition-colors",
+              'py-2 px-1 border-b-2 font-medium text-sm transition-colors',
               activeTab === 'menus'
-                ? "border-pink-500 text-pink-600"
-                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                ? 'border-pink-500 text-pink-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
             )}
           >
             Menus ({allMenus.length})
@@ -578,9 +646,13 @@ function CateringPageContent() {
               {CUISINE_TYPES.map((type) => (
                 <Button
                   key={type.value}
-                  variant={filters.cuisineType === type.value ? "default" : "outline"}
+                  variant={
+                    filters.cuisineType === type.value ? 'default' : 'outline'
+                  }
                   size="sm"
-                  onClick={() => setFilters(prev => ({ ...prev, cuisineType: type.value }))}
+                  onClick={() =>
+                    setFilters((prev) => ({ ...prev, cuisineType: type.value }))
+                  }
                   className="whitespace-nowrap"
                 >
                   <span className="mr-2">{type.icon}</span>
@@ -619,10 +691,15 @@ function CateringPageContent() {
                         type="number"
                         placeholder="Min"
                         value={filters.priceRange[0]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [Number(e.target.value), prev.priceRange[1]]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              Number(e.target.value),
+                              prev.priceRange[1],
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
@@ -630,10 +707,15 @@ function CateringPageContent() {
                         type="number"
                         placeholder="Max"
                         value={filters.priceRange[1]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [prev.priceRange[0], Number(e.target.value)]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              prev.priceRange[0],
+                              Number(e.target.value),
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
@@ -645,7 +727,12 @@ function CateringPageContent() {
                     </label>
                     <select
                       value={filters.type}
-                      onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          type: e.target.value,
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value="all">Tous types</option>
@@ -661,7 +748,12 @@ function CateringPageContent() {
                     </label>
                     <select
                       value={filters.rating}
-                      onChange={(e) => setFilters(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          rating: Number(e.target.value),
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
@@ -683,23 +775,34 @@ function CateringPageContent() {
                         <input
                           type="checkbox"
                           id={restriction}
-                          checked={filters.dietaryRestrictions.includes(restriction)}
+                          checked={filters.dietaryRestrictions.includes(
+                            restriction,
+                          )}
                           onChange={(e) => {
                             if (e.target.checked) {
-                              setFilters(prev => ({
+                              setFilters((prev) => ({
                                 ...prev,
-                                dietaryRestrictions: [...prev.dietaryRestrictions, restriction]
+                                dietaryRestrictions: [
+                                  ...prev.dietaryRestrictions,
+                                  restriction,
+                                ],
                               }));
                             } else {
-                              setFilters(prev => ({
+                              setFilters((prev) => ({
                                 ...prev,
-                                dietaryRestrictions: prev.dietaryRestrictions.filter(r => r !== restriction)
+                                dietaryRestrictions:
+                                  prev.dietaryRestrictions.filter(
+                                    (r) => r !== restriction,
+                                  ),
                               }));
                             }
                           }}
                           className="mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                         />
-                        <label htmlFor={restriction} className="text-sm text-gray-700">
+                        <label
+                          htmlFor={restriction}
+                          className="text-sm text-gray-700"
+                        >
                           {restriction}
                         </label>
                       </div>
@@ -718,7 +821,9 @@ function CateringPageContent() {
           {/* Résultats traiteurs */}
           <div className="flex items-center justify-between">
             <p className="text-gray-600">
-              {filteredCaterers.length} traiteur{filteredCaterers.length > 1 ? 's' : ''} trouvé{filteredCaterers.length > 1 ? 's' : ''}
+              {filteredCaterers.length} traiteur
+              {filteredCaterers.length > 1 ? 's' : ''} trouvé
+              {filteredCaterers.length > 1 ? 's' : ''}
             </p>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Trier par :</span>
@@ -739,7 +844,8 @@ function CateringPageContent() {
                 Aucun traiteur trouvé
               </h3>
               <p className="text-gray-600">
-                Essayez de modifier vos critères de recherche ou explorez d'autres options.
+                Essayez de modifier vos critères de recherche ou explorez
+                d'autres options.
               </p>
             </div>
           ) : (
@@ -778,10 +884,14 @@ function CateringPageContent() {
                           }}
                           className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
                         >
-                          <HeartIcon className={cn(
-                            "size-4 transition-colors",
-                            caterer.isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 hover:text-red-500"
-                          )} />
+                          <HeartIcon
+                            className={cn(
+                              'size-4 transition-colors',
+                              caterer.isFavorite
+                                ? 'fill-red-500 text-red-500'
+                                : 'text-gray-600 hover:text-red-500',
+                            )}
+                          />
                         </button>
                       </div>
                     </div>
@@ -792,14 +902,20 @@ function CateringPageContent() {
                           <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
                             {caterer.name}
                           </h3>
-                          <p className="text-sm text-gray-600">{caterer.location}</p>
+                          <p className="text-sm text-gray-600">
+                            {caterer.location}
+                          </p>
                         </div>
                         <div className="text-right">
                           <div className="flex items-center gap-1">
                             <StarSolidIcon className="size-4 text-yellow-400" />
-                            <span className="font-medium text-sm">{caterer.rating}</span>
+                            <span className="font-medium text-sm">
+                              {caterer.rating}
+                            </span>
                           </div>
-                          <p className="text-xs text-gray-600">({caterer.reviewCount})</p>
+                          <p className="text-xs text-gray-600">
+                            ({caterer.reviewCount})
+                          </p>
                         </div>
                       </div>
 
@@ -827,10 +943,12 @@ function CateringPageContent() {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-1 text-sm font-medium text-gray-900">
                           <CurrencyEuroIcon className="size-4" />
-                          {caterer.priceRange.min}-{caterer.priceRange.max}€/pers.
+                          {caterer.priceRange.min}-{caterer.priceRange.max}
+                          €/pers.
                         </div>
                         <div className="text-sm text-gray-600">
-                          {caterer.menus.length} menu{caterer.menus.length > 1 ? 's' : ''}
+                          {caterer.menus.length} menu
+                          {caterer.menus.length > 1 ? 's' : ''}
                         </div>
                       </div>
 
@@ -870,25 +988,34 @@ function CateringPageContent() {
             </div>
           ) : (
             allMenus.map((menu) => (
-              <Card key={menu.id} className="cursor-pointer hover:shadow-lg transition-all">
+              <Card
+                key={menu.id}
+                className="cursor-pointer hover:shadow-lg transition-all"
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
                       <CardTitle className="text-lg">{menu.name}</CardTitle>
-                      <p className="text-sm text-gray-600">{menu._catererName}</p>
+                      <p className="text-sm text-gray-600">
+                        {menu._catererName}
+                      </p>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center gap-1">
                         <StarSolidIcon className="size-4 text-yellow-400" />
-                        <span className="font-medium text-sm">{menu._catererRating}</span>
+                        <span className="font-medium text-sm">
+                          {menu._catererRating}
+                        </span>
                       </div>
-                      <p className="text-lg font-bold text-pink-600">{menu.pricePerPerson}€</p>
+                      <p className="text-lg font-bold text-pink-600">
+                        {menu.pricePerPerson}€
+                      </p>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 mb-4">{menu.description}</p>
-                  
+
                   <div className="space-y-3 mb-4">
                     <div className="flex items-center gap-2 text-sm text-gray-600">
                       <UsersIcon className="size-4" />
@@ -902,25 +1029,42 @@ function CateringPageContent() {
 
                   {/* Aperçu des plats */}
                   <div className="space-y-2 mb-4">
-                    <h4 className="font-medium text-gray-900">Plats inclus :</h4>
+                    <h4 className="font-medium text-gray-900">
+                      Plats inclus :
+                    </h4>
                     {menu.items.slice(0, 3).map((item) => (
                       <div key={item.id} className="flex items-start gap-2">
-                        <div className={cn(
-                          "w-2 h-2 rounded-full mt-2 flex-shrink-0",
-                          item.category === 'entrée' ? "bg-green-400" :
-                          item.category === 'plat' ? "bg-orange-400" :
-                          "bg-pink-400"
-                        )} />
+                        <div
+                          className={cn(
+                            'w-2 h-2 rounded-full mt-2 flex-shrink-0',
+                            item.category === 'entrée'
+                              ? 'bg-green-400'
+                              : item.category === 'plat'
+                                ? 'bg-orange-400'
+                                : 'bg-pink-400',
+                          )}
+                        />
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-medium text-sm">{item.name}</span>
-                            {item.popular && <span className="text-xs text-yellow-600">⭐ Populaire</span>}
+                            <span className="font-medium text-sm">
+                              {item.name}
+                            </span>
+                            {item.popular && (
+                              <span className="text-xs text-yellow-600">
+                                ⭐ Populaire
+                              </span>
+                            )}
                           </div>
-                          <p className="text-xs text-gray-600">{item.description}</p>
+                          <p className="text-xs text-gray-600">
+                            {item.description}
+                          </p>
                           {item.dietaryInfo.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-1">
                               {item.dietaryInfo.map((info) => (
-                                <span key={info} className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                                <span
+                                  key={info}
+                                  className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full"
+                                >
                                   {info}
                                 </span>
                               ))}
@@ -930,7 +1074,9 @@ function CateringPageContent() {
                       </div>
                     ))}
                     {menu.items.length > 3 && (
-                      <p className="text-sm text-gray-500">+{menu.items.length - 3} autres plats...</p>
+                      <p className="text-sm text-gray-500">
+                        +{menu.items.length - 3} autres plats...
+                      </p>
                     )}
                   </div>
 
@@ -987,8 +1133,12 @@ function CateringPageContent() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                       {selectedCaterer.name}
                     </h2>
-                    <p className="text-gray-600 mb-2">{selectedCaterer.location}</p>
-                    <p className="text-gray-700">{selectedCaterer.description}</p>
+                    <p className="text-gray-600 mb-2">
+                      {selectedCaterer.location}
+                    </p>
+                    <p className="text-gray-700">
+                      {selectedCaterer.description}
+                    </p>
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-2 mb-2">
@@ -997,17 +1147,24 @@ function CateringPageContent() {
                           <StarSolidIcon
                             key={star}
                             className={cn(
-                              "size-4",
-                              star <= selectedCaterer.rating ? "text-yellow-400" : "text-gray-300"
+                              'size-4',
+                              star <= selectedCaterer.rating
+                                ? 'text-yellow-400'
+                                : 'text-gray-300',
                             )}
                           />
                         ))}
                       </div>
-                      <span className="font-medium">{selectedCaterer.rating}</span>
+                      <span className="font-medium">
+                        {selectedCaterer.rating}
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-600">({selectedCaterer.reviewCount} avis)</p>
+                    <p className="text-sm text-gray-600">
+                      ({selectedCaterer.reviewCount} avis)
+                    </p>
                     <p className="text-lg font-bold text-pink-600 mt-2">
-                      {selectedCaterer.priceRange.min}-{selectedCaterer.priceRange.max}€/pers.
+                      {selectedCaterer.priceRange.min}-
+                      {selectedCaterer.priceRange.max}€/pers.
                     </p>
                   </div>
                 </div>
@@ -1015,10 +1172,15 @@ function CateringPageContent() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                   {/* Services */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Services proposés</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Services proposés
+                    </h3>
                     <div className="space-y-2">
                       {selectedCaterer.services.map((service, index) => (
-                        <div key={index} className="flex items-center gap-2 text-sm">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <CheckCircleIconSolid className="size-4 text-green-500 flex-shrink-0" />
                           <span>{service}</span>
                         </div>
@@ -1028,10 +1190,15 @@ function CateringPageContent() {
 
                   {/* Certifications */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Certifications</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Certifications
+                    </h3>
                     <div className="space-y-2">
                       {selectedCaterer.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center gap-2 text-sm">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <CheckCircleIconSolid className="size-4 text-blue-500 flex-shrink-0" />
                           <span>{cert}</span>
                         </div>
@@ -1078,17 +1245,19 @@ function CateringPageContent() {
 
                 {/* Actions */}
                 <div className="flex gap-3">
-                  <Button className="flex-1">
-                    Demander un devis
-                  </Button>
+                  <Button className="flex-1">Demander un devis</Button>
                   <Button
                     variant="outline"
                     onClick={() => toggleFavorite(selectedCaterer.id)}
                   >
-                    <HeartIcon className={cn(
-                      "size-4 mr-2",
-                      selectedCaterer.isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"
-                    )} />
+                    <HeartIcon
+                      className={cn(
+                        'size-4 mr-2',
+                        selectedCaterer.isFavorite
+                          ? 'fill-red-500 text-red-500'
+                          : 'text-gray-600',
+                      )}
+                    />
                     {selectedCaterer.isFavorite ? 'Favoris' : 'Ajouter'}
                   </Button>
                 </div>
@@ -1121,7 +1290,13 @@ function CateringPageContent() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-2">
                       {selectedMenu.name}
                     </h2>
-                    <p className="text-gray-600 mb-2">{caterers.find(c => c.menus.some(m => m.id === selectedMenu?.id))?.name}</p>
+                    <p className="text-gray-600 mb-2">
+                      {
+                        caterers.find((c) =>
+                          c.menus.some((m) => m.id === selectedMenu?.id),
+                        )?.name
+                      }
+                    </p>
                     <p className="text-gray-700">{selectedMenu.description}</p>
                   </div>
                   <button
@@ -1134,50 +1309,81 @@ function CateringPageContent() {
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-pink-600">{selectedMenu.pricePerPerson}€</div>
+                    <div className="text-2xl font-bold text-pink-600">
+                      {selectedMenu.pricePerPerson}€
+                    </div>
                     <div className="text-sm text-gray-600">par personne</div>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="text-lg font-medium text-gray-900">{selectedMenu.minimumGuests}+</div>
-                    <div className="text-sm text-gray-600">personnes minimum</div>
+                    <div className="text-lg font-medium text-gray-900">
+                      {selectedMenu.minimumGuests}+
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      personnes minimum
+                    </div>
                   </div>
                 </div>
 
                 {/* Plats du menu */}
                 <div className="space-y-4">
-                  <h3 className="font-semibold text-gray-900">Composition du menu</h3>
+                  <h3 className="font-semibold text-gray-900">
+                    Composition du menu
+                  </h3>
                   {selectedMenu.items.map((item) => (
-                    <div key={item.id} className="border border-gray-200 rounded-lg p-4">
+                    <div
+                      key={item.id}
+                      className="border border-gray-200 rounded-lg p-4"
+                    >
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <div className="flex items-center gap-2">
-                            <h4 className="font-medium text-gray-900">{item.name}</h4>
-                            <span className={cn(
-                              "px-2 py-1 rounded-full text-xs font-medium",
-                              item.category === 'entrée' ? "bg-green-100 text-green-700" :
-                              item.category === 'plat' ? "bg-orange-100 text-orange-700" :
-                              item.category === 'dessert' ? "bg-pink-100 text-pink-700" :
-                              "bg-blue-100 text-blue-700"
-                            )}>
+                            <h4 className="font-medium text-gray-900">
+                              {item.name}
+                            </h4>
+                            <span
+                              className={cn(
+                                'px-2 py-1 rounded-full text-xs font-medium',
+                                item.category === 'entrée'
+                                  ? 'bg-green-100 text-green-700'
+                                  : item.category === 'plat'
+                                    ? 'bg-orange-100 text-orange-700'
+                                    : item.category === 'dessert'
+                                      ? 'bg-pink-100 text-pink-700'
+                                      : 'bg-blue-100 text-blue-700',
+                              )}
+                            >
                               {item.category}
                             </span>
-                            {item.popular && <span className="text-yellow-500">⭐</span>}
+                            {item.popular && (
+                              <span className="text-yellow-500">⭐</span>
+                            )}
                           </div>
-                          <p className="text-gray-600 text-sm">{item.description}</p>
+                          <p className="text-gray-600 text-sm">
+                            {item.description}
+                          </p>
                         </div>
-                        <span className="font-medium text-gray-900">{item.price}€</span>
+                        <span className="font-medium text-gray-900">
+                          {item.price}€
+                        </span>
                       </div>
-                      
+
                       {/* Informations diététiques */}
-                      {(item.dietaryInfo.length > 0 || item.allergens.length > 0) && (
+                      {(item.dietaryInfo.length > 0 ||
+                        item.allergens.length > 0) && (
                         <div className="flex flex-wrap gap-2 mt-2">
                           {item.dietaryInfo.map((info) => (
-                            <span key={info} className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
+                            <span
+                              key={info}
+                              className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full"
+                            >
                               ✓ {info}
                             </span>
                           ))}
                           {item.allergens.map((allergen) => (
-                            <span key={allergen} className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">
+                            <span
+                              key={allergen}
+                              className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"
+                            >
                               ⚠ {allergen}
                             </span>
                           ))}
@@ -1188,12 +1394,8 @@ function CateringPageContent() {
                 </div>
 
                 <div className="flex gap-3 mt-6">
-                  <Button className="flex-1">
-                    Sélectionner ce menu
-                  </Button>
-                  <Button variant="outline">
-                    Demander personnalisation
-                  </Button>
+                  <Button className="flex-1">Sélectionner ce menu</Button>
+                  <Button variant="outline">Demander personnalisation</Button>
                 </div>
               </div>
             </motion.div>
@@ -1207,15 +1409,19 @@ function CateringPageContent() {
 // Composant principal avec Error Boundary
 export default function CateringPage() {
   console.log('🎂 CateringPage component mounting...');
-  
+
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
       onError={(error, errorInfo) => {
-        console.error('❌ CateringPage Error Boundary caught an error:', error, errorInfo);
+        console.error(
+          '❌ CateringPage Error Boundary caught an error:',
+          error,
+          errorInfo,
+        );
       }}
     >
       <CateringPageContent />
     </ErrorBoundary>
   );
-} 
+}

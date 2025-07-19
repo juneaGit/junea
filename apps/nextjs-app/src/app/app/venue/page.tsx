@@ -18,7 +18,10 @@ import {
   XMarkIcon,
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolidIcon, CheckCircleIcon as CheckCircleIconSolid } from '@heroicons/react/24/solid';
+import {
+  StarIcon as StarSolidIcon,
+  CheckCircleIcon as CheckCircleIconSolid,
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -36,7 +39,13 @@ import { cn } from '@/utils/cn';
 interface Venue {
   id: string;
   name: string;
-  type: 'château' | 'domaine' | 'salle' | 'plein-air' | 'restaurant' | 'lieu-insolite';
+  type:
+    | 'château'
+    | 'domaine'
+    | 'salle'
+    | 'plein-air'
+    | 'restaurant'
+    | 'lieu-insolite';
   location: string;
   capacity: {
     min: number;
@@ -63,14 +72,14 @@ interface Venue {
 }
 
 // SafeImage Component avec error handling robuste
-const SafeImage = ({ 
-  src, 
-  alt, 
-  className, 
-  fill = false, 
-  width, 
+const SafeImage = ({
+  src,
+  alt,
+  className,
+  fill = false,
+  width,
   height,
-  priority = false 
+  priority = false,
 }: {
   src: string;
   alt: string;
@@ -89,8 +98,9 @@ const SafeImage = ({
     'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=800&h=600&fit=crop', // Jardin mariage
     'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600&fit=crop', // Salle élégante
   ];
-  
-  const randomFallback = fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
+
+  const randomFallback =
+    fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -105,7 +115,12 @@ const SafeImage = ({
 
   if (imageError) {
     return (
-      <div className={cn("bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center", className)}>
+      <div
+        className={cn(
+          'bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center',
+          className,
+        )}
+      >
         <div className="text-center p-4">
           <HomeIcon className="size-8 text-pink-400 mx-auto mb-2" />
           <p className="text-xs text-pink-600">Image indisponible</p>
@@ -115,12 +130,12 @@ const SafeImage = ({
   }
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
+    <div className={cn('relative overflow-hidden', className)}>
       {/* Loading skeleton */}
       {isLoading && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
       )}
-      
+
       <Image
         src={imageError ? randomFallback : src}
         alt={alt}
@@ -129,9 +144,9 @@ const SafeImage = ({
         height={height}
         priority={priority}
         className={cn(
-          "transition-opacity duration-300",
-          isLoading ? "opacity-0" : "opacity-100",
-          fill ? "object-cover" : ""
+          'transition-opacity duration-300',
+          isLoading ? 'opacity-0' : 'opacity-100',
+          fill ? 'object-cover' : '',
         )}
         onLoad={handleImageLoad}
         onError={handleImageError}
@@ -161,7 +176,13 @@ const VenueSkeleton = () => (
 );
 
 // Error Fallback Component
-const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) => (
+const ErrorFallback = ({
+  error,
+  resetErrorBoundary,
+}: {
+  error: Error;
+  resetErrorBoundary: () => void;
+}) => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
     <div className="text-center max-w-md">
       <ExclamationTriangleIcon className="size-16 text-red-500 mx-auto mb-4" />
@@ -169,14 +190,19 @@ const ErrorFallback = ({ error, resetErrorBoundary }: { error: Error; resetError
         Oops ! Une erreur s'est produite
       </h2>
       <p className="text-gray-600 mb-6">
-        La page des lieux a rencontré un problème. Ne vous inquiétez pas, nous pouvons la réparer !
+        La page des lieux a rencontré un problème. Ne vous inquiétez pas, nous
+        pouvons la réparer !
       </p>
       <div className="space-y-3">
         <Button onClick={resetErrorBoundary} className="w-full">
           <SparklesIcon className="size-4 mr-2" />
           Réessayer
         </Button>
-        <Button variant="outline" className="w-full" onClick={() => window.location.href = '/app'}>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => (window.location.href = '/app')}
+        >
           Retour au tableau de bord
         </Button>
       </div>
@@ -201,13 +227,23 @@ const DEMO_VENUES: Venue[] = [
     priceRange: { min: 150, max: 300 },
     rating: 4.8,
     reviewCount: 124,
-    images: ['https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=800&h=600&fit=crop'],
-    description: 'Un château romantique du XVIIIe siècle avec des jardins à la française exceptionnels. Parfait pour des mariages de rêve.',
-    amenities: ['Jardins', 'Parking', 'Cuisine équipée', 'Hébergement', 'Décoration incluse'],
+    images: [
+      'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Un château romantique du XVIIIe siècle avec des jardins à la française exceptionnels. Parfait pour des mariages de rêve.',
+    amenities: [
+      'Jardins',
+      'Parking',
+      'Cuisine équipée',
+      'Hébergement',
+      'Décoration incluse',
+    ],
     contact: {
       phone: '+33 1 23 45 67 89',
       email: 'contact@chateaudelarose.fr',
-      website: 'www.chateaudelarose.fr'
+      website: 'www.chateaudelarose.fr',
     },
     style: ['Romantique', 'Classique', 'Élégant'],
     accessibility: true,
@@ -223,12 +259,16 @@ const DEMO_VENUES: Venue[] = [
     priceRange: { min: 80, max: 180 },
     rating: 4.6,
     reviewCount: 89,
-    images: ['https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=800&h=600&fit=crop'],
-    description: 'Domaine viticole avec vue panoramique sur les vignes. Ambiance authentique et conviviale.',
+    images: [
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Domaine viticole avec vue panoramique sur les vignes. Ambiance authentique et conviviale.',
     amenities: ['Cave à vin', 'Terrasse', 'Parking', 'Traiteur partenaire'],
     contact: {
       phone: '+33 3 26 12 34 56',
-      email: 'info@domaine-vignes.fr'
+      email: 'info@domaine-vignes.fr',
     },
     style: ['Champêtre', 'Authentique', 'Convivial'],
     accessibility: true,
@@ -244,13 +284,17 @@ const DEMO_VENUES: Venue[] = [
     priceRange: { min: 120, max: 250 },
     rating: 4.7,
     reviewCount: 156,
-    images: ['https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&h=600&fit=crop'],
-    description: 'Villa avec vue mer exceptionnelle, piscine et jardins méditerranéens.',
-    amenities: ['Vue mer', 'Piscine', 'Jardins', 'Parking', 'Cuisine d\'été'],
+    images: [
+      'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Villa avec vue mer exceptionnelle, piscine et jardins méditerranéens.',
+    amenities: ['Vue mer', 'Piscine', 'Jardins', 'Parking', "Cuisine d'été"],
     contact: {
       phone: '+33 4 93 12 34 56',
       email: 'contact@villa-mediterranee.fr',
-      website: 'www.villa-mediterranee.fr'
+      website: 'www.villa-mediterranee.fr',
     },
     style: ['Méditerranéen', 'Moderne', 'Vue mer'],
     accessibility: false,
@@ -266,12 +310,21 @@ const DEMO_VENUES: Venue[] = [
     priceRange: { min: 200, max: 400 },
     rating: 4.4,
     reviewCount: 67,
-    images: ['https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1551524164-6cf2ac15ad87?w=800&h=600&fit=crop'],
-    description: 'Loft industriel moderne au cœur de Paris. Parfait pour des mariages urbains et contemporains.',
-    amenities: ['Métro proche', 'Éclairage LED', 'Son inclus', 'Mobilier moderne'],
+    images: [
+      'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1551524164-6cf2ac15ad87?w=800&h=600&fit=crop',
+    ],
+    description:
+      'Loft industriel moderne au cœur de Paris. Parfait pour des mariages urbains et contemporains.',
+    amenities: [
+      'Métro proche',
+      'Éclairage LED',
+      'Son inclus',
+      'Mobilier moderne',
+    ],
     contact: {
       phone: '+33 1 43 12 34 56',
-      email: 'info@loft-parisien.fr'
+      email: 'info@loft-parisien.fr',
     },
     style: ['Industriel', 'Moderne', 'Urbain'],
     accessibility: true,
@@ -319,10 +372,10 @@ function VenuePageContent() {
         console.log('🏛️ Loading venues data...');
         setLoading(true);
         setError(null);
-        
+
         // Simuler un appel API
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         setVenues(DEMO_VENUES);
         console.log('✅ Venues loaded successfully:', DEMO_VENUES.length);
       } catch (err) {
@@ -338,11 +391,13 @@ function VenuePageContent() {
 
   const toggleFavorite = (venueId: string) => {
     console.log('💝 Toggling favorite for venue:', venueId);
-    setVenues(prev => prev.map(venue => 
-      venue.id === venueId 
-        ? { ...venue, isFavorite: !venue.isFavorite }
-        : venue
-    ));
+    setVenues((prev) =>
+      prev.map((venue) =>
+        venue.id === venueId
+          ? { ...venue, isFavorite: !venue.isFavorite }
+          : venue,
+      ),
+    );
   };
 
   const generateAIRecommendations = async () => {
@@ -351,7 +406,7 @@ function VenuePageContent() {
       const recommendations = await generateRecommendations(
         user,
         profile,
-        'venue'
+        'venue',
       );
       console.log('✅ AI venue recommendations generated:', recommendations);
     } catch (error) {
@@ -359,19 +414,31 @@ function VenuePageContent() {
     }
   };
 
-  const filteredVenues = venues.filter(venue => {
-    const matchesSearch = venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         venue.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         venue.description.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredVenues = venues.filter((venue) => {
+    const matchesSearch =
+      venue.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      venue.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      venue.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesType = filters.type === 'all' || venue.type === filters.type;
-    const matchesCapacity = venue.capacity.max >= filters.capacity[0] && venue.capacity.min <= filters.capacity[1];
-    const matchesPrice = venue.priceRange.min <= filters.priceRange[1] && venue.priceRange.max >= filters.priceRange[0];
+    const matchesCapacity =
+      venue.capacity.max >= filters.capacity[0] &&
+      venue.capacity.min <= filters.capacity[1];
+    const matchesPrice =
+      venue.priceRange.min <= filters.priceRange[1] &&
+      venue.priceRange.max >= filters.priceRange[0];
     const matchesRating = venue.rating >= filters.rating;
     const matchesAccessibility = !filters.accessibility || venue.accessibility;
     const matchesAvailability = !filters.availableOnly || venue.isAvailable;
 
-    return matchesSearch && matchesType && matchesCapacity && matchesPrice && 
-           matchesRating && matchesAccessibility && matchesAvailability;
+    return (
+      matchesSearch &&
+      matchesType &&
+      matchesCapacity &&
+      matchesPrice &&
+      matchesRating &&
+      matchesAccessibility &&
+      matchesAvailability
+    );
   });
 
   // États de chargement et d'erreur
@@ -407,9 +474,7 @@ function VenuePageContent() {
             Erreur de chargement
           </h3>
           <p className="text-gray-600 mb-4">{error}</p>
-          <Button onClick={() => window.location.reload()}>
-            Réessayer
-          </Button>
+          <Button onClick={() => window.location.reload()}>Réessayer</Button>
         </div>
       </div>
     );
@@ -460,9 +525,11 @@ function VenuePageContent() {
               {VENUE_TYPES.map((type) => (
                 <Button
                   key={type.value}
-                  variant={filters.type === type.value ? "default" : "outline"}
+                  variant={filters.type === type.value ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setFilters(prev => ({ ...prev, type: type.value }))}
+                  onClick={() =>
+                    setFilters((prev) => ({ ...prev, type: type.value }))
+                  }
                   className="whitespace-nowrap"
                 >
                   <span className="mr-2">{type.icon}</span>
@@ -500,10 +567,15 @@ function VenuePageContent() {
                         type="number"
                         placeholder="Min"
                         value={filters.capacity[0]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          capacity: [Number(e.target.value), prev.capacity[1]]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            capacity: [
+                              Number(e.target.value),
+                              prev.capacity[1],
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
@@ -511,10 +583,15 @@ function VenuePageContent() {
                         type="number"
                         placeholder="Max"
                         value={filters.capacity[1]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          capacity: [prev.capacity[0], Number(e.target.value)]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            capacity: [
+                              prev.capacity[0],
+                              Number(e.target.value),
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
@@ -529,10 +606,15 @@ function VenuePageContent() {
                         type="number"
                         placeholder="Min"
                         value={filters.priceRange[0]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [Number(e.target.value), prev.priceRange[1]]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              Number(e.target.value),
+                              prev.priceRange[1],
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
@@ -540,10 +622,15 @@ function VenuePageContent() {
                         type="number"
                         placeholder="Max"
                         value={filters.priceRange[1]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [prev.priceRange[0], Number(e.target.value)]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              prev.priceRange[0],
+                              Number(e.target.value),
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
@@ -555,7 +642,12 @@ function VenuePageContent() {
                     </label>
                     <select
                       value={filters.rating}
-                      onChange={(e) => setFilters(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          rating: Number(e.target.value),
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
@@ -572,10 +664,18 @@ function VenuePageContent() {
                       type="checkbox"
                       id="accessibility"
                       checked={filters.accessibility}
-                      onChange={(e) => setFilters(prev => ({ ...prev, accessibility: e.target.checked }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          accessibility: e.target.checked,
+                        }))
+                      }
                       className="mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                     />
-                    <label htmlFor="accessibility" className="text-sm text-gray-700">
+                    <label
+                      htmlFor="accessibility"
+                      className="text-sm text-gray-700"
+                    >
                       Accessible PMR
                     </label>
                   </div>
@@ -584,10 +684,18 @@ function VenuePageContent() {
                       type="checkbox"
                       id="availableOnly"
                       checked={filters.availableOnly}
-                      onChange={(e) => setFilters(prev => ({ ...prev, availableOnly: e.target.checked }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          availableOnly: e.target.checked,
+                        }))
+                      }
                       className="mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                     />
-                    <label htmlFor="availableOnly" className="text-sm text-gray-700">
+                    <label
+                      htmlFor="availableOnly"
+                      className="text-sm text-gray-700"
+                    >
                       Disponibles uniquement
                     </label>
                   </div>
@@ -601,7 +709,8 @@ function VenuePageContent() {
       {/* Résultats */}
       <div className="flex items-center justify-between">
         <p className="text-gray-600">
-          {filteredVenues.length} lieu{filteredVenues.length > 1 ? 'x' : ''} trouvé{filteredVenues.length > 1 ? 's' : ''}
+          {filteredVenues.length} lieu{filteredVenues.length > 1 ? 'x' : ''}{' '}
+          trouvé{filteredVenues.length > 1 ? 's' : ''}
         </p>
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600">Trier par :</span>
@@ -623,7 +732,8 @@ function VenuePageContent() {
             Aucun lieu trouvé
           </h3>
           <p className="text-gray-600">
-            Essayez de modifier vos critères de recherche ou explorez d'autres options.
+            Essayez de modifier vos critères de recherche ou explorez d'autres
+            options.
           </p>
         </div>
       ) : (
@@ -667,10 +777,14 @@ function VenuePageContent() {
                       }}
                       className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
                     >
-                      <HeartIcon className={cn(
-                        "size-4 transition-colors",
-                        venue.isFavorite ? "fill-red-500 text-red-500" : "text-gray-600 hover:text-red-500"
-                      )} />
+                      <HeartIcon
+                        className={cn(
+                          'size-4 transition-colors',
+                          venue.isFavorite
+                            ? 'fill-red-500 text-red-500'
+                            : 'text-gray-600 hover:text-red-500',
+                        )}
+                      />
                     </button>
                   </div>
                 </div>
@@ -689,9 +803,13 @@ function VenuePageContent() {
                     <div className="text-right">
                       <div className="flex items-center gap-1">
                         <StarSolidIcon className="size-4 text-yellow-400" />
-                        <span className="font-medium text-sm">{venue.rating}</span>
+                        <span className="font-medium text-sm">
+                          {venue.rating}
+                        </span>
                       </div>
-                      <p className="text-xs text-gray-600">({venue.reviewCount})</p>
+                      <p className="text-xs text-gray-600">
+                        ({venue.reviewCount})
+                      </p>
                     </div>
                   </div>
 
@@ -801,27 +919,39 @@ function VenuePageContent() {
                           <StarSolidIcon
                             key={star}
                             className={cn(
-                              "size-4",
-                              star <= selectedVenue.rating ? "text-yellow-400" : "text-gray-300"
+                              'size-4',
+                              star <= selectedVenue.rating
+                                ? 'text-yellow-400'
+                                : 'text-gray-300',
                             )}
                           />
                         ))}
                       </div>
-                      <span className="font-medium">{selectedVenue.rating}</span>
+                      <span className="font-medium">
+                        {selectedVenue.rating}
+                      </span>
                     </div>
-                    <p className="text-sm text-gray-600">({selectedVenue.reviewCount} avis)</p>
+                    <p className="text-sm text-gray-600">
+                      ({selectedVenue.reviewCount} avis)
+                    </p>
                     <p className="text-lg font-bold text-pink-600 mt-2">
-                      {selectedVenue.priceRange.min}-{selectedVenue.priceRange.max}€
+                      {selectedVenue.priceRange.min}-
+                      {selectedVenue.priceRange.max}€
                     </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Commodités</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Commodités
+                    </h3>
                     <div className="space-y-2">
                       {selectedVenue.amenities.map((amenity, index) => (
-                        <div key={index} className="flex items-center gap-2 text-sm">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-sm"
+                        >
                           <CheckCircleIconSolid className="size-4 text-green-500 flex-shrink-0" />
                           <span>{amenity}</span>
                         </div>
@@ -830,22 +960,37 @@ function VenuePageContent() {
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Informations pratiques</h3>
+                    <h3 className="font-semibold text-gray-900 mb-3">
+                      Informations pratiques
+                    </h3>
                     <div className="space-y-3 text-sm">
                       <div className="flex items-center gap-2">
                         <UsersIcon className="size-4 text-gray-400 flex-shrink-0" />
-                        <span>Capacité : {selectedVenue.capacity.min} à {selectedVenue.capacity.max} personnes</span>
+                        <span>
+                          Capacité : {selectedVenue.capacity.min} à{' '}
+                          {selectedVenue.capacity.max} personnes
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CurrencyEuroIcon className="size-4 text-gray-400 flex-shrink-0" />
-                        <span>Budget : {selectedVenue.priceRange.min}€ à {selectedVenue.priceRange.max}€</span>
+                        <span>
+                          Budget : {selectedVenue.priceRange.min}€ à{' '}
+                          {selectedVenue.priceRange.max}€
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CheckCircleIcon className={cn(
-                          "size-4 flex-shrink-0",
-                          selectedVenue.accessibility ? "text-green-500" : "text-gray-400"
-                        )} />
-                        <span>Accès PMR : {selectedVenue.accessibility ? 'Oui' : 'Non'}</span>
+                        <CheckCircleIcon
+                          className={cn(
+                            'size-4 flex-shrink-0',
+                            selectedVenue.accessibility
+                              ? 'text-green-500'
+                              : 'text-gray-400',
+                          )}
+                        />
+                        <span>
+                          Accès PMR :{' '}
+                          {selectedVenue.accessibility ? 'Oui' : 'Non'}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -887,17 +1032,26 @@ function VenuePageContent() {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button className="flex-1" disabled={!selectedVenue.isAvailable}>
-                    {selectedVenue.isAvailable ? 'Réserver une visite' : 'Indisponible'}
+                  <Button
+                    className="flex-1"
+                    disabled={!selectedVenue.isAvailable}
+                  >
+                    {selectedVenue.isAvailable
+                      ? 'Réserver une visite'
+                      : 'Indisponible'}
                   </Button>
                   <Button
                     variant="outline"
                     onClick={() => toggleFavorite(selectedVenue.id)}
                   >
-                    <HeartIcon className={cn(
-                      "size-4 mr-2",
-                      selectedVenue.isFavorite ? "fill-red-500 text-red-500" : "text-gray-600"
-                    )} />
+                    <HeartIcon
+                      className={cn(
+                        'size-4 mr-2',
+                        selectedVenue.isFavorite
+                          ? 'fill-red-500 text-red-500'
+                          : 'text-gray-600',
+                      )}
+                    />
                     {selectedVenue.isFavorite ? 'Favoris' : 'Ajouter'}
                   </Button>
                 </div>
@@ -913,15 +1067,19 @@ function VenuePageContent() {
 // Composant principal avec Error Boundary
 export default function VenuePage() {
   console.log('🏛️ VenuePage component mounting...');
-  
+
   return (
     <ErrorBoundary
       FallbackComponent={ErrorFallback}
       onError={(error, errorInfo) => {
-        console.error('❌ VenuePage Error Boundary caught an error:', error, errorInfo);
+        console.error(
+          '❌ VenuePage Error Boundary caught an error:',
+          error,
+          errorInfo,
+        );
       }}
     >
       <VenuePageContent />
     </ErrorBoundary>
   );
-} 
+}

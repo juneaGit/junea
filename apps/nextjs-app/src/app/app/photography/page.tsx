@@ -21,7 +21,10 @@ import {
   EyeIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
+import {
+  StarIcon as StarSolidIcon,
+  HeartIcon as HeartSolidIcon,
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -39,7 +42,13 @@ interface Photo {
   id: string;
   url: string;
   title: string;
-  category: 'cérémonie' | 'cocktail' | 'reception' | 'couple' | 'portrait' | 'détails';
+  category:
+    | 'cérémonie'
+    | 'cocktail'
+    | 'reception'
+    | 'couple'
+    | 'portrait'
+    | 'détails';
   isVideo?: boolean;
 }
 
@@ -96,12 +105,17 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
     reviewCount: 127,
     profileImage: '/api/placeholder/150/150',
     coverImage: '/api/placeholder/800/400',
-    bio: 'Photographe de mariage passionnée avec 8 ans d\'expérience. Je capture les moments authentiques et les émotions vraies de votre jour J avec un style romantique et intemporel.',
+    bio: "Photographe de mariage passionnée avec 8 ans d'expérience. Je capture les moments authentiques et les émotions vraies de votre jour J avec un style romantique et intemporel.",
     style: ['Romantique', 'Naturel', 'Classique', 'Lifestyle'],
     experience: 8,
     languages: ['Français', 'Anglais', 'Espagnol'],
-    equipment: ['Canon R5', 'Objectifs professionnels', 'Éclairage portable', 'Drone certifié'],
-    awards: ['Wedding Awards 2023', 'Photographe de l\'année 2022'],
+    equipment: [
+      'Canon R5',
+      'Objectifs professionnels',
+      'Éclairage portable',
+      'Drone certifié',
+    ],
+    awards: ['Wedding Awards 2023', "Photographe de l'année 2022"],
     availability: true,
     isFavorite: false,
     priceRange: { min: 1200, max: 2500 },
@@ -109,7 +123,7 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
       phone: '+33 6 12 34 56 78',
       email: 'sophie@martinez-photo.fr',
       website: 'www.martinez-photo.fr',
-      instagram: '@sophie_martinez_photo'
+      instagram: '@sophie_martinez_photo',
     },
     portfolio: [
       {
@@ -136,10 +150,17 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
       {
         id: 'p1',
         name: 'Essentiel',
-        description: 'Couverture complète de votre mariage avec les moments essentiels',
+        description:
+          'Couverture complète de votre mariage avec les moments essentiels',
         price: 1200,
         duration: '8 heures',
-        includes: ['Cérémonie complète', 'Cocktail', 'Début de soirée', '300+ photos retouchées', 'Galerie en ligne'],
+        includes: [
+          'Cérémonie complète',
+          'Cocktail',
+          'Début de soirée',
+          '300+ photos retouchées',
+          'Galerie en ligne',
+        ],
         deliveryTime: '4 semaines',
         photos: 300,
       },
@@ -149,7 +170,15 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
         description: 'Couverture étendue avec préparatifs et soirée complète',
         price: 1800,
         duration: '12 heures',
-        includes: ['Préparatifs', 'Cérémonie complète', 'Cocktail', 'Soirée complète', '500+ photos retouchées', 'Album photo', 'Galerie privée'],
+        includes: [
+          'Préparatifs',
+          'Cérémonie complète',
+          'Cocktail',
+          'Soirée complète',
+          '500+ photos retouchées',
+          'Album photo',
+          'Galerie privée',
+        ],
         deliveryTime: '3 semaines',
         photos: 500,
         popular: true,
@@ -160,12 +189,20 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
         description: 'Expérience complète avec séance engagement et vidéo',
         price: 2500,
         duration: '14 heures + séance',
-        includes: ['Séance engagement', 'Préparatifs', 'Journée complète', '800+ photos', 'Film de mariage', 'Albums premium', 'Tirages encadrés'],
+        includes: [
+          'Séance engagement',
+          'Préparatifs',
+          'Journée complète',
+          '800+ photos',
+          'Film de mariage',
+          'Albums premium',
+          'Tirages encadrés',
+        ],
         deliveryTime: '6 semaines',
         photos: 800,
         videos: 1,
-      }
-    ]
+      },
+    ],
   },
   {
     id: '2',
@@ -173,9 +210,11 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
     location: 'Lyon, France',
     rating: 4.7,
     reviewCount: 94,
-    profileImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
-    coverImage: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=400&fit=crop',
-    bio: 'Photographe documentaire spécialisé dans les mariages intimistes. Mon approche discrète permet de capturer l\'authenticité de chaque moment.',
+    profileImage:
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face',
+    coverImage:
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&h=400&fit=crop',
+    bio: "Photographe documentaire spécialisé dans les mariages intimistes. Mon approche discrète permet de capturer l'authenticité de chaque moment.",
     style: ['Documentaire', 'Vintage', 'Artistique', 'Noir et blanc'],
     experience: 6,
     languages: ['Français', 'Anglais'],
@@ -187,7 +226,7 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
     contact: {
       phone: '+33 6 98 76 54 32',
       email: 'lucas@dubois-photo.fr',
-      website: 'www.dubois-photo.fr'
+      website: 'www.dubois-photo.fr',
     },
     portfolio: [],
     packages: [
@@ -197,11 +236,16 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
         description: 'Pour les mariages de moins de 50 invités',
         price: 900,
         duration: '6 heures',
-        includes: ['Cérémonie', 'Cocktail', '200+ photos', 'Retouche artistique'],
+        includes: [
+          'Cérémonie',
+          'Cocktail',
+          '200+ photos',
+          'Retouche artistique',
+        ],
         deliveryTime: '3 semaines',
         photos: 200,
       },
-    ]
+    ],
   },
   {
     id: '3',
@@ -209,9 +253,11 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
     location: 'Nice, France',
     rating: 4.8,
     reviewCount: 156,
-    profileImage: 'https://images.unsplash.com/photo-1494790108755-2616b612b647?w=150&h=150&fit=crop&crop=face',
-    coverImage: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&h=400&fit=crop',
-    bio: 'Photographe de mode reconvertie dans le mariage. J\'apporte une touche fashion et moderne à vos photos de mariage avec un style unique.',
+    profileImage:
+      'https://images.unsplash.com/photo-1494790108755-2616b612b647?w=150&h=150&fit=crop&crop=face',
+    coverImage:
+      'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=800&h=400&fit=crop',
+    bio: "Photographe de mode reconvertie dans le mariage. J'apporte une touche fashion et moderne à vos photos de mariage avec un style unique.",
     style: ['Fashion', 'Moderne', 'Coloré', 'Editorial'],
     experience: 5,
     languages: ['Français', 'Anglais', 'Mandarin'],
@@ -223,11 +269,11 @@ const DEMO_PHOTOGRAPHERS: Photographer[] = [
     contact: {
       email: 'emma@chen-photography.com',
       website: 'www.chen-photography.com',
-      instagram: '@emma_chen_photo'
+      instagram: '@emma_chen_photo',
     },
     portfolio: [],
-    packages: []
-  }
+    packages: [],
+  },
 ];
 
 const PHOTOGRAPHY_STYLES = [
@@ -245,8 +291,10 @@ export default function PhotographyPage() {
   const { data: profile } = useWeddingProfile();
   const { generateRecommendations, loading: aiLoading } = useAI();
 
-  const [photographers, setPhotographers] = useState<Photographer[]>(DEMO_PHOTOGRAPHERS);
-  const [selectedPhotographer, setSelectedPhotographer] = useState<Photographer | null>(null);
+  const [photographers, setPhotographers] =
+    useState<Photographer[]>(DEMO_PHOTOGRAPHERS);
+  const [selectedPhotographer, setSelectedPhotographer] =
+    useState<Photographer | null>(null);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -261,11 +309,13 @@ export default function PhotographyPage() {
   });
 
   const toggleFavorite = (photographerId: string) => {
-    setPhotographers(prev => prev.map(photographer => 
-      photographer.id === photographerId 
-        ? { ...photographer, isFavorite: !photographer.isFavorite }
-        : photographer
-    ));
+    setPhotographers((prev) =>
+      prev.map((photographer) =>
+        photographer.id === photographerId
+          ? { ...photographer, isFavorite: !photographer.isFavorite }
+          : photographer,
+      ),
+    );
   };
 
   const generateAIRecommendations = async () => {
@@ -273,7 +323,7 @@ export default function PhotographyPage() {
       const recommendations = await generateRecommendations(
         user,
         profile,
-'venue'
+        'venue',
       );
       console.log('Recommandations IA pour les photographes:', recommendations);
     } catch (error) {
@@ -281,22 +331,40 @@ export default function PhotographyPage() {
     }
   };
 
-  const filteredPhotographers = photographers.filter(photographer => {
-    const matchesSearch = photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         photographer.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         photographer.style.some(style => style.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesStyle = filters.style === 'all' || 
-                        photographer.style.some(style => style.toLowerCase().includes(filters.style));
-    const matchesPrice = photographer.priceRange.min >= filters.priceRange[0] && 
-                        photographer.priceRange.max <= filters.priceRange[1];
+  const filteredPhotographers = photographers.filter((photographer) => {
+    const matchesSearch =
+      photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      photographer.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      photographer.style.some((style) =>
+        style.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    const matchesStyle =
+      filters.style === 'all' ||
+      photographer.style.some((style) =>
+        style.toLowerCase().includes(filters.style),
+      );
+    const matchesPrice =
+      photographer.priceRange.min >= filters.priceRange[0] &&
+      photographer.priceRange.max <= filters.priceRange[1];
     const matchesExperience = photographer.experience >= filters.experience;
     const matchesRating = photographer.rating >= filters.rating;
-    const matchesAvailability = !filters.availability || photographer.availability;
-    const matchesLocation = !filters.location || 
-                           photographer.location.toLowerCase().includes(filters.location.toLowerCase());
+    const matchesAvailability =
+      !filters.availability || photographer.availability;
+    const matchesLocation =
+      !filters.location ||
+      photographer.location
+        .toLowerCase()
+        .includes(filters.location.toLowerCase());
 
-    return matchesSearch && matchesStyle && matchesPrice && matchesExperience && 
-           matchesRating && matchesAvailability && matchesLocation;
+    return (
+      matchesSearch &&
+      matchesStyle &&
+      matchesPrice &&
+      matchesExperience &&
+      matchesRating &&
+      matchesAvailability &&
+      matchesLocation
+    );
   });
 
   return (
@@ -316,7 +384,9 @@ export default function PhotographyPage() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setActiveView(activeView === 'grid' ? 'portfolio' : 'grid')}
+            onClick={() =>
+              setActiveView(activeView === 'grid' ? 'portfolio' : 'grid')
+            }
           >
             <EyeIcon className="size-4 mr-2" />
             {activeView === 'grid' ? 'Vue Portfolio' : 'Vue Grille'}
@@ -354,9 +424,13 @@ export default function PhotographyPage() {
               {PHOTOGRAPHY_STYLES.map((style) => (
                 <Button
                   key={style.value}
-                  variant={filters.style === style.value ? "default" : "outline"}
+                  variant={
+                    filters.style === style.value ? 'default' : 'outline'
+                  }
                   size="sm"
-                  onClick={() => setFilters(prev => ({ ...prev, style: style.value }))}
+                  onClick={() =>
+                    setFilters((prev) => ({ ...prev, style: style.value }))
+                  }
                   className="whitespace-nowrap"
                 >
                   <span className="mr-2">{style.icon}</span>
@@ -395,10 +469,15 @@ export default function PhotographyPage() {
                         type="number"
                         placeholder="Min"
                         value={filters.priceRange[0]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [Number(e.target.value), prev.priceRange[1]]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              Number(e.target.value),
+                              prev.priceRange[1],
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
@@ -406,10 +485,15 @@ export default function PhotographyPage() {
                         type="number"
                         placeholder="Max"
                         value={filters.priceRange[1]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [prev.priceRange[0], Number(e.target.value)]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              prev.priceRange[0],
+                              Number(e.target.value),
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
@@ -421,7 +505,12 @@ export default function PhotographyPage() {
                     </label>
                     <select
                       value={filters.experience}
-                      onChange={(e) => setFilters(prev => ({ ...prev, experience: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          experience: Number(e.target.value),
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toute expérience</option>
@@ -437,7 +526,12 @@ export default function PhotographyPage() {
                     </label>
                     <select
                       value={filters.rating}
-                      onChange={(e) => setFilters(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          rating: Number(e.target.value),
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
@@ -455,7 +549,12 @@ export default function PhotographyPage() {
                       type="text"
                       placeholder="Ville, région..."
                       value={filters.location}
-                      onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          location: e.target.value,
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     />
                   </div>
@@ -466,10 +565,18 @@ export default function PhotographyPage() {
                     type="checkbox"
                     id="availability"
                     checked={filters.availability}
-                    onChange={(e) => setFilters(prev => ({ ...prev, availability: e.target.checked }))}
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        availability: e.target.checked,
+                      }))
+                    }
                     className="mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                   />
-                  <label htmlFor="availability" className="text-sm text-gray-700">
+                  <label
+                    htmlFor="availability"
+                    className="text-sm text-gray-700"
+                  >
                     Disponible uniquement
                   </label>
                 </div>
@@ -482,7 +589,9 @@ export default function PhotographyPage() {
       {/* Résultats */}
       <div className="flex items-center justify-between">
         <p className="text-gray-600">
-          {filteredPhotographers.length} photographe{filteredPhotographers.length > 1 ? 's' : ''} trouvé{filteredPhotographers.length > 1 ? 's' : ''}
+          {filteredPhotographers.length} photographe
+          {filteredPhotographers.length > 1 ? 's' : ''} trouvé
+          {filteredPhotographers.length > 1 ? 's' : ''}
         </p>
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600">Trier par :</span>
@@ -565,7 +674,9 @@ export default function PhotographyPage() {
                     <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
                       {photographer.name}
                     </h3>
-                    <p className="text-sm text-gray-600">{photographer.location}</p>
+                    <p className="text-sm text-gray-600">
+                      {photographer.location}
+                    </p>
                     <p className="text-xs text-gray-500 mt-1">
                       {photographer.experience} ans d'expérience
                     </p>
@@ -573,9 +684,13 @@ export default function PhotographyPage() {
                   <div className="text-right">
                     <div className="flex items-center gap-1">
                       <StarSolidIcon className="size-4 text-yellow-400" />
-                      <span className="font-medium text-sm">{photographer.rating}</span>
+                      <span className="font-medium text-sm">
+                        {photographer.rating}
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-600">({photographer.reviewCount})</p>
+                    <p className="text-xs text-gray-600">
+                      ({photographer.reviewCount})
+                    </p>
                   </div>
                 </div>
 
@@ -606,7 +721,8 @@ export default function PhotographyPage() {
                     {photographer.priceRange.min}-{photographer.priceRange.max}€
                   </div>
                   <div className="text-sm text-gray-600">
-                    {photographer.packages.length} forfait{photographer.packages.length > 1 ? 's' : ''}
+                    {photographer.packages.length} forfait
+                    {photographer.packages.length > 1 ? 's' : ''}
                   </div>
                 </div>
 
@@ -662,7 +778,7 @@ export default function PhotographyPage() {
                 >
                   <XMarkIcon className="size-5" />
                 </button>
-                
+
                 {/* Profile info overlay */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                   <div className="flex items-end gap-4">
@@ -676,16 +792,26 @@ export default function PhotographyPage() {
                       />
                     </div>
                     <div className="text-white">
-                      <h2 className="text-2xl font-bold">{selectedPhotographer.name}</h2>
-                      <p className="text-gray-200">{selectedPhotographer.location}</p>
+                      <h2 className="text-2xl font-bold">
+                        {selectedPhotographer.name}
+                      </h2>
+                      <p className="text-gray-200">
+                        {selectedPhotographer.location}
+                      </p>
                       <div className="flex items-center gap-4 mt-2">
                         <div className="flex items-center gap-1">
                           <StarSolidIcon className="size-4 text-yellow-400" />
-                          <span className="font-medium">{selectedPhotographer.rating}</span>
-                          <span className="text-gray-300">({selectedPhotographer.reviewCount})</span>
+                          <span className="font-medium">
+                            {selectedPhotographer.rating}
+                          </span>
+                          <span className="text-gray-300">
+                            ({selectedPhotographer.reviewCount})
+                          </span>
                         </div>
                         <span className="text-gray-300">•</span>
-                        <span className="text-gray-200">{selectedPhotographer.experience} ans</span>
+                        <span className="text-gray-200">
+                          {selectedPhotographer.experience} ans
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -698,41 +824,49 @@ export default function PhotographyPage() {
                   <div className="lg:col-span-2 space-y-6">
                     {/* Bio */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">À propos</h3>
-                      <p className="text-gray-700">{selectedPhotographer.bio}</p>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        À propos
+                      </h3>
+                      <p className="text-gray-700">
+                        {selectedPhotographer.bio}
+                      </p>
                     </div>
 
                     {/* Portfolio */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-4">Portfolio</h3>
+                      <h3 className="font-semibold text-gray-900 mb-4">
+                        Portfolio
+                      </h3>
                       {selectedPhotographer.portfolio.length > 0 ? (
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                          {selectedPhotographer.portfolio.slice(0, 6).map((photo) => (
-                            <div
-                              key={photo.id}
-                              className="aspect-square relative cursor-pointer group overflow-hidden rounded-lg"
-                              onClick={() => setSelectedPhoto(photo)}
-                            >
-                              <Image
-                                src={photo.url}
-                                alt={photo.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                              />
-                              {photo.isVideo && (
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                  <PlayIcon className="size-12 text-white drop-shadow-lg" />
-                                </div>
-                              )}
-                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity">
-                                <div className="absolute bottom-2 left-2 right-2">
-                                  <p className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                                    {photo.title}
-                                  </p>
+                          {selectedPhotographer.portfolio
+                            .slice(0, 6)
+                            .map((photo) => (
+                              <div
+                                key={photo.id}
+                                className="aspect-square relative cursor-pointer group overflow-hidden rounded-lg"
+                                onClick={() => setSelectedPhoto(photo)}
+                              >
+                                <Image
+                                  src={photo.url}
+                                  alt={photo.title}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                />
+                                {photo.isVideo && (
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                    <PlayIcon className="size-12 text-white drop-shadow-lg" />
+                                  </div>
+                                )}
+                                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity">
+                                  <div className="absolute bottom-2 left-2 right-2">
+                                    <p className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                                      {photo.title}
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
                         </div>
                       ) : (
                         <div className="text-center py-8 text-gray-500">
@@ -753,18 +887,33 @@ export default function PhotographyPage() {
                       <CardContent className="space-y-4">
                         <div className="text-center">
                           <div className="text-2xl font-bold text-pink-600">
-                            {selectedPhotographer.priceRange.min}€ - {selectedPhotographer.priceRange.max}€
+                            {selectedPhotographer.priceRange.min}€ -{' '}
+                            {selectedPhotographer.priceRange.max}€
                           </div>
-                          <div className="text-sm text-gray-600">selon le forfait</div>
+                          <div className="text-sm text-gray-600">
+                            selon le forfait
+                          </div>
                         </div>
 
                         <div className="flex items-center justify-center gap-2 text-sm">
-                          <div className={cn(
-                            "w-3 h-3 rounded-full",
-                            selectedPhotographer.availability ? "bg-green-400" : "bg-red-400"
-                          )} />
-                          <span className={selectedPhotographer.availability ? "text-green-700" : "text-red-700"}>
-                            {selectedPhotographer.availability ? "Disponible" : "Complet"}
+                          <div
+                            className={cn(
+                              'w-3 h-3 rounded-full',
+                              selectedPhotographer.availability
+                                ? 'bg-green-400'
+                                : 'bg-red-400',
+                            )}
+                          />
+                          <span
+                            className={
+                              selectedPhotographer.availability
+                                ? 'text-green-700'
+                                : 'text-red-700'
+                            }
+                          >
+                            {selectedPhotographer.availability
+                              ? 'Disponible'
+                              : 'Complet'}
                           </span>
                         </div>
 
@@ -776,14 +925,18 @@ export default function PhotographyPage() {
                           <Button
                             variant="outline"
                             className="w-full"
-                            onClick={() => toggleFavorite(selectedPhotographer.id)}
+                            onClick={() =>
+                              toggleFavorite(selectedPhotographer.id)
+                            }
                           >
                             {selectedPhotographer.isFavorite ? (
                               <HeartSolidIcon className="size-4 mr-2 text-red-500" />
                             ) : (
                               <HeartIcon className="size-4 mr-2" />
                             )}
-                            {selectedPhotographer.isFavorite ? 'Retirer favoris' : 'Ajouter favoris'}
+                            {selectedPhotographer.isFavorite
+                              ? 'Retirer favoris'
+                              : 'Ajouter favoris'}
                           </Button>
                         </div>
                       </CardContent>
@@ -796,24 +949,39 @@ export default function PhotographyPage() {
                       </CardHeader>
                       <CardContent className="space-y-4">
                         {selectedPhotographer.packages.map((pkg) => (
-                          <div key={pkg.id} className={cn(
-                            "p-4 border rounded-lg cursor-pointer transition-colors",
-                            pkg.popular ? "border-pink-300 bg-pink-50" : "border-gray-200 hover:border-pink-200"
-                          )}>
+                          <div
+                            key={pkg.id}
+                            className={cn(
+                              'p-4 border rounded-lg cursor-pointer transition-colors',
+                              pkg.popular
+                                ? 'border-pink-300 bg-pink-50'
+                                : 'border-gray-200 hover:border-pink-200',
+                            )}
+                          >
                             <div className="flex items-start justify-between mb-2">
                               <div>
                                 <h4 className="font-medium flex items-center gap-2">
                                   {pkg.name}
-                                  {pkg.popular && <span className="text-xs bg-pink-600 text-white px-2 py-1 rounded-full">Populaire</span>}
+                                  {pkg.popular && (
+                                    <span className="text-xs bg-pink-600 text-white px-2 py-1 rounded-full">
+                                      Populaire
+                                    </span>
+                                  )}
                                 </h4>
-                                <p className="text-sm text-gray-600">{pkg.description}</p>
+                                <p className="text-sm text-gray-600">
+                                  {pkg.description}
+                                </p>
                               </div>
                               <div className="text-right">
-                                <div className="font-bold text-pink-600">{pkg.price}€</div>
-                                <div className="text-xs text-gray-600">{pkg.duration}</div>
+                                <div className="font-bold text-pink-600">
+                                  {pkg.price}€
+                                </div>
+                                <div className="text-xs text-gray-600">
+                                  {pkg.duration}
+                                </div>
                               </div>
                             </div>
-                            
+
                             <div className="text-xs text-gray-600 space-y-1">
                               <div className="flex items-center gap-2">
                                 <PhotoIcon className="size-3" />
@@ -893,7 +1061,10 @@ export default function PhotographyPage() {
                         <CardContent>
                           <div className="space-y-2">
                             {selectedPhotographer.awards.map((award, index) => (
-                              <div key={index} className="flex items-center gap-2 text-sm">
+                              <div
+                                key={index}
+                                className="flex items-center gap-2 text-sm"
+                              >
                                 <span className="text-yellow-500">🏆</span>
                                 <span>{award}</span>
                               </div>
@@ -944,7 +1115,9 @@ export default function PhotographyPage() {
               </div>
               <div className="mt-4 text-center text-white">
                 <h3 className="text-lg font-medium">{selectedPhoto.title}</h3>
-                <p className="text-gray-300 capitalize">{selectedPhoto.category}</p>
+                <p className="text-gray-300 capitalize">
+                  {selectedPhoto.category}
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -952,4 +1125,4 @@ export default function PhotographyPage() {
       </AnimatePresence>
     </div>
   );
-} 
+}

@@ -18,8 +18,8 @@ const NotFoundPage = () => {
           Page introuvable
         </h1>
         <p className="text-gray-600 mb-8">
-          Oups ! Cette page n'existe pas ou a été déplacée. 
-          Retournons à la planification de votre mariage de rêve !
+          Oups ! Cette page n'existe pas ou a été déplacée. Retournons à la
+          planification de votre mariage de rêve !
         </p>
 
         {/* Actions */}

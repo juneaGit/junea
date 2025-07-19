@@ -13,7 +13,7 @@ export function useAI() {
       try {
         const available = await aiService.isAvailable();
         setIsAIAvailable(available);
-        
+
         if (!available) {
           const initError = aiService.getInitError();
           console.warn('🤖 IA indisponible:', initError);
@@ -33,7 +33,12 @@ export function useAI() {
     async (
       userProfile: any,
       weddingProfile: any,
-      type: 'initial' | 'venue' | 'catering' | 'photography' | 'music' = 'initial',
+      type:
+        | 'initial'
+        | 'venue'
+        | 'catering'
+        | 'photography'
+        | 'music' = 'initial',
     ): Promise<AIRecommendation[]> => {
       console.log(`🤖 Génération recommandations IA type: ${type}`);
       setLoading(true);
@@ -44,7 +49,9 @@ export function useAI() {
 
         // Vérifier que les profils existent
         if (!userProfile || !weddingProfile) {
-          console.warn('⚠️ Profils manquants, utilisation des recommandations par défaut');
+          console.warn(
+            '⚠️ Profils manquants, utilisation des recommandations par défaut',
+          );
           // Créer des profils par défaut
           const defaultWeddingProfile = {
             wedding_type: 'romantique' as const,
@@ -55,9 +62,9 @@ export function useAI() {
             meal_format: 'repas-assis',
             dietary_restrictions: [],
             couple_name: 'Les futurs mariés',
-            ...weddingProfile
+            ...weddingProfile,
           };
-          
+
           weddingProfile = defaultWeddingProfile;
         }
 
@@ -75,10 +82,11 @@ export function useAI() {
             );
             break;
           case 'photography':
-            recommendations = await aiService.generatePhotographyRecommendations(
-              userProfile,
-              weddingProfile,
-            );
+            recommendations =
+              await aiService.generatePhotographyRecommendations(
+                userProfile,
+                weddingProfile,
+              );
             break;
           case 'music':
             recommendations = await aiService.generateMusicRecommendations(
@@ -100,7 +108,7 @@ export function useAI() {
           err instanceof Error
             ? err.message
             : 'Erreur lors de la génération des recommandations';
-        
+
         console.error('❌ Erreur génération recommandations:', errorMessage);
         setError(errorMessage);
 
@@ -114,16 +122,16 @@ export function useAI() {
   );
 
   const generateBudgetInsights = useCallback(
-    async (
-      userProfile: any,
-      weddingProfile: any,
-    ): Promise<AIInsight[]> => {
+    async (userProfile: any, weddingProfile: any): Promise<AIInsight[]> => {
       console.log('💡 Génération insights budget');
       setLoading(true);
       setError(null);
 
       try {
-        const insights = await aiService.generateBudgetInsights(userProfile, weddingProfile);
+        const insights = await aiService.generateBudgetInsights(
+          userProfile,
+          weddingProfile,
+        );
         console.log(`✅ Insights générés: ${insights.length}`);
         return insights;
       } catch (err) {
@@ -131,7 +139,7 @@ export function useAI() {
           err instanceof Error
             ? err.message
             : 'Erreur lors de la génération des insights';
-            
+
         console.error('❌ Erreur génération insights:', errorMessage);
         setError(errorMessage);
 
@@ -139,13 +147,15 @@ export function useAI() {
         return [
           {
             category: 'Budget',
-            insight: 'Répartissez 40% du budget pour le lieu, 30% pour le traiteur, 15% pour la photographie, et 15% pour le reste.',
+            insight:
+              'Répartissez 40% du budget pour le lieu, 30% pour le traiteur, 15% pour la photographie, et 15% pour le reste.',
             actionable: true,
             savings: '10-15%',
           },
           {
             category: 'Négociation',
-            insight: 'Négociez les tarifs en réservant plusieurs prestataires chez le même fournisseur.',
+            insight:
+              'Négociez les tarifs en réservant plusieurs prestataires chez le même fournisseur.',
             actionable: true,
             savings: '5-10%',
           },
@@ -158,22 +168,22 @@ export function useAI() {
   );
 
   const generateSeatingPlan = useCallback(
-    async (
-      guests: any[],
-      weddingProfile: any,
-    ): Promise<any> => {
+    async (guests: any[], weddingProfile: any): Promise<any> => {
       console.log('🪑 Génération plan de table');
       setLoading(true);
       setError(null);
 
       try {
-        const plan = await aiService.generateSeatingPlan(guests, weddingProfile);
+        const plan = await aiService.generateSeatingPlan(
+          guests,
+          weddingProfile,
+        );
         console.log('✅ Plan de table généré');
         return plan;
       } catch (err) {
         console.error('❌ Erreur génération plan de table:', err);
         setError('Erreur lors de la génération du plan de table');
-        
+
         // Fallback simple
         return {
           tables: [],
@@ -194,14 +204,14 @@ export function useAI() {
   const testAIConnection = useCallback(async (): Promise<boolean> => {
     console.log('🧪 Test connexion OpenAI...');
     setLoading(true);
-    
+
     try {
       const isAvailable = await aiService.isAvailable();
       setIsAIAvailable(isAvailable);
-      
+
       if (isAvailable) {
         console.log('✅ OpenAI connecté avec succès');
-        
+
         // Test avec une recommandation simple
         const testWeddingProfile = {
           id: 'test-wedding',
@@ -220,10 +230,13 @@ export function useAI() {
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         };
-        
-        const testRec = await aiService.generateInitialRecommendations(testUserProfile, testWeddingProfile);
+
+        const testRec = await aiService.generateInitialRecommendations(
+          testUserProfile,
+          testWeddingProfile,
+        );
         console.log('🎯 Test recommandation:', testRec.length, 'résultats');
-        
+
         return true;
       } else {
         const initError = aiService.getInitError();
@@ -246,16 +259,16 @@ export function useAI() {
     loading,
     error,
     isAIAvailable,
-    
+
     // Fonctions principales
     generateRecommendations,
     generateBudgetInsights,
     generateSeatingPlan,
-    
+
     // Utilitaires
     testAIConnection,
     clearError: () => setError(null),
-    
+
     // Informations sur l'IA
     getAIStatus: () => ({
       available: isAIAvailable,
@@ -268,9 +281,12 @@ export function useAI() {
 /**
  * Recommandations de fallback selon le type
  */
-function getFallbackRecommendations(type: string, weddingProfile?: any): AIRecommendation[] {
+function getFallbackRecommendations(
+  type: string,
+  weddingProfile?: any,
+): AIRecommendation[] {
   const baseId = `fallback_${type}_${Date.now()}`;
-  
+
   switch (type) {
     case 'venue':
       return [
@@ -356,7 +372,8 @@ function getFallbackRecommendations(type: string, weddingProfile?: any): AIRecom
           id: `${baseId}_2`,
           type: 'general',
           title: 'Réserver vos prestataires',
-          description: 'Commencez par le lieu, puis le traiteur et le photographe',
+          description:
+            'Commencez par le lieu, puis le traiteur et le photographe',
           priority: 'high',
           tags: ['réservation', 'priorité'],
         },
@@ -364,7 +381,7 @@ function getFallbackRecommendations(type: string, weddingProfile?: any): AIRecom
           id: `${baseId}_3`,
           type: 'general',
           title: 'Timeline de préparation',
-          description: 'Débutez les préparatifs 12-18 mois à l\'avance',
+          description: "Débutez les préparatifs 12-18 mois à l'avance",
           priority: 'medium',
           tags: ['timeline', 'préparation'],
         },

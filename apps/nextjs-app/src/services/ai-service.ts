@@ -43,9 +43,10 @@ export class AIService {
     try {
       // Vérifier la clé API
       const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-      
+
       if (!apiKey || apiKey.trim() === '') {
-        this.initError = 'Clé API OpenAI manquante dans les variables d\'environnement';
+        this.initError =
+          "Clé API OpenAI manquante dans les variables d'environnement";
         console.warn('⚠️ OpenAI désactivé:', this.initError);
         this.isInitialized = true;
         return null;
@@ -69,7 +70,7 @@ export class AIService {
       console.log('🤖 OpenAI initialisé avec succès');
       this.isInitialized = true;
       this.initError = null;
-      
+
       return this.openai;
     } catch (error) {
       this.initError = `Erreur initialisation OpenAI: ${error instanceof Error ? error.message : 'Erreur inconnue'}`;
@@ -114,23 +115,29 @@ Profil utilisateur:
   /**
    * Génère des recommandations avec fallback
    */
-  private async callOpenAI(prompt: string, fallbackData: AIRecommendation[]): Promise<AIRecommendation[]> {
+  private async callOpenAI(
+    prompt: string,
+    fallbackData: AIRecommendation[],
+  ): Promise<AIRecommendation[]> {
     try {
       const client = await this.initializeOpenAI();
-      
+
       if (!client) {
-        console.log('🔄 Utilisation des données de fallback (OpenAI indisponible)');
+        console.log(
+          '🔄 Utilisation des données de fallback (OpenAI indisponible)',
+        );
         return fallbackData;
       }
 
       console.log('🤖 Appel OpenAI en cours...');
-      
+
       const response = await client.chat.completions.create({
         model: 'gpt-3.5-turbo',
         messages: [
           {
             role: 'system',
-            content: 'Tu es un expert en organisation de mariages en France. Génère des recommandations personnalisées en JSON avec les champs: id, type, title, description, estimatedCost, priority, tags.',
+            content:
+              'Tu es un expert en organisation de mariages en France. Génère des recommandations personnalisées en JSON avec les champs: id, type, title, description, estimatedCost, priority, tags.',
           },
           {
             role: 'user',
@@ -143,19 +150,23 @@ Profil utilisateur:
 
       const content = response.choices[0]?.message?.content;
       if (!content) {
-        throw new Error('Réponse vide d\'OpenAI');
+        throw new Error("Réponse vide d'OpenAI");
       }
 
       // Essayer de parser la réponse JSON
       try {
         const parsedRecommendations = JSON.parse(content);
-        console.log('✅ Recommandations OpenAI générées:', parsedRecommendations.length);
-        return Array.isArray(parsedRecommendations) ? parsedRecommendations : fallbackData;
+        console.log(
+          '✅ Recommandations OpenAI générées:',
+          parsedRecommendations.length,
+        );
+        return Array.isArray(parsedRecommendations)
+          ? parsedRecommendations
+          : fallbackData;
       } catch (parseError) {
         console.warn('⚠️ Erreur parsing JSON OpenAI, utilisation du fallback');
         return fallbackData;
       }
-
     } catch (error) {
       console.error('❌ Erreur appel OpenAI:', error);
       console.log('🔄 Utilisation des données de fallback');
@@ -186,7 +197,8 @@ Génère 5 recommandations initiales pour ce mariage en JSON. Inclus des suggest
         id: 'init-2',
         type: 'catering',
         title: 'Menu gastronomique français',
-        description: 'Optez pour un traiteur spécialisé dans la haute cuisine française',
+        description:
+          'Optez pour un traiteur spécialisé dans la haute cuisine française',
         estimatedCost: '80-150€ par personne',
         priority: 'high',
         tags: ['gastronomie', 'français', 'raffiné'],
@@ -195,7 +207,8 @@ Génère 5 recommandations initiales pour ce mariage en JSON. Inclus des suggest
         id: 'init-3',
         type: 'photography',
         title: 'Photographe style documentaire',
-        description: 'Un photographe spécialisé dans les mariages naturels et authentiques',
+        description:
+          'Un photographe spécialisé dans les mariages naturels et authentiques',
         estimatedCost: '1500-3000€',
         priority: 'medium',
         tags: ['documentaire', 'naturel', 'authentique'],
@@ -219,7 +232,8 @@ Génère 3-4 recommandations de lieux de réception en JSON pour ce mariage spé
         id: 'venue-1',
         type: 'venue',
         title: 'Château de Chantilly',
-        description: 'Château historique avec jardins exceptionnels, parfait pour un mariage princier',
+        description:
+          'Château historique avec jardins exceptionnels, parfait pour un mariage princier',
         estimatedCost: '200-350€ par personne',
         priority: 'high',
         tags: ['château', 'historique', 'jardins', 'prestige'],
@@ -228,7 +242,8 @@ Génère 3-4 recommandations de lieux de réception en JSON pour ce mariage spé
         id: 'venue-2',
         type: 'venue',
         title: 'Domaine viticole en Bourgogne',
-        description: 'Authentique domaine avec cave à vin et vue sur les vignes',
+        description:
+          'Authentique domaine avec cave à vin et vue sur les vignes',
         estimatedCost: '120-200€ par personne',
         priority: 'medium',
         tags: ['domaine', 'vin', 'authentique', 'vignes'],
@@ -237,7 +252,7 @@ Génère 3-4 recommandations de lieux de réception en JSON pour ce mariage spé
         id: 'venue-3',
         type: 'venue',
         title: 'Villa méditerranéenne',
-        description: 'Villa avec piscine et vue mer sur la Côte d\'Azur',
+        description: "Villa avec piscine et vue mer sur la Côte d'Azur",
         estimatedCost: '180-300€ par personne',
         priority: 'medium',
         tags: ['villa', 'mer', 'piscine', 'méditerranée'],
@@ -261,7 +276,8 @@ Génère 3-4 recommandations de traiteurs et menus en JSON pour ce mariage, en t
         id: 'catering-1',
         type: 'catering',
         title: 'Menu gastronomique français',
-        description: 'Cuisine raffinée avec produits locaux et de saison, service à l\'assiette',
+        description:
+          "Cuisine raffinée avec produits locaux et de saison, service à l'assiette",
         estimatedCost: '95-140€ par personne',
         priority: 'high',
         tags: ['gastronomique', 'français', 'local', 'raffiné'],
@@ -270,7 +286,8 @@ Génère 3-4 recommandations de traiteurs et menus en JSON pour ce mariage, en t
         id: 'catering-2',
         type: 'catering',
         title: 'Buffet multiculturel',
-        description: 'Sélection de plats du monde avec options végétariennes et halal',
+        description:
+          'Sélection de plats du monde avec options végétariennes et halal',
         estimatedCost: '60-85€ par personne',
         priority: 'medium',
         tags: ['multiculturel', 'buffet', 'végétarien', 'halal'],
@@ -279,7 +296,8 @@ Génère 3-4 recommandations de traiteurs et menus en JSON pour ce mariage, en t
         id: 'catering-3',
         type: 'catering',
         title: 'Chef à domicile bio',
-        description: 'Chef spécialisé dans la cuisine bio et locale avec zéro déchet',
+        description:
+          'Chef spécialisé dans la cuisine bio et locale avec zéro déchet',
         estimatedCost: '80-120€ par personne',
         priority: 'medium',
         tags: ['bio', 'local', 'chef', 'écologique'],
@@ -303,7 +321,8 @@ Génère 3 recommandations de photographes en JSON selon le style de mariage.`;
         id: 'photo-1',
         type: 'photography',
         title: 'Photographe documentaire',
-        description: 'Spécialiste des mariages naturels et spontanés, style reportage',
+        description:
+          'Spécialiste des mariages naturels et spontanés, style reportage',
         estimatedCost: '1800-2800€',
         priority: 'high',
         tags: ['documentaire', 'naturel', 'reportage'],
@@ -336,7 +355,8 @@ Génère 3 recommandations musicales en JSON (DJ, groupe, duo) selon l'ambiance 
         id: 'music-1',
         type: 'music',
         title: 'DJ spécialisé mariages',
-        description: 'DJ professionnel avec large répertoire et matériel son/éclairage',
+        description:
+          'DJ professionnel avec large répertoire et matériel son/éclairage',
         estimatedCost: '800-1500€',
         priority: 'high',
         tags: ['dj', 'professionnel', 'polyvalent'],
@@ -345,7 +365,8 @@ Génère 3 recommandations musicales en JSON (DJ, groupe, duo) selon l'ambiance 
         id: 'music-2',
         type: 'music',
         title: 'Duo acoustique',
-        description: 'Duo guitare-voix pour cérémonie et cocktail, ambiance intimiste',
+        description:
+          'Duo guitare-voix pour cérémonie et cocktail, ambiance intimiste',
         estimatedCost: '600-1000€',
         priority: 'medium',
         tags: ['acoustique', 'intimiste', 'cérémonie'],
@@ -362,13 +383,15 @@ Génère 3 recommandations musicales en JSON (DJ, groupe, duo) selon l'ambiance 
     const fallback: AIInsight[] = [
       {
         category: 'Budget',
-        insight: 'Répartissez 40% du budget pour le lieu et la réception, 30% pour le traiteur',
+        insight:
+          'Répartissez 40% du budget pour le lieu et la réception, 30% pour le traiteur',
         actionable: true,
         savings: '10-15%',
       },
       {
         category: 'Timing',
-        insight: 'Réservez votre lieu 12-18 mois à l\'avance pour de meilleurs tarifs',
+        insight:
+          "Réservez votre lieu 12-18 mois à l'avance pour de meilleurs tarifs",
         actionable: true,
         savings: '15-20%',
       },

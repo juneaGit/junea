@@ -86,7 +86,7 @@ const DEMO_GUESTS: Guest[] = [
     id: `guest-${i + 5}`,
     name: `Invité ${i + 5}`,
     relationship: ['famille', 'amis', 'collegues'][i % 3] as any,
-    side: i % 2 === 0 ? 'bride' as const : 'groom' as const,
+    side: i % 2 === 0 ? ('bride' as const) : ('groom' as const),
     isChild: i % 8 === 0,
   })),
 ];
@@ -133,7 +133,8 @@ export default function SeatingPlanPage() {
   const { generateRecommendations, loading: aiLoading } = useAI();
 
   const [tables, setTables] = useState<Table[]>(DEMO_TABLES);
-  const [unassignedGuests, setUnassignedGuests] = useState<Guest[]>(DEMO_GUESTS);
+  const [unassignedGuests, setUnassignedGuests] =
+    useState<Guest[]>(DEMO_GUESTS);
   const [selectedTable, setSelectedTable] = useState<Table | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'2d' | 'list'>('2d');
@@ -153,55 +154,82 @@ export default function SeatingPlanPage() {
 
     const { source, destination, draggableId } = result;
 
-    if (source.droppableId === 'unassigned' && destination.droppableId.startsWith('table-')) {
+    if (
+      source.droppableId === 'unassigned' &&
+      destination.droppableId.startsWith('table-')
+    ) {
       // Déplacer un invité de la liste non assignée vers une table
-      const guest = unassignedGuests.find(g => g.id === draggableId);
+      const guest = unassignedGuests.find((g) => g.id === draggableId);
       if (!guest) return;
 
-      const targetTable = tables.find(t => t.id === destination.droppableId);
-      if (!targetTable || targetTable.guests.length >= targetTable.capacity) return;
+      const targetTable = tables.find((t) => t.id === destination.droppableId);
+      if (!targetTable || targetTable.guests.length >= targetTable.capacity)
+        return;
 
-      setUnassignedGuests(prev => prev.filter(g => g.id !== draggableId));
-      setTables(prev => prev.map(t => 
-        t.id === destination.droppableId 
-          ? { ...t, guests: [...t.guests, { ...guest, tableId: t.id }] }
-          : t
-      ));
-    } else if (source.droppableId.startsWith('table-') && destination.droppableId === 'unassigned') {
+      setUnassignedGuests((prev) => prev.filter((g) => g.id !== draggableId));
+      setTables((prev) =>
+        prev.map((t) =>
+          t.id === destination.droppableId
+            ? { ...t, guests: [...t.guests, { ...guest, tableId: t.id }] }
+            : t,
+        ),
+      );
+    } else if (
+      source.droppableId.startsWith('table-') &&
+      destination.droppableId === 'unassigned'
+    ) {
       // Déplacer un invité d'une table vers la liste non assignée
-      const sourceTable = tables.find(t => t.id === source.droppableId);
+      const sourceTable = tables.find((t) => t.id === source.droppableId);
       if (!sourceTable) return;
 
       const guest = sourceTable.guests[source.index];
       if (!guest) return;
 
-      setTables(prev => prev.map(t => 
-        t.id === source.droppableId 
-          ? { ...t, guests: t.guests.filter(g => g.id !== draggableId) }
-          : t
-      ));
-      setUnassignedGuests(prev => [...prev, { ...guest, tableId: undefined }]);
-    } else if (source.droppableId.startsWith('table-') && destination.droppableId.startsWith('table-')) {
+      setTables((prev) =>
+        prev.map((t) =>
+          t.id === source.droppableId
+            ? { ...t, guests: t.guests.filter((g) => g.id !== draggableId) }
+            : t,
+        ),
+      );
+      setUnassignedGuests((prev) => [
+        ...prev,
+        { ...guest, tableId: undefined },
+      ]);
+    } else if (
+      source.droppableId.startsWith('table-') &&
+      destination.droppableId.startsWith('table-')
+    ) {
       // Déplacer un invité d'une table à une autre
       if (source.droppableId === destination.droppableId) return;
 
-      const sourceTable = tables.find(t => t.id === source.droppableId);
-      const targetTable = tables.find(t => t.id === destination.droppableId);
-      
-      if (!sourceTable || !targetTable || targetTable.guests.length >= targetTable.capacity) return;
+      const sourceTable = tables.find((t) => t.id === source.droppableId);
+      const targetTable = tables.find((t) => t.id === destination.droppableId);
+
+      if (
+        !sourceTable ||
+        !targetTable ||
+        targetTable.guests.length >= targetTable.capacity
+      )
+        return;
 
       const guest = sourceTable.guests[source.index];
       if (!guest) return;
 
-      setTables(prev => prev.map(t => {
-        if (t.id === source.droppableId) {
-          return { ...t, guests: t.guests.filter(g => g.id !== draggableId) };
-        }
-        if (t.id === destination.droppableId) {
-          return { ...t, guests: [...t.guests, { ...guest, tableId: t.id }] };
-        }
-        return t;
-      }));
+      setTables((prev) =>
+        prev.map((t) => {
+          if (t.id === source.droppableId) {
+            return {
+              ...t,
+              guests: t.guests.filter((g) => g.id !== draggableId),
+            };
+          }
+          if (t.id === destination.droppableId) {
+            return { ...t, guests: [...t.guests, { ...guest, tableId: t.id }] };
+          }
+          return t;
+        }),
+      );
     }
   };
 
@@ -210,7 +238,7 @@ export default function SeatingPlanPage() {
       const recommendations = await generateRecommendations(
         user,
         profile,
-'venue'
+        'venue',
       );
       // Traiter les recommandations d'IA pour l'agencement des tables
       console.log('Recommandations IA pour le plan de table:', recommendations);
@@ -219,13 +247,21 @@ export default function SeatingPlanPage() {
     }
   };
 
-  const filteredGuests = unassignedGuests.filter(guest => {
-    const matchesSearch = guest.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRelationship = filter.relationship === 'all' || guest.relationship === filter.relationship;
+  const filteredGuests = unassignedGuests.filter((guest) => {
+    const matchesSearch = guest.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesRelationship =
+      filter.relationship === 'all' ||
+      guest.relationship === filter.relationship;
     const matchesSide = filter.side === 'all' || guest.side === filter.side;
-    const matchesDietary = !filter.dietary || guest.dietaryRestrictions && guest.dietaryRestrictions.length > 0;
-    
-    return matchesSearch && matchesRelationship && matchesSide && matchesDietary;
+    const matchesDietary =
+      !filter.dietary ||
+      (guest.dietaryRestrictions && guest.dietaryRestrictions.length > 0);
+
+    return (
+      matchesSearch && matchesRelationship && matchesSide && matchesDietary
+    );
   });
 
   return (
@@ -283,7 +319,7 @@ export default function SeatingPlanPage() {
                     <AdjustmentsHorizontalIcon className="size-4" />
                   </Button>
                 </div>
-                
+
                 {/* Barre de recherche */}
                 <div className="relative">
                   <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
@@ -306,10 +342,17 @@ export default function SeatingPlanPage() {
                       className="space-y-3 border-t pt-3"
                     >
                       <div>
-                        <label className="text-sm font-medium text-gray-700">Relation</label>
+                        <label className="text-sm font-medium text-gray-700">
+                          Relation
+                        </label>
                         <select
                           value={filter.relationship}
-                          onChange={(e) => setFilter(prev => ({ ...prev, relationship: e.target.value }))}
+                          onChange={(e) =>
+                            setFilter((prev) => ({
+                              ...prev,
+                              relationship: e.target.value,
+                            }))
+                          }
                           className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                         >
                           <option value="all">Toutes</option>
@@ -319,10 +362,17 @@ export default function SeatingPlanPage() {
                         </select>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-700">Côté</label>
+                        <label className="text-sm font-medium text-gray-700">
+                          Côté
+                        </label>
                         <select
                           value={filter.side}
-                          onChange={(e) => setFilter(prev => ({ ...prev, side: e.target.value }))}
+                          onChange={(e) =>
+                            setFilter((prev) => ({
+                              ...prev,
+                              side: e.target.value,
+                            }))
+                          }
                           className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                         >
                           <option value="all">Tous</option>
@@ -334,7 +384,7 @@ export default function SeatingPlanPage() {
                   )}
                 </AnimatePresence>
               </CardHeader>
-              
+
               <CardContent>
                 <Droppable droppableId="unassigned">
                   {(provided, snapshot) => (
@@ -342,42 +392,66 @@ export default function SeatingPlanPage() {
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                       className={cn(
-                        "min-h-[400px] space-y-2 p-2 rounded-lg transition-colors",
-                        snapshot.isDraggingOver ? "bg-pink-50 border-2 border-pink-200" : "bg-gray-50"
+                        'min-h-[400px] space-y-2 p-2 rounded-lg transition-colors',
+                        snapshot.isDraggingOver
+                          ? 'bg-pink-50 border-2 border-pink-200'
+                          : 'bg-gray-50',
                       )}
                     >
                       {filteredGuests.map((guest, index) => (
-                        <Draggable key={guest.id} draggableId={guest.id} index={index}>
+                        <Draggable
+                          key={guest.id}
+                          draggableId={guest.id}
+                          index={index}
+                        >
                           {(provided, snapshot) => (
-                            <motion.div
+                            <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              whileHover={{ scale: 1.02 }}
-                              className={cn(
-                                "p-3 bg-white border rounded-lg shadow-sm cursor-move transition-all",
-                                snapshot.isDragging ? "shadow-lg rotate-3 bg-pink-50" : "hover:shadow-md",
-                                guest.side === 'bride' ? "border-l-4 border-l-pink-400" : "border-l-4 border-l-blue-400"
-                              )}
                             >
-                              <div className="font-medium text-gray-900">{guest.name}</div>
-                              <div className="text-sm text-gray-600 flex items-center gap-2">
-                                <span className={cn(
-                                  "px-2 py-1 rounded-full text-xs",
-                                  guest.relationship === 'famille' ? "bg-purple-100 text-purple-700" :
-                                  guest.relationship === 'amis' ? "bg-green-100 text-green-700" :
-                                  "bg-orange-100 text-orange-700"
-                                )}>
-                                  {guest.relationship}
-                                </span>
-                                {guest.isChild && <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Enfant</span>}
-                              </div>
-                              {guest.dietaryRestrictions && guest.dietaryRestrictions.length > 0 && (
-                                <div className="text-xs text-amber-600 mt-1">
-                                  🥗 {guest.dietaryRestrictions.join(', ')}
+                              <motion.div
+                                whileHover={{ scale: 1.02 }}
+                                className={cn(
+                                  'p-3 bg-white border rounded-lg shadow-sm cursor-move transition-all',
+                                  snapshot.isDragging
+                                    ? 'shadow-lg rotate-3 bg-pink-50'
+                                    : 'hover:shadow-md',
+                                  guest.side === 'bride'
+                                    ? 'border-l-4 border-l-pink-400'
+                                    : 'border-l-4 border-l-blue-400',
+                                )}
+                              >
+                                <div className="font-medium text-gray-900">
+                                  {guest.name}
                                 </div>
-                              )}
-                            </motion.div>
+                                <div className="text-sm text-gray-600 flex items-center gap-2">
+                                  <span
+                                    className={cn(
+                                      'px-2 py-1 rounded-full text-xs',
+                                      guest.relationship === 'famille'
+                                        ? 'bg-purple-100 text-purple-700'
+                                        : guest.relationship === 'amis'
+                                          ? 'bg-green-100 text-green-700'
+                                          : 'bg-orange-100 text-orange-700',
+                                    )}
+                                  >
+                                    {guest.relationship}
+                                  </span>
+                                  {guest.isChild && (
+                                    <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+                                      Enfant
+                                    </span>
+                                  )}
+                                </div>
+                                {guest.dietaryRestrictions &&
+                                  guest.dietaryRestrictions.length > 0 && (
+                                    <div className="text-xs text-amber-600 mt-1">
+                                      🥗 {guest.dietaryRestrictions.join(', ')}
+                                    </div>
+                                  )}
+                              </motion.div>
+                            </div>
                           )}
                         </Draggable>
                       ))}
@@ -406,7 +480,12 @@ export default function SeatingPlanPage() {
                   </CardTitle>
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-gray-600">
-                      {tables.reduce((acc, table) => acc + table.guests.length, 0)}/{tables.reduce((acc, table) => acc + table.capacity, 0)} places assignées
+                      {tables.reduce(
+                        (acc, table) => acc + table.guests.length,
+                        0,
+                      )}
+                      /{tables.reduce((acc, table) => acc + table.capacity, 0)}{' '}
+                      places assignées
                     </span>
                   </div>
                 </div>
@@ -436,20 +515,34 @@ export default function SeatingPlanPage() {
                                 transform: 'translate(-50%, -50%)',
                               }}
                               className={cn(
-                                "transition-all duration-200 cursor-pointer",
-                                selectedTable?.id === table.id ? "scale-105 z-10" : "hover:scale-102",
-                                snapshot.isDraggingOver ? "scale-105 z-20" : ""
+                                'transition-all duration-200 cursor-pointer',
+                                selectedTable?.id === table.id
+                                  ? 'scale-105 z-10'
+                                  : 'hover:scale-102',
+                                snapshot.isDraggingOver ? 'scale-105 z-20' : '',
                               )}
-                              onClick={() => setSelectedTable(selectedTable?.id === table.id ? null : table)}
+                              onClick={() =>
+                                setSelectedTable(
+                                  selectedTable?.id === table.id ? null : table,
+                                )
+                              }
                             >
                               <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 className={cn(
-                                  "relative bg-white rounded-full shadow-lg border-4 transition-all duration-200",
-                                  table.shape === 'round' ? "w-32 h-32" : "w-40 h-24 rounded-lg",
-                                  table.theme === 'principale' ? "border-yellow-300 bg-gradient-to-br from-yellow-50 to-amber-50" : "border-pink-200",
-                                  snapshot.isDraggingOver ? "border-pink-400 bg-pink-50" : "",
-                                  selectedTable?.id === table.id ? "ring-4 ring-pink-300 ring-opacity-50" : ""
+                                  'relative bg-white rounded-full shadow-lg border-4 transition-all duration-200',
+                                  table.shape === 'round'
+                                    ? 'w-32 h-32'
+                                    : 'w-40 h-24 rounded-lg',
+                                  table.theme === 'principale'
+                                    ? 'border-yellow-300 bg-gradient-to-br from-yellow-50 to-amber-50'
+                                    : 'border-pink-200',
+                                  snapshot.isDraggingOver
+                                    ? 'border-pink-400 bg-pink-50'
+                                    : '',
+                                  selectedTable?.id === table.id
+                                    ? 'ring-4 ring-pink-300 ring-opacity-50'
+                                    : '',
                                 )}
                               >
                                 {/* Nom et capacité de la table */}
@@ -468,33 +561,45 @@ export default function SeatingPlanPage() {
                                 {/* Zone de drop pour les invités */}
                                 <div
                                   className={cn(
-                                    "absolute inset-0 rounded-full opacity-0 transition-opacity",
-                                    table.shape === 'rectangular' ? "rounded-lg" : "",
-                                    snapshot.isDraggingOver ? "opacity-100 bg-pink-200 bg-opacity-50" : ""
+                                    'absolute inset-0 rounded-full opacity-0 transition-opacity',
+                                    table.shape === 'rectangular'
+                                      ? 'rounded-lg'
+                                      : '',
+                                    snapshot.isDraggingOver
+                                      ? 'opacity-100 bg-pink-200 bg-opacity-50'
+                                      : '',
                                   )}
                                 />
 
                                 {/* Invités assignés à la table */}
                                 <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
                                   <div className="flex flex-wrap justify-center gap-1 max-w-40">
-                                    {table.guests.slice(0, 3).map((guest, index) => (
-                                      <Draggable key={guest.id} draggableId={guest.id} index={index}>
-                                        {(provided) => (
-                                          <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className={cn(
-                                              "w-6 h-6 rounded-full text-xs flex items-center justify-center text-white font-medium cursor-move shadow-sm",
-                                              guest.side === 'bride' ? "bg-pink-400" : "bg-blue-400"
-                                            )}
-                                            title={guest.name}
-                                          >
-                                            {guest.name.charAt(0)}
-                                          </div>
-                                        )}
-                                      </Draggable>
-                                    ))}
+                                    {table.guests
+                                      .slice(0, 3)
+                                      .map((guest, index) => (
+                                        <Draggable
+                                          key={guest.id}
+                                          draggableId={guest.id}
+                                          index={index}
+                                        >
+                                          {(provided) => (
+                                            <div
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
+                                              className={cn(
+                                                'w-6 h-6 rounded-full text-xs flex items-center justify-center text-white font-medium cursor-move shadow-sm',
+                                                guest.side === 'bride'
+                                                  ? 'bg-pink-400'
+                                                  : 'bg-blue-400',
+                                              )}
+                                              title={guest.name}
+                                            >
+                                              {guest.name.charAt(0)}
+                                            </div>
+                                          )}
+                                        </Draggable>
+                                      ))}
                                     {table.guests.length > 3 && (
                                       <div className="w-6 h-6 rounded-full bg-gray-400 text-xs flex items-center justify-center text-white font-medium">
                                         +{table.guests.length - 3}
@@ -519,11 +624,16 @@ export default function SeatingPlanPage() {
                           <div className="flex items-center justify-between">
                             <div>
                               <h3 className="font-semibold text-gray-900 flex items-center gap-2">
-                                {table.theme === 'principale' && <HeartIcon className="size-4 text-yellow-600" />}
+                                {table.theme === 'principale' && (
+                                  <HeartIcon className="size-4 text-yellow-600" />
+                                )}
                                 {table.name}
                               </h3>
                               <p className="text-sm text-gray-600">
-                                {table.guests.length}/{table.capacity} places • {table.shape === 'round' ? 'Table ronde' : 'Table rectangulaire'}
+                                {table.guests.length}/{table.capacity} places •{' '}
+                                {table.shape === 'round'
+                                  ? 'Table ronde'
+                                  : 'Table rectangulaire'}
                               </p>
                             </div>
                           </div>
@@ -535,32 +645,54 @@ export default function SeatingPlanPage() {
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                                 className={cn(
-                                  "min-h-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3 rounded-lg transition-colors",
-                                  snapshot.isDraggingOver ? "bg-pink-50 border-2 border-pink-200" : "bg-gray-50"
+                                  'min-h-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3 rounded-lg transition-colors',
+                                  snapshot.isDraggingOver
+                                    ? 'bg-pink-50 border-2 border-pink-200'
+                                    : 'bg-gray-50',
                                 )}
                               >
                                 {table.guests.map((guest, index) => (
-                                  <Draggable key={guest.id} draggableId={guest.id} index={index}>
+                                  <Draggable
+                                    key={guest.id}
+                                    draggableId={guest.id}
+                                    index={index}
+                                  >
                                     {(provided, snapshot) => (
-                                      <motion.div
+                                      <div
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        whileHover={{ scale: 1.02 }}
-                                        className={cn(
-                                          "p-2 bg-white border rounded-lg cursor-move transition-all",
-                                          snapshot.isDragging ? "shadow-lg rotate-1" : "hover:shadow-md",
-                                          guest.side === 'bride' ? "border-l-4 border-l-pink-400" : "border-l-4 border-l-blue-400"
-                                        )}
                                       >
-                                        <div className="font-medium text-sm text-gray-900">{guest.name}</div>
-                                        <div className="text-xs text-gray-600">{guest.relationship}</div>
-                                        {guest.dietaryRestrictions && guest.dietaryRestrictions.length > 0 && (
-                                          <div className="text-xs text-amber-600 mt-1">
-                                            🥗 {guest.dietaryRestrictions.join(', ')}
+                                        <motion.div
+                                          whileHover={{ scale: 1.02 }}
+                                          className={cn(
+                                            'p-2 bg-white border rounded-lg cursor-move transition-all',
+                                            snapshot.isDragging
+                                              ? 'shadow-lg rotate-1'
+                                              : 'hover:shadow-md',
+                                            guest.side === 'bride'
+                                              ? 'border-l-4 border-l-pink-400'
+                                              : 'border-l-4 border-l-blue-400',
+                                          )}
+                                        >
+                                          <div className="font-medium text-sm text-gray-900">
+                                            {guest.name}
                                           </div>
-                                        )}
-                                      </motion.div>
+                                          <div className="text-xs text-gray-600">
+                                            {guest.relationship}
+                                          </div>
+                                          {guest.dietaryRestrictions &&
+                                            guest.dietaryRestrictions.length >
+                                              0 && (
+                                              <div className="text-xs text-amber-600 mt-1">
+                                                🥗{' '}
+                                                {guest.dietaryRestrictions.join(
+                                                  ', ',
+                                                )}
+                                              </div>
+                                            )}
+                                        </motion.div>
+                                      </div>
                                     )}
                                   </Draggable>
                                 ))}
@@ -568,7 +700,9 @@ export default function SeatingPlanPage() {
                                 {table.guests.length === 0 && (
                                   <div className="col-span-full text-center py-4 text-gray-500">
                                     <TableCellsIcon className="size-8 mx-auto mb-2 opacity-50" />
-                                    <p className="text-sm">Glissez des invités ici</p>
+                                    <p className="text-sm">
+                                      Glissez des invités ici
+                                    </p>
                                   </div>
                                 )}
                               </div>
@@ -597,7 +731,9 @@ export default function SeatingPlanPage() {
             <Card className="shadow-xl border-2 border-pink-200">
               <CardHeader className="bg-gradient-to-r from-pink-50 to-rose-50 pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{selectedTable.name}</CardTitle>
+                  <CardTitle className="text-lg">
+                    {selectedTable.name}
+                  </CardTitle>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -611,26 +747,44 @@ export default function SeatingPlanPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Capacité</span>
-                    <span className="font-medium">{selectedTable.guests.length}/{selectedTable.capacity}</span>
+                    <span className="font-medium">
+                      {selectedTable.guests.length}/{selectedTable.capacity}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Forme</span>
-                    <span className="font-medium">{selectedTable.shape === 'round' ? 'Ronde' : 'Rectangulaire'}</span>
+                    <span className="font-medium">
+                      {selectedTable.shape === 'round'
+                        ? 'Ronde'
+                        : 'Rectangulaire'}
+                    </span>
                   </div>
                   {selectedTable.guests.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Invités assignés :</h4>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">
+                        Invités assignés :
+                      </h4>
                       <div className="space-y-1">
                         {selectedTable.guests.map((guest) => (
-                          <div key={guest.id} className="flex items-center gap-2 text-sm">
-                            <div className={cn(
-                              "w-3 h-3 rounded-full",
-                              guest.side === 'bride' ? "bg-pink-400" : "bg-blue-400"
-                            )} />
+                          <div
+                            key={guest.id}
+                            className="flex items-center gap-2 text-sm"
+                          >
+                            <div
+                              className={cn(
+                                'w-3 h-3 rounded-full',
+                                guest.side === 'bride'
+                                  ? 'bg-pink-400'
+                                  : 'bg-blue-400',
+                              )}
+                            />
                             <span>{guest.name}</span>
-                            {guest.dietaryRestrictions && guest.dietaryRestrictions.length > 0 && (
-                              <span className="text-xs text-amber-600">🥗</span>
-                            )}
+                            {guest.dietaryRestrictions &&
+                              guest.dietaryRestrictions.length > 0 && (
+                                <span className="text-xs text-amber-600">
+                                  🥗
+                                </span>
+                              )}
                           </div>
                         ))}
                       </div>
@@ -644,4 +798,4 @@ export default function SeatingPlanPage() {
       </AnimatePresence>
     </div>
   );
-} 
+}

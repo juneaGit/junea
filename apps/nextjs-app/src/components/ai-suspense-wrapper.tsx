@@ -1,13 +1,20 @@
 'use client';
 
 import { Suspense } from 'react';
-import { SparklesIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { ErrorBoundary, AIErrorFallback } from './ErrorBoundary';
+import {
+  SparklesIcon,
+  ExclamationTriangleIcon,
+} from '@heroicons/react/24/outline';
+import { ErrorBoundary, AIErrorFallback } from './error-boundary';
 
 /**
  * Skeleton loader pour les composants AI
  */
-const AISkeleton = ({ message = 'Génération des suggestions IA...' }: { message?: string }) => (
+const AISkeleton = ({
+  message = 'Génération des suggestions IA...',
+}: {
+  message?: string;
+}) => (
   <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-6 animate-pulse">
     <div className="flex items-center gap-3 mb-4">
       <div className="animate-spin">
@@ -18,7 +25,7 @@ const AISkeleton = ({ message = 'Génération des suggestions IA...' }: { messag
         <div className="h-3 bg-pink-100 rounded w-1/2"></div>
       </div>
     </div>
-    
+
     <div className="space-y-3">
       {[...Array(3)].map((_, i) => (
         <div key={i} className="bg-white/60 rounded-lg p-4">
@@ -31,7 +38,7 @@ const AISkeleton = ({ message = 'Génération des suggestions IA...' }: { messag
         </div>
       ))}
     </div>
-    
+
     <p className="text-sm text-pink-600 text-center mt-4 flex items-center justify-center gap-2">
       <SparklesIcon className="size-4 animate-pulse" />
       {message}
@@ -42,13 +49,18 @@ const AISkeleton = ({ message = 'Génération des suggestions IA...' }: { messag
 /**
  * Composant de fallback pour les erreurs AI spécifiques
  */
-const AISpecificErrorFallback = ({ error, resetErrorBoundary }: { 
-  error: Error; 
+const AISpecificErrorFallback = ({
+  error,
+  resetErrorBoundary,
+}: {
+  error: Error;
   resetErrorBoundary: () => void;
 }) => {
-  const isOpenAIError = error.message.includes('OpenAI') || error.message.includes('API key');
-  const isQuotaError = error.message.includes('quota') || error.message.includes('billing');
-  
+  const isOpenAIError =
+    error.message.includes('OpenAI') || error.message.includes('API key');
+  const isQuotaError =
+    error.message.includes('quota') || error.message.includes('billing');
+
   if (isQuotaError) {
     return (
       <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 my-4">
@@ -59,7 +71,8 @@ const AISpecificErrorFallback = ({ error, resetErrorBoundary }: {
               Quota OpenAI dépassé
             </h3>
             <p className="text-sm text-orange-700 mb-4">
-              Les crédits OpenAI sont épuisés. L'application utilise des suggestions par défaut en attendant.
+              Les crédits OpenAI sont épuisés. L'application utilise des
+              suggestions par défaut en attendant.
             </p>
             <div className="flex gap-2">
               <button
@@ -85,7 +98,9 @@ const AISpecificErrorFallback = ({ error, resetErrorBoundary }: {
               Configuration OpenAI requise
             </h3>
             <p className="text-sm text-yellow-700 mb-4">
-              La clé API OpenAI n'est pas configurée. Veuillez créer le fichier <code className="bg-yellow-100 px-1 rounded">.env.local</code> avec votre clé API.
+              La clé API OpenAI n'est pas configurée. Veuillez créer le fichier{' '}
+              <code className="bg-yellow-100 px-1 rounded">.env.local</code>{' '}
+              avec votre clé API.
             </p>
             <div className="flex gap-2">
               <button
@@ -96,10 +111,16 @@ const AISpecificErrorFallback = ({ error, resetErrorBoundary }: {
               </button>
             </div>
             <details className="mt-3">
-              <summary className="text-xs text-yellow-600 cursor-pointer">Instructions</summary>
+              <summary className="text-xs text-yellow-600 cursor-pointer">
+                Instructions
+              </summary>
               <div className="text-xs text-yellow-800 mt-2">
-                <p>1. Créez <code>.env.local</code> dans apps/nextjs-app/</p>
-                <p>2. Ajoutez: <code>NEXT_PUBLIC_OPENAI_API_KEY=votre_clé</code></p>
+                <p>
+                  1. Créez <code>.env.local</code> dans apps/nextjs-app/
+                </p>
+                <p>
+                  2. Ajoutez: <code>NEXT_PUBLIC_OPENAI_API_KEY=votre_clé</code>
+                </p>
                 <p>3. Redémarrez le serveur</p>
               </div>
             </details>
@@ -110,23 +131,25 @@ const AISpecificErrorFallback = ({ error, resetErrorBoundary }: {
   }
 
   // Erreur générique AI
-  return <AIErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />;
+  return (
+    <AIErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />
+  );
 };
 
 /**
  * Wrapper Suspense + ErrorBoundary pour les composants AI
  */
-export const AISuspenseWrapper = ({ 
-  children, 
+export const AISuspenseWrapper = ({
+  children,
   fallbackMessage,
-  onError
-}: { 
+  onError,
+}: {
   children: React.ReactNode;
   fallbackMessage?: string;
   onError?: (error: Error, errorInfo: any) => void;
 }) => {
   return (
-    <ErrorBoundary 
+    <ErrorBoundary
       fallback={AISpecificErrorFallback}
       onError={(error, errorInfo) => {
         console.error('🤖 AI Component Error:', error);
@@ -149,8 +172,8 @@ export const useAISuspense = () => {
       <AISuspenseWrapper fallbackMessage={message}>
         {component}
       </AISuspenseWrapper>
-    )
+    ),
   };
 };
 
-export default AISuspenseWrapper; 
+export default AISuspenseWrapper;

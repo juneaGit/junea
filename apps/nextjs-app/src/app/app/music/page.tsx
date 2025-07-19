@@ -19,7 +19,10 @@ import {
   PlusIcon,
   ListBulletIcon,
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolidIcon, HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
+import {
+  StarIcon as StarSolidIcon,
+  HeartIcon as HeartSolidIcon,
+} from '@heroicons/react/24/solid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -96,12 +99,27 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
     location: 'Paris, France',
     rating: 4.9,
     reviewCount: 156,
-    images: ['https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop'],
-    profileImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    bio: 'DJ professionnel spécialisé dans les mariages avec 10 ans d\'expérience. Je m\'adapte à tous les styles musicaux et créé l\'ambiance parfaite pour votre jour J.',
+    images: [
+      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
+    ],
+    profileImage:
+      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+    bio: "DJ professionnel spécialisé dans les mariages avec 10 ans d'expérience. Je m'adapte à tous les styles musicaux et créé l'ambiance parfaite pour votre jour J.",
     genres: ['Pop', 'Rock', 'Électro', 'R&B', 'Classique', 'Français'],
-    services: ['Animation complète', 'Éclairage LED', 'Sonorisation', 'Micro sans fil', 'Playlist personnalisée'],
-    equipment: ['Table de mixage Pioneer', 'Enceintes JBL', 'Éclairage RGB', 'Micro HF'],
+    services: [
+      'Animation complète',
+      'Éclairage LED',
+      'Sonorisation',
+      'Micro sans fil',
+      'Playlist personnalisée',
+    ],
+    equipment: [
+      'Table de mixage Pioneer',
+      'Enceintes JBL',
+      'Éclairage RGB',
+      'Micro HF',
+    ],
     experience: 10,
     languages: ['Français', 'Anglais'],
     priceRange: { min: 800, max: 1500 },
@@ -111,7 +129,7 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
       phone: '+33 6 12 34 56 78',
       email: 'maxime@djlaurent.fr',
       website: 'www.dj-maxime-laurent.fr',
-      instagram: '@dj_maxime_laurent'
+      instagram: '@dj_maxime_laurent',
     },
     portfolioTracks: [
       {
@@ -121,7 +139,7 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
         genre: 'Pop',
         duration: '4:23',
         mood: 'romantic',
-        occasion: 'first-dance'
+        occasion: 'first-dance',
       },
       {
         id: '2',
@@ -130,16 +148,17 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
         genre: 'Funk',
         duration: '4:30',
         mood: 'danceable',
-        occasion: 'party'
-      }
+        occasion: 'party',
+      },
     ],
     testimonials: [
       {
         client: 'Sophie & Pierre',
-        comment: 'DJ Maxime a été parfait ! Il a su créer l\'ambiance idéale et faire danser tout le monde.',
-        rating: 5
-      }
-    ]
+        comment:
+          "DJ Maxime a été parfait ! Il a su créer l'ambiance idéale et faire danser tout le monde.",
+        rating: 5,
+      },
+    ],
   },
   {
     id: '2',
@@ -148,11 +167,19 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
     location: 'Lyon, France',
     rating: 4.7,
     reviewCount: 89,
-    images: ['https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop'],
-    profileImage: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
+    images: [
+      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
+    ],
+    profileImage:
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face',
     bio: 'Duo acoustique spécialisé dans les cérémonies et cocktails. Nous proposons un répertoire varié de reprises acoustiques et de créations originales.',
     genres: ['Acoustique', 'Folk', 'Pop', 'Jazz', 'Français'],
-    services: ['Cérémonie laïque', 'Cocktail', 'Vin d\'honneur', 'Sonorisation incluse'],
+    services: [
+      'Cérémonie laïque',
+      'Cocktail',
+      "Vin d'honneur",
+      'Sonorisation incluse',
+    ],
     equipment: ['Guitares acoustiques', 'Sonorisation portable', 'Micros'],
     experience: 6,
     languages: ['Français', 'Anglais'],
@@ -162,10 +189,10 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
     contact: {
       phone: '+33 6 98 76 54 32',
       email: 'contact@emmajules.fr',
-      website: 'www.acoustic-duo-emmajules.fr'
+      website: 'www.acoustic-duo-emmajules.fr',
     },
     portfolioTracks: [],
-    testimonials: []
+    testimonials: [],
   },
   {
     id: '3',
@@ -174,12 +201,24 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
     location: 'Marseille, France',
     rating: 4.8,
     reviewCount: 124,
-    images: ['https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=800&h=600&fit=crop'],
-    profileImage: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face',
+    images: [
+      'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=800&h=600&fit=crop',
+    ],
+    profileImage:
+      'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face',
     bio: 'Groupe de 5 musiciens professionnels. Nous couvrons tous les styles musicaux et garantissons une ambiance festive pour votre mariage.',
     genres: ['Rock', 'Pop', 'Funk', 'Soul', 'Disco', 'Variété française'],
-    services: ['Concert live', 'Animation complète', 'Sonorisation pro', 'Éclairage scénique'],
-    equipment: ['Instruments live', 'Sonorisation concert', 'Éclairage professionnel'],
+    services: [
+      'Concert live',
+      'Animation complète',
+      'Sonorisation pro',
+      'Éclairage scénique',
+    ],
+    equipment: [
+      'Instruments live',
+      'Sonorisation concert',
+      'Éclairage professionnel',
+    ],
     experience: 8,
     languages: ['Français', 'Anglais', 'Italien'],
     priceRange: { min: 2000, max: 3500 },
@@ -187,11 +226,11 @@ const DEMO_MUSIC_SERVICES: MusicService[] = [
     isFavorite: false,
     contact: {
       email: 'booking@theweddingband.fr',
-      website: 'www.theweddingband.fr'
+      website: 'www.theweddingband.fr',
     },
     portfolioTracks: [],
-    testimonials: []
-  }
+    testimonials: [],
+  },
 ];
 
 const MUSIC_GENRES = [
@@ -217,11 +256,16 @@ export default function MusicPage() {
   const { data: profile } = useWeddingProfile();
   const { generateRecommendations, loading: aiLoading } = useAI();
 
-  const [musicServices, setMusicServices] = useState<MusicService[]>(DEMO_MUSIC_SERVICES);
-  const [selectedService, setSelectedService] = useState<MusicService | null>(null);
+  const [musicServices, setMusicServices] =
+    useState<MusicService[]>(DEMO_MUSIC_SERVICES);
+  const [selectedService, setSelectedService] = useState<MusicService | null>(
+    null,
+  );
   const [searchTerm, setSearchTerm] = useState('');
   const [showFilters, setShowFilters] = useState(false);
-  const [activeTab, setActiveTab] = useState<'services' | 'playlist'>('services');
+  const [activeTab, setActiveTab] = useState<'services' | 'playlist'>(
+    'services',
+  );
   const [filters, setFilters] = useState({
     genre: 'all',
     type: 'all',
@@ -234,11 +278,13 @@ export default function MusicPage() {
   const [customPlaylist, setCustomPlaylist] = useState<Track[]>([]);
 
   const toggleFavorite = (serviceId: string) => {
-    setMusicServices(prev => prev.map(service => 
-      service.id === serviceId 
-        ? { ...service, isFavorite: !service.isFavorite }
-        : service
-    ));
+    setMusicServices((prev) =>
+      prev.map((service) =>
+        service.id === serviceId
+          ? { ...service, isFavorite: !service.isFavorite }
+          : service,
+      ),
+    );
   };
 
   const generateAIRecommendations = async () => {
@@ -246,7 +292,7 @@ export default function MusicPage() {
       const recommendations = await generateRecommendations(
         user,
         profile,
-        'venue'
+        'venue',
       );
       console.log('Recommandations IA pour la musique:', recommendations);
     } catch (error) {
@@ -254,22 +300,37 @@ export default function MusicPage() {
     }
   };
 
-  const filteredServices = musicServices.filter(service => {
-    const matchesSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         service.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         service.genres.some(genre => genre.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesGenre = filters.genre === 'all' || 
-                        service.genres.some(genre => genre.toLowerCase().includes(filters.genre));
+  const filteredServices = musicServices.filter((service) => {
+    const matchesSearch =
+      service.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      service.genres.some((genre) =>
+        genre.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    const matchesGenre =
+      filters.genre === 'all' ||
+      service.genres.some((genre) =>
+        genre.toLowerCase().includes(filters.genre),
+      );
     const matchesType = filters.type === 'all' || service.type === filters.type;
-    const matchesPrice = service.priceRange.min >= filters.priceRange[0] && 
-                        service.priceRange.max <= filters.priceRange[1];
+    const matchesPrice =
+      service.priceRange.min >= filters.priceRange[0] &&
+      service.priceRange.max <= filters.priceRange[1];
     const matchesRating = service.rating >= filters.rating;
     const matchesAvailability = !filters.availability || service.availability;
-    const matchesLocation = !filters.location || 
-                           service.location.toLowerCase().includes(filters.location.toLowerCase());
+    const matchesLocation =
+      !filters.location ||
+      service.location.toLowerCase().includes(filters.location.toLowerCase());
 
-    return matchesSearch && matchesGenre && matchesType && matchesPrice && 
-           matchesRating && matchesAvailability && matchesLocation;
+    return (
+      matchesSearch &&
+      matchesGenre &&
+      matchesType &&
+      matchesPrice &&
+      matchesRating &&
+      matchesAvailability &&
+      matchesLocation
+    );
   });
 
   return (
@@ -302,10 +363,10 @@ export default function MusicPage() {
           <button
             onClick={() => setActiveTab('services')}
             className={cn(
-              "py-2 px-1 border-b-2 font-medium text-sm transition-colors",
+              'py-2 px-1 border-b-2 font-medium text-sm transition-colors',
               activeTab === 'services'
-                ? "border-pink-500 text-pink-600"
-                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                ? 'border-pink-500 text-pink-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
             )}
           >
             Prestataires ({musicServices.length})
@@ -313,10 +374,10 @@ export default function MusicPage() {
           <button
             onClick={() => setActiveTab('playlist')}
             className={cn(
-              "py-2 px-1 border-b-2 font-medium text-sm transition-colors",
+              'py-2 px-1 border-b-2 font-medium text-sm transition-colors',
               activeTab === 'playlist'
-                ? "border-pink-500 text-pink-600"
-                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                ? 'border-pink-500 text-pink-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
             )}
           >
             Ma Playlist ({customPlaylist.length})
@@ -349,9 +410,13 @@ export default function MusicPage() {
                   {SERVICE_TYPES.map((type) => (
                     <Button
                       key={type.value}
-                      variant={filters.type === type.value ? "default" : "outline"}
+                      variant={
+                        filters.type === type.value ? 'default' : 'outline'
+                      }
                       size="sm"
-                      onClick={() => setFilters(prev => ({ ...prev, type: type.value }))}
+                      onClick={() =>
+                        setFilters((prev) => ({ ...prev, type: type.value }))
+                      }
                       className="whitespace-nowrap"
                     >
                       <span className="mr-2">{type.icon}</span>
@@ -364,9 +429,13 @@ export default function MusicPage() {
                   {MUSIC_GENRES.slice(0, 4).map((genre) => (
                     <Button
                       key={genre.value}
-                      variant={filters.genre === genre.value ? "default" : "outline"}
+                      variant={
+                        filters.genre === genre.value ? 'default' : 'outline'
+                      }
                       size="sm"
-                      onClick={() => setFilters(prev => ({ ...prev, genre: genre.value }))}
+                      onClick={() =>
+                        setFilters((prev) => ({ ...prev, genre: genre.value }))
+                      }
                       className="whitespace-nowrap"
                     >
                       <span className="mr-2">{genre.icon}</span>
@@ -407,10 +476,15 @@ export default function MusicPage() {
                         type="number"
                         placeholder="Min"
                         value={filters.priceRange[0]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [Number(e.target.value), prev.priceRange[1]]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              Number(e.target.value),
+                              prev.priceRange[1],
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
@@ -418,10 +492,15 @@ export default function MusicPage() {
                         type="number"
                         placeholder="Max"
                         value={filters.priceRange[1]}
-                        onChange={(e) => setFilters(prev => ({
-                          ...prev,
-                          priceRange: [prev.priceRange[0], Number(e.target.value)]
-                        }))}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            priceRange: [
+                              prev.priceRange[0],
+                              Number(e.target.value),
+                            ],
+                          }))
+                        }
                         className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
@@ -433,7 +512,12 @@ export default function MusicPage() {
                     </label>
                     <select
                       value={filters.rating}
-                      onChange={(e) => setFilters(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          rating: Number(e.target.value),
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
@@ -451,7 +535,12 @@ export default function MusicPage() {
                       type="text"
                       placeholder="Ville, région..."
                       value={filters.location}
-                      onChange={(e) => setFilters(prev => ({ ...prev, location: e.target.value }))}
+                      onChange={(e) =>
+                        setFilters((prev) => ({
+                          ...prev,
+                          location: e.target.value,
+                        }))
+                      }
                       className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
                     />
                   </div>
@@ -462,10 +551,18 @@ export default function MusicPage() {
                     type="checkbox"
                     id="availability"
                     checked={filters.availability}
-                    onChange={(e) => setFilters(prev => ({ ...prev, availability: e.target.checked }))}
+                    onChange={(e) =>
+                      setFilters((prev) => ({
+                        ...prev,
+                        availability: e.target.checked,
+                      }))
+                    }
                     className="mr-2 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                   />
-                  <label htmlFor="availability" className="text-sm text-gray-700">
+                  <label
+                    htmlFor="availability"
+                    className="text-sm text-gray-700"
+                  >
                     Disponible uniquement
                   </label>
                 </div>
@@ -481,7 +578,9 @@ export default function MusicPage() {
           {/* Résultats prestataires */}
           <div className="flex items-center justify-between">
             <p className="text-gray-600">
-              {filteredServices.length} prestataire{filteredServices.length > 1 ? 's' : ''} trouvé{filteredServices.length > 1 ? 's' : ''}
+              {filteredServices.length} prestataire
+              {filteredServices.length > 1 ? 's' : ''} trouvé
+              {filteredServices.length > 1 ? 's' : ''}
             </p>
             <div className="flex items-center gap-2">
               <span className="text-sm text-gray-600">Trier par :</span>
@@ -561,7 +660,9 @@ export default function MusicPage() {
                         <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
                           {service.name}
                         </h3>
-                        <p className="text-sm text-gray-600">{service.location}</p>
+                        <p className="text-sm text-gray-600">
+                          {service.location}
+                        </p>
                         <p className="text-xs text-gray-500 mt-1">
                           {service.experience} ans d'expérience
                         </p>
@@ -569,9 +670,13 @@ export default function MusicPage() {
                       <div className="text-right">
                         <div className="flex items-center gap-1">
                           <StarSolidIcon className="size-4 text-yellow-400" />
-                          <span className="font-medium text-sm">{service.rating}</span>
+                          <span className="font-medium text-sm">
+                            {service.rating}
+                          </span>
                         </div>
-                        <p className="text-xs text-gray-600">({service.reviewCount})</p>
+                        <p className="text-xs text-gray-600">
+                          ({service.reviewCount})
+                        </p>
                       </div>
                     </div>
 
@@ -602,7 +707,8 @@ export default function MusicPage() {
                         {service.priceRange.min}-{service.priceRange.max}€
                       </div>
                       <div className="text-sm text-gray-600">
-                        {service.services.length} service{service.services.length > 1 ? 's' : ''}
+                        {service.services.length} service
+                        {service.services.length > 1 ? 's' : ''}
                       </div>
                     </div>
 
@@ -646,7 +752,9 @@ export default function MusicPage() {
             {customPlaylist.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
                 <MusicalNoteIcon className="size-12 mx-auto mb-4 opacity-50" />
-                <h3 className="text-lg font-medium mb-2">Votre playlist est vide</h3>
+                <h3 className="text-lg font-medium mb-2">
+                  Votre playlist est vide
+                </h3>
                 <p className="text-sm mb-4">
                   Commencez à créer votre playlist parfaite pour le jour J
                 </p>
@@ -667,17 +775,28 @@ export default function MusicPage() {
                     </span>
                     <PlayIcon className="size-8 text-pink-500 bg-pink-100 rounded-full p-2 cursor-pointer hover:bg-pink-200 transition-colors" />
                     <div className="flex-1">
-                      <div className="font-medium text-gray-900">{track.title}</div>
-                      <div className="text-sm text-gray-600">{track.artist}</div>
+                      <div className="font-medium text-gray-900">
+                        {track.title}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        {track.artist}
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-500">{track.duration}</div>
-                    <span className={cn(
-                      "px-2 py-1 rounded-full text-xs font-medium",
-                      track.mood === 'romantic' ? "bg-pink-100 text-pink-700" :
-                      track.mood === 'festive' ? "bg-yellow-100 text-yellow-700" :
-                      track.mood === 'danceable' ? "bg-purple-100 text-purple-700" :
-                      "bg-blue-100 text-blue-700"
-                    )}>
+                    <div className="text-sm text-gray-500">
+                      {track.duration}
+                    </div>
+                    <span
+                      className={cn(
+                        'px-2 py-1 rounded-full text-xs font-medium',
+                        track.mood === 'romantic'
+                          ? 'bg-pink-100 text-pink-700'
+                          : track.mood === 'festive'
+                            ? 'bg-yellow-100 text-yellow-700'
+                            : track.mood === 'danceable'
+                              ? 'bg-purple-100 text-purple-700'
+                              : 'bg-blue-100 text-blue-700',
+                      )}
+                    >
                       {track.occasion}
                     </span>
                   </div>
@@ -719,7 +838,7 @@ export default function MusicPage() {
                 >
                   <XMarkIcon className="size-5" />
                 </button>
-                
+
                 {/* Profile info overlay */}
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                   <div className="flex items-end gap-4">
@@ -733,16 +852,26 @@ export default function MusicPage() {
                       />
                     </div>
                     <div className="text-white">
-                      <h2 className="text-2xl font-bold">{selectedService.name}</h2>
-                      <p className="text-gray-200">{selectedService.location}</p>
+                      <h2 className="text-2xl font-bold">
+                        {selectedService.name}
+                      </h2>
+                      <p className="text-gray-200">
+                        {selectedService.location}
+                      </p>
                       <div className="flex items-center gap-4 mt-2">
                         <div className="flex items-center gap-1">
                           <StarSolidIcon className="size-4 text-yellow-400" />
-                          <span className="font-medium">{selectedService.rating}</span>
-                          <span className="text-gray-300">({selectedService.reviewCount})</span>
+                          <span className="font-medium">
+                            {selectedService.rating}
+                          </span>
+                          <span className="text-gray-300">
+                            ({selectedService.reviewCount})
+                          </span>
                         </div>
                         <span className="text-gray-300">•</span>
-                        <span className="text-gray-200">{selectedService.experience} ans</span>
+                        <span className="text-gray-200">
+                          {selectedService.experience} ans
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -755,16 +884,23 @@ export default function MusicPage() {
                   <div className="lg:col-span-2 space-y-6">
                     {/* Bio */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">À propos</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">
+                        À propos
+                      </h3>
                       <p className="text-gray-700">{selectedService.bio}</p>
                     </div>
 
                     {/* Services */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3">Services proposés</h3>
+                      <h3 className="font-semibold text-gray-900 mb-3">
+                        Services proposés
+                      </h3>
                       <div className="grid grid-cols-2 gap-2">
                         {selectedService.services.map((service, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                          <div
+                            key={index}
+                            className="flex items-center gap-2 text-sm text-gray-600"
+                          >
                             <SpeakerWaveIcon className="size-4 text-pink-500" />
                             <span>{service}</span>
                           </div>
@@ -774,10 +910,15 @@ export default function MusicPage() {
 
                     {/* Équipements */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-3">Équipements</h3>
+                      <h3 className="font-semibold text-gray-900 mb-3">
+                        Équipements
+                      </h3>
                       <div className="grid grid-cols-2 gap-2">
                         {selectedService.equipment.map((item, index) => (
-                          <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
+                          <div
+                            key={index}
+                            className="flex items-center gap-2 text-sm text-gray-600"
+                          >
                             <MicrophoneIcon className="size-4 text-blue-500" />
                             <span>{item}</span>
                           </div>
@@ -796,9 +937,12 @@ export default function MusicPage() {
                       <CardContent className="space-y-4">
                         <div className="text-center">
                           <div className="text-2xl font-bold text-pink-600">
-                            {selectedService.priceRange.min}€ - {selectedService.priceRange.max}€
+                            {selectedService.priceRange.min}€ -{' '}
+                            {selectedService.priceRange.max}€
                           </div>
-                          <div className="text-sm text-gray-600">pour la soirée</div>
+                          <div className="text-sm text-gray-600">
+                            pour la soirée
+                          </div>
                         </div>
 
                         <div className="space-y-2">
@@ -816,7 +960,9 @@ export default function MusicPage() {
                             ) : (
                               <HeartIcon className="size-4 mr-2" />
                             )}
-                            {selectedService.isFavorite ? 'Retirer favoris' : 'Ajouter favoris'}
+                            {selectedService.isFavorite
+                              ? 'Retirer favoris'
+                              : 'Ajouter favoris'}
                           </Button>
                         </div>
                       </CardContent>
@@ -874,7 +1020,9 @@ export default function MusicPage() {
                     {/* Genres musicaux */}
                     <Card>
                       <CardHeader>
-                        <CardTitle className="text-lg">Genres musicaux</CardTitle>
+                        <CardTitle className="text-lg">
+                          Genres musicaux
+                        </CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="flex flex-wrap gap-2">
@@ -898,4 +1046,4 @@ export default function MusicPage() {
       </AnimatePresence>
     </div>
   );
-} 
+}
