@@ -30,8 +30,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { AIButton } from '@/components/ai/ai-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useAI } from '@/hooks/use-ai';
+import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useUser } from '@/lib/auth';
 import { cn } from '@/utils/cn';
 
@@ -121,8 +121,8 @@ const SafeImage = ({
           className,
         )}
       >
-        <div className="text-center p-4">
-          <HomeIcon className="size-8 text-pink-400 mx-auto mb-2" />
+        <div className="p-4 text-center">
+          <HomeIcon className="mx-auto mb-2 size-8 text-pink-400" />
           <p className="text-xs text-pink-600">Image indisponible</p>
         </div>
       </div>
@@ -133,7 +133,7 @@ const SafeImage = ({
     <div className={cn('relative overflow-hidden', className)}>
       {/* Loading skeleton */}
       {isLoading && (
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200" />
       )}
 
       <Image
@@ -159,17 +159,17 @@ const SafeImage = ({
 
 // Loading Skeleton Component
 const VenueSkeleton = () => (
-  <Card className="overflow-hidden h-full">
-    <div className="aspect-video bg-gray-200 animate-pulse" />
+  <Card className="h-full overflow-hidden">
+    <div className="aspect-video animate-pulse bg-gray-200" />
     <CardContent className="p-4">
       <div className="space-y-3">
-        <div className="h-4 bg-gray-200 rounded animate-pulse" />
-        <div className="h-3 bg-gray-200 rounded w-2/3 animate-pulse" />
+        <div className="h-4 animate-pulse rounded bg-gray-200" />
+        <div className="h-3 w-2/3 animate-pulse rounded bg-gray-200" />
         <div className="flex gap-2">
-          <div className="h-6 bg-gray-200 rounded-full w-16 animate-pulse" />
-          <div className="h-6 bg-gray-200 rounded-full w-20 animate-pulse" />
+          <div className="h-6 w-16 animate-pulse rounded-full bg-gray-200" />
+          <div className="h-6 w-20 animate-pulse rounded-full bg-gray-200" />
         </div>
-        <div className="h-8 bg-gray-200 rounded animate-pulse" />
+        <div className="h-8 animate-pulse rounded bg-gray-200" />
       </div>
     </CardContent>
   </Card>
@@ -183,19 +183,19 @@ const ErrorFallback = ({
   error: Error;
   resetErrorBoundary: () => void;
 }) => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
-    <div className="text-center max-w-md">
-      <ExclamationTriangleIcon className="size-16 text-red-500 mx-auto mb-4" />
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+  <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
+    <div className="max-w-md text-center">
+      <ExclamationTriangleIcon className="mx-auto mb-4 size-16 text-red-500" />
+      <h2 className="mb-4 text-2xl font-bold text-gray-900">
         Oops ! Une erreur s'est produite
       </h2>
-      <p className="text-gray-600 mb-6">
+      <p className="mb-6 text-gray-600">
         La page des lieux a rencontré un problème. Ne vous inquiétez pas, nous
         pouvons la réparer !
       </p>
       <div className="space-y-3">
         <Button onClick={resetErrorBoundary} className="w-full">
-          <SparklesIcon className="size-4 mr-2" />
+          <SparklesIcon className="mr-2 size-4" />
           Réessayer
         </Button>
         <Button
@@ -208,7 +208,7 @@ const ErrorFallback = ({
       </div>
       <details className="mt-4 text-xs text-gray-500">
         <summary className="cursor-pointer">Détails techniques</summary>
-        <pre className="mt-2 text-left bg-gray-100 p-2 rounded overflow-auto">
+        <pre className="mt-2 overflow-auto rounded bg-gray-100 p-2 text-left">
           {error.message}
         </pre>
       </details>
@@ -447,16 +447,16 @@ function VenuePageContent() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <div className="h-8 bg-gray-200 rounded w-64 animate-pulse mb-2" />
-            <div className="h-4 bg-gray-200 rounded w-48 animate-pulse" />
+            <div className="mb-2 h-8 w-64 animate-pulse rounded bg-gray-200" />
+            <div className="h-4 w-48 animate-pulse rounded bg-gray-200" />
           </div>
           <div className="flex gap-3">
-            <div className="h-10 bg-gray-200 rounded w-32 animate-pulse" />
-            <div className="h-10 bg-gray-200 rounded w-24 animate-pulse" />
+            <div className="h-10 w-32 animate-pulse rounded bg-gray-200" />
+            <div className="h-10 w-24 animate-pulse rounded bg-gray-200" />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
             <VenueSkeleton key={i} />
           ))}
@@ -467,13 +467,13 @@ function VenuePageContent() {
 
   if (error) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="text-center max-w-md">
-          <ExclamationTriangleIcon className="size-16 text-red-500 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="max-w-md text-center">
+          <ExclamationTriangleIcon className="mx-auto mb-4 size-16 text-red-500" />
+          <h3 className="mb-2 text-xl font-bold text-gray-900">
             Erreur de chargement
           </h3>
-          <p className="text-gray-600 mb-4">{error}</p>
+          <p className="mb-4 text-gray-600">{error}</p>
           <Button onClick={() => window.location.reload()}>Réessayer</Button>
         </div>
       </div>
@@ -485,7 +485,7 @@ function VenuePageContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-3xl font-bold text-gray-900">
             <HomeIcon className="size-8 text-pink-600" />
             Lieux de Réception
           </h1>
@@ -498,7 +498,7 @@ function VenuePageContent() {
             Suggestions IA
           </AIButton>
           <Button variant="outline" size="sm">
-            <ShareIcon className="size-4 mr-2" />
+            <ShareIcon className="mr-2 size-4" />
             Partager
           </Button>
         </div>
@@ -507,16 +507,16 @@ function VenuePageContent() {
       {/* Barre de recherche et filtres */}
       <Card>
         <CardContent className="pt-6">
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col gap-4 lg:flex-row">
             <div className="flex-1">
               <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-gray-400" />
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Rechercher un lieu par nom, ville, style..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full rounded-lg border border-gray-200 py-3 pl-10 pr-4 focus:border-transparent focus:ring-2 focus:ring-pink-500"
                 />
               </div>
             </div>
@@ -555,11 +555,11 @@ function VenuePageContent() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-6 pt-6 border-t space-y-4"
+                className="mt-6 space-y-4 border-t pt-6"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Capacité (personnes)
                     </label>
                     <div className="flex items-center gap-2">
@@ -576,7 +576,7 @@ function VenuePageContent() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
                       <input
@@ -592,13 +592,13 @@ function VenuePageContent() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Budget (€)
                     </label>
                     <div className="flex items-center gap-2">
@@ -615,7 +615,7 @@ function VenuePageContent() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
                       <input
@@ -631,13 +631,13 @@ function VenuePageContent() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Note minimum
                     </label>
                     <select
@@ -648,7 +648,7 @@ function VenuePageContent() {
                           rating: Number(e.target.value),
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
                       <option value={4.5}>4.5+ étoiles</option>
@@ -714,7 +714,7 @@ function VenuePageContent() {
         </p>
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600">Trier par :</span>
-          <select className="px-3 py-1 border border-gray-200 rounded-md text-sm focus:ring-2 focus:ring-pink-500">
+          <select className="rounded-md border border-gray-200 px-3 py-1 text-sm focus:ring-2 focus:ring-pink-500">
             <option>Pertinence</option>
             <option>Prix croissant</option>
             <option>Prix décroissant</option>
@@ -726,9 +726,9 @@ function VenuePageContent() {
 
       {/* Grille des lieux */}
       {filteredVenues.length === 0 ? (
-        <div className="text-center py-12">
-          <HomeIcon className="size-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+        <div className="py-12 text-center">
+          <HomeIcon className="mx-auto mb-4 size-16 text-gray-300" />
+          <h3 className="mb-2 text-lg font-medium text-gray-900">
             Aucun lieu trouvé
           </h3>
           <p className="text-gray-600">
@@ -737,7 +737,7 @@ function VenuePageContent() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredVenues.map((venue) => (
             <motion.div
               key={venue.id}
@@ -745,27 +745,27 @@ function VenuePageContent() {
               animate={{ opacity: 1, y: 0 }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <Card className="overflow-hidden h-full cursor-pointer group hover:shadow-lg transition-all duration-300">
+              <Card className="group h-full cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg">
                 <div className="relative">
-                  <div className="aspect-video relative">
+                  <div className="relative aspect-video">
                     <SafeImage
                       src={venue.images[0]}
                       alt={`${venue.name} - ${venue.location}`}
                       fill
-                      className="group-hover:scale-105 transition-transform duration-300"
+                      className="transition-transform duration-300 group-hover:scale-105"
                       priority={false}
                     />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <span className="px-2 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-medium capitalize">
+                    <div className="absolute left-3 top-3 flex gap-2">
+                      <span className="rounded-full bg-pink-100 px-2 py-1 text-xs font-medium capitalize text-pink-700">
                         {venue.type.replace('-', ' ')}
                       </span>
                       {venue.accessibility && (
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
+                        <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700">
                           ♿ PMR
                         </span>
                       )}
                       {!venue.isAvailable && (
-                        <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                        <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
                           Indisponible
                         </span>
                       )}
@@ -775,7 +775,7 @@ function VenuePageContent() {
                         e.stopPropagation();
                         toggleFavorite(venue.id);
                       }}
-                      className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+                      className="absolute right-3 top-3 rounded-full bg-white/90 p-2 transition-colors hover:bg-white"
                     >
                       <HeartIcon
                         className={cn(
@@ -790,12 +790,12 @@ function VenuePageContent() {
                 </div>
 
                 <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-2">
+                  <div className="mb-2 flex items-start justify-between">
                     <div>
-                      <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                      <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-pink-600">
                         {venue.name}
                       </h3>
-                      <p className="text-sm text-gray-600 flex items-center gap-1">
+                      <p className="flex items-center gap-1 text-sm text-gray-600">
                         <MapPinIcon className="size-3" />
                         {venue.location}
                       </p>
@@ -803,7 +803,7 @@ function VenuePageContent() {
                     <div className="text-right">
                       <div className="flex items-center gap-1">
                         <StarSolidIcon className="size-4 text-yellow-400" />
-                        <span className="font-medium text-sm">
+                        <span className="text-sm font-medium">
                           {venue.rating}
                         </span>
                       </div>
@@ -813,27 +813,27 @@ function VenuePageContent() {
                     </div>
                   </div>
 
-                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                  <p className="mb-3 line-clamp-2 text-sm text-gray-600">
                     {venue.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1 mb-3">
+                  <div className="mb-3 flex flex-wrap gap-1">
                     {venue.style.slice(0, 2).map((style) => (
                       <span
                         key={style}
-                        className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full text-xs"
+                        className="rounded-full bg-amber-100 px-2 py-1 text-xs text-amber-700"
                       >
                         {style}
                       </span>
                     ))}
                     {venue.style.length > 2 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                      <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
                         +{venue.style.length - 2}
                       </span>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
+                  <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-gray-600">
                     <div className="flex items-center gap-1">
                       <UsersIcon className="size-3" />
                       {venue.capacity.min}-{venue.capacity.max} pers.
@@ -873,18 +873,18 @@ function VenuePageContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
             onClick={() => setSelectedVenue(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-xl bg-white"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
-                <div className="aspect-video relative bg-gray-200">
+                <div className="relative aspect-video bg-gray-200">
                   <SafeImage
                     src={selectedVenue.images[0]}
                     alt={selectedVenue.name}
@@ -893,7 +893,7 @@ function VenuePageContent() {
                   />
                   <button
                     onClick={() => setSelectedVenue(null)}
-                    className="absolute top-4 right-4 p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"
+                    className="absolute right-4 top-4 rounded-full bg-white p-2 transition-colors hover:bg-gray-100"
                   >
                     <XMarkIcon className="size-5" />
                   </button>
@@ -901,19 +901,19 @@ function VenuePageContent() {
               </div>
 
               <div className="p-6">
-                <div className="flex items-start justify-between mb-6">
+                <div className="mb-6 flex items-start justify-between">
                   <div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h2 className="mb-2 text-2xl font-bold text-gray-900">
                       {selectedVenue.name}
                     </h2>
-                    <p className="text-gray-600 mb-2 flex items-center gap-1">
+                    <p className="mb-2 flex items-center gap-1 text-gray-600">
                       <MapPinIcon className="size-4" />
                       {selectedVenue.location}
                     </p>
                     <p className="text-gray-700">{selectedVenue.description}</p>
                   </div>
                   <div className="text-right">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="mb-2 flex items-center gap-2">
                       <div className="flex items-center">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <StarSolidIcon
@@ -934,16 +934,16 @@ function VenuePageContent() {
                     <p className="text-sm text-gray-600">
                       ({selectedVenue.reviewCount} avis)
                     </p>
-                    <p className="text-lg font-bold text-pink-600 mt-2">
+                    <p className="mt-2 text-lg font-bold text-pink-600">
                       {selectedVenue.priceRange.min}-
                       {selectedVenue.priceRange.max}€
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">
+                    <h3 className="mb-3 font-semibold text-gray-900">
                       Commodités
                     </h3>
                     <div className="space-y-2">
@@ -952,7 +952,7 @@ function VenuePageContent() {
                           key={index}
                           className="flex items-center gap-2 text-sm"
                         >
-                          <CheckCircleIconSolid className="size-4 text-green-500 flex-shrink-0" />
+                          <CheckCircleIconSolid className="size-4 shrink-0 text-green-500" />
                           <span>{amenity}</span>
                         </div>
                       ))}
@@ -960,19 +960,19 @@ function VenuePageContent() {
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">
+                    <h3 className="mb-3 font-semibold text-gray-900">
                       Informations pratiques
                     </h3>
                     <div className="space-y-3 text-sm">
                       <div className="flex items-center gap-2">
-                        <UsersIcon className="size-4 text-gray-400 flex-shrink-0" />
+                        <UsersIcon className="size-4 shrink-0 text-gray-400" />
                         <span>
                           Capacité : {selectedVenue.capacity.min} à{' '}
                           {selectedVenue.capacity.max} personnes
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CurrencyEuroIcon className="size-4 text-gray-400 flex-shrink-0" />
+                        <CurrencyEuroIcon className="size-4 shrink-0 text-gray-400" />
                         <span>
                           Budget : {selectedVenue.priceRange.min}€ à{' '}
                           {selectedVenue.priceRange.max}€
@@ -997,12 +997,12 @@ function VenuePageContent() {
                 </div>
 
                 <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-3">Contact</h3>
+                  <h3 className="mb-3 font-semibold text-gray-900">Contact</h3>
                   <div className="flex flex-wrap gap-4">
                     {selectedVenue.contact.phone && (
                       <a
                         href={`tel:${selectedVenue.contact.phone}`}
-                        className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                        className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                       >
                         <PhoneIcon className="size-4" />
                         {selectedVenue.contact.phone}
@@ -1011,7 +1011,7 @@ function VenuePageContent() {
                     {selectedVenue.contact.email && (
                       <a
                         href={`mailto:${selectedVenue.contact.email}`}
-                        className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                        className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                       >
                         <EnvelopeIcon className="size-4" />
                         {selectedVenue.contact.email}
@@ -1022,7 +1022,7 @@ function VenuePageContent() {
                         href={selectedVenue.contact.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                        className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                       >
                         <GlobeAltIcon className="size-4" />
                         Site web

@@ -5,19 +5,19 @@ import { Button } from '@/components/ui/button';
 
 const NotFoundPage = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
-      <div className="text-center max-w-md">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
+      <div className="max-w-md text-center">
         {/* Icon */}
         <div className="mb-8">
-          <HeartIcon className="size-20 text-pink-300 mx-auto mb-4" />
-          <div className="text-6xl font-bold text-pink-600 mb-2">404</div>
+          <HeartIcon className="mx-auto mb-4 size-20 text-pink-300" />
+          <div className="mb-2 text-6xl font-bold text-pink-600">404</div>
         </div>
 
         {/* Content */}
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="mb-4 text-2xl font-bold text-gray-900">
           Page introuvable
         </h1>
-        <p className="text-gray-600 mb-8">
+        <p className="mb-8 text-gray-600">
           Oups ! Cette page n'existe pas ou a été déplacée. Retournons à la
           planification de votre mariage de rêve !
         </p>
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
         <div className="space-y-3">
           <Link href="/app">
             <Button className="w-full">
-              <HomeIcon className="size-4 mr-2" />
+              <HomeIcon className="mr-2 size-4" />
               Retour au tableau de bord
             </Button>
           </Link>

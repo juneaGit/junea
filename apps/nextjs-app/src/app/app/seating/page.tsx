@@ -19,8 +19,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { AIButton } from '@/components/ai/ai-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useAI } from '@/hooks/use-ai';
+import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useUser } from '@/lib/auth';
 import { cn } from '@/utils/cn';
 
@@ -269,7 +269,7 @@ export default function SeatingPlanPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-3xl font-bold text-gray-900">
             <TableCellsIcon className="size-8 text-pink-600" />
             Plan de Table
           </h1>
@@ -283,31 +283,31 @@ export default function SeatingPlanPage() {
             size="sm"
             onClick={() => setViewMode(viewMode === '2d' ? 'list' : '2d')}
           >
-            <EyeIcon className="size-4 mr-2" />
+            <EyeIcon className="mr-2 size-4" />
             {viewMode === '2d' ? 'Vue Liste' : 'Vue 2D'}
           </Button>
           <AIButton onGenerate={generateAIRecommendations} loading={aiLoading}>
             Optimiser avec l'IA
           </AIButton>
           <Button variant="outline" size="sm">
-            <ShareIcon className="size-4 mr-2" />
+            <ShareIcon className="mr-2 size-4" />
             Partager
           </Button>
           <Button variant="outline" size="sm">
-            <PrinterIcon className="size-4 mr-2" />
+            <PrinterIcon className="mr-2 size-4" />
             Exporter PDF
           </Button>
         </div>
       </div>
 
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
           {/* Panneau des invités non assignés */}
           <div className="lg:col-span-1">
             <Card className="h-fit">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-lg">
                     <UserGroupIcon className="size-5" />
                     Invités ({unassignedGuests.length})
                   </CardTitle>
@@ -322,13 +322,13 @@ export default function SeatingPlanPage() {
 
                 {/* Barre de recherche */}
                 <div className="relative">
-                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
+                  <MagnifyingGlassIcon className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Rechercher un invité..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    className="w-full rounded-lg border border-gray-200 py-2 pl-10 pr-4 focus:border-transparent focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
 
@@ -353,7 +353,7 @@ export default function SeatingPlanPage() {
                               relationship: e.target.value,
                             }))
                           }
-                          className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                          className="mt-1 w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                         >
                           <option value="all">Toutes</option>
                           <option value="famille">Famille</option>
@@ -373,7 +373,7 @@ export default function SeatingPlanPage() {
                               side: e.target.value,
                             }))
                           }
-                          className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                          className="mt-1 w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                         >
                           <option value="all">Tous</option>
                           <option value="bride">Mariée</option>
@@ -425,7 +425,7 @@ export default function SeatingPlanPage() {
                                 <div className="font-medium text-gray-900">
                                   {guest.name}
                                 </div>
-                                <div className="text-sm text-gray-600 flex items-center gap-2">
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
                                   <span
                                     className={cn(
                                       'px-2 py-1 rounded-full text-xs',
@@ -439,14 +439,14 @@ export default function SeatingPlanPage() {
                                     {guest.relationship}
                                   </span>
                                   {guest.isChild && (
-                                    <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
+                                    <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">
                                       Enfant
                                     </span>
                                   )}
                                 </div>
                                 {guest.dietaryRestrictions &&
                                   guest.dietaryRestrictions.length > 0 && (
-                                    <div className="text-xs text-amber-600 mt-1">
+                                    <div className="mt-1 text-xs text-amber-600">
                                       🥗 {guest.dietaryRestrictions.join(', ')}
                                     </div>
                                   )}
@@ -457,8 +457,8 @@ export default function SeatingPlanPage() {
                       ))}
                       {provided.placeholder}
                       {filteredGuests.length === 0 && (
-                        <div className="text-center py-8 text-gray-500">
-                          <UserGroupIcon className="size-8 mx-auto mb-2 opacity-50" />
+                        <div className="py-8 text-center text-gray-500">
+                          <UserGroupIcon className="mx-auto mb-2 size-8 opacity-50" />
                           <p>Aucun invité non assigné</p>
                         </div>
                       )}
@@ -492,16 +492,16 @@ export default function SeatingPlanPage() {
               </CardHeader>
               <CardContent>
                 {viewMode === '2d' ? (
-                  <div className="relative bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-8 min-h-[600px] overflow-hidden">
+                  <div className="relative min-h-[600px] overflow-hidden rounded-xl bg-gradient-to-br from-pink-50 to-rose-50 p-8">
                     {/* Décoration de fond */}
                     <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-10 left-10 w-20 h-20 bg-pink-200 rounded-full"></div>
-                      <div className="absolute bottom-10 right-10 w-16 h-16 bg-rose-200 rounded-full"></div>
-                      <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-yellow-200 rounded-full"></div>
+                      <div className="absolute left-10 top-10 size-20 rounded-full bg-pink-200"></div>
+                      <div className="absolute bottom-10 right-10 size-16 rounded-full bg-rose-200"></div>
+                      <div className="absolute left-1/4 top-1/2 size-12 rounded-full bg-yellow-200"></div>
                     </div>
 
                     {/* Scène - zone de drop pour les tables */}
-                    <div className="relative w-full h-full">
+                    <div className="relative size-full">
                       {tables.map((table) => (
                         <Droppable key={table.id} droppableId={table.id}>
                           {(provided, snapshot) => (
@@ -546,15 +546,15 @@ export default function SeatingPlanPage() {
                                 )}
                               >
                                 {/* Nom et capacité de la table */}
-                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-2">
-                                  <div className="font-semibold text-gray-800 text-sm leading-tight">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-2 text-center">
+                                  <div className="text-sm font-semibold leading-tight text-gray-800">
                                     {table.name}
                                   </div>
-                                  <div className="text-xs text-gray-600 mt-1">
+                                  <div className="mt-1 text-xs text-gray-600">
                                     {table.guests.length}/{table.capacity}
                                   </div>
                                   {table.theme === 'principale' && (
-                                    <HeartIcon className="size-4 text-yellow-600 mt-1" />
+                                    <HeartIcon className="mt-1 size-4 text-yellow-600" />
                                   )}
                                 </div>
 
@@ -566,14 +566,14 @@ export default function SeatingPlanPage() {
                                       ? 'rounded-lg'
                                       : '',
                                     snapshot.isDraggingOver
-                                      ? 'opacity-100 bg-pink-200 bg-opacity-50'
+                                      ? 'opacity-100 bg-pink-200/50'
                                       : '',
                                   )}
                                 />
 
                                 {/* Invités assignés à la table */}
-                                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2">
-                                  <div className="flex flex-wrap justify-center gap-1 max-w-40">
+                                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
+                                  <div className="flex max-w-40 flex-wrap justify-center gap-1">
                                     {table.guests
                                       .slice(0, 3)
                                       .map((guest, index) => (
@@ -601,7 +601,7 @@ export default function SeatingPlanPage() {
                                         </Draggable>
                                       ))}
                                     {table.guests.length > 3 && (
-                                      <div className="w-6 h-6 rounded-full bg-gray-400 text-xs flex items-center justify-center text-white font-medium">
+                                      <div className="flex size-6 items-center justify-center rounded-full bg-gray-400 text-xs font-medium text-white">
                                         +{table.guests.length - 3}
                                       </div>
                                     )}
@@ -623,7 +623,7 @@ export default function SeatingPlanPage() {
                         <CardHeader className="bg-gradient-to-r from-pink-50 to-rose-50 pb-3">
                           <div className="flex items-center justify-between">
                             <div>
-                              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                              <h3 className="flex items-center gap-2 font-semibold text-gray-900">
                                 {table.theme === 'principale' && (
                                   <HeartIcon className="size-4 text-yellow-600" />
                                 )}
@@ -675,7 +675,7 @@ export default function SeatingPlanPage() {
                                               : 'border-l-4 border-l-blue-400',
                                           )}
                                         >
-                                          <div className="font-medium text-sm text-gray-900">
+                                          <div className="text-sm font-medium text-gray-900">
                                             {guest.name}
                                           </div>
                                           <div className="text-xs text-gray-600">
@@ -684,7 +684,7 @@ export default function SeatingPlanPage() {
                                           {guest.dietaryRestrictions &&
                                             guest.dietaryRestrictions.length >
                                               0 && (
-                                              <div className="text-xs text-amber-600 mt-1">
+                                              <div className="mt-1 text-xs text-amber-600">
                                                 🥗{' '}
                                                 {guest.dietaryRestrictions.join(
                                                   ', ',
@@ -698,8 +698,8 @@ export default function SeatingPlanPage() {
                                 ))}
                                 {provided.placeholder}
                                 {table.guests.length === 0 && (
-                                  <div className="col-span-full text-center py-4 text-gray-500">
-                                    <TableCellsIcon className="size-8 mx-auto mb-2 opacity-50" />
+                                  <div className="col-span-full py-4 text-center text-gray-500">
+                                    <TableCellsIcon className="mx-auto mb-2 size-8 opacity-50" />
                                     <p className="text-sm">
                                       Glissez des invités ici
                                     </p>
@@ -728,7 +728,7 @@ export default function SeatingPlanPage() {
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-6 right-6 w-80 max-w-sm"
           >
-            <Card className="shadow-xl border-2 border-pink-200">
+            <Card className="border-2 border-pink-200 shadow-xl">
               <CardHeader className="bg-gradient-to-r from-pink-50 to-rose-50 pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg">
@@ -761,7 +761,7 @@ export default function SeatingPlanPage() {
                   </div>
                   {selectedTable.guests.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">
+                      <h4 className="mb-2 text-sm font-medium text-gray-700">
                         Invités assignés :
                       </h4>
                       <div className="space-y-1">

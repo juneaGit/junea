@@ -1,10 +1,11 @@
 'use client';
 
-import { Suspense } from 'react';
 import {
   SparklesIcon,
   ExclamationTriangleIcon,
 } from '@heroicons/react/24/outline';
+import { Suspense } from 'react';
+
 import { ErrorBoundary, AIErrorFallback } from './error-boundary';
 
 /**
@@ -15,31 +16,31 @@ const AISkeleton = ({
 }: {
   message?: string;
 }) => (
-  <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-6 animate-pulse">
-    <div className="flex items-center gap-3 mb-4">
+  <div className="animate-pulse rounded-lg border border-pink-200 bg-gradient-to-r from-pink-50 to-rose-50 p-6">
+    <div className="mb-4 flex items-center gap-3">
       <div className="animate-spin">
         <SparklesIcon className="size-6 text-pink-500" />
       </div>
       <div className="flex-1">
-        <div className="h-4 bg-pink-200 rounded w-3/4 mb-2"></div>
-        <div className="h-3 bg-pink-100 rounded w-1/2"></div>
+        <div className="mb-2 h-4 w-3/4 rounded bg-pink-200"></div>
+        <div className="h-3 w-1/2 rounded bg-pink-100"></div>
       </div>
     </div>
 
     <div className="space-y-3">
       {[...Array(3)].map((_, i) => (
-        <div key={i} className="bg-white/60 rounded-lg p-4">
-          <div className="h-4 bg-pink-100 rounded w-full mb-2"></div>
-          <div className="h-3 bg-pink-50 rounded w-2/3 mb-2"></div>
+        <div key={i} className="rounded-lg bg-white/60 p-4">
+          <div className="mb-2 h-4 w-full rounded bg-pink-100"></div>
+          <div className="mb-2 h-3 w-2/3 rounded bg-pink-50"></div>
           <div className="flex gap-2">
-            <div className="h-6 bg-pink-100 rounded-full w-16"></div>
-            <div className="h-6 bg-pink-100 rounded-full w-20"></div>
+            <div className="h-6 w-16 rounded-full bg-pink-100"></div>
+            <div className="h-6 w-20 rounded-full bg-pink-100"></div>
           </div>
         </div>
       ))}
     </div>
 
-    <p className="text-sm text-pink-600 text-center mt-4 flex items-center justify-center gap-2">
+    <p className="mt-4 flex items-center justify-center gap-2 text-center text-sm text-pink-600">
       <SparklesIcon className="size-4 animate-pulse" />
       {message}
     </p>
@@ -63,21 +64,21 @@ const AISpecificErrorFallback = ({
 
   if (isQuotaError) {
     return (
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 my-4">
+      <div className="my-4 rounded-lg border border-orange-200 bg-orange-50 p-6">
         <div className="flex items-start gap-3">
-          <ExclamationTriangleIcon className="size-6 text-orange-600 flex-shrink-0 mt-0.5" />
+          <ExclamationTriangleIcon className="mt-0.5 size-6 shrink-0 text-orange-600" />
           <div className="flex-1">
-            <h3 className="font-medium text-orange-800 mb-2">
+            <h3 className="mb-2 font-medium text-orange-800">
               Quota OpenAI dépassé
             </h3>
-            <p className="text-sm text-orange-700 mb-4">
+            <p className="mb-4 text-sm text-orange-700">
               Les crédits OpenAI sont épuisés. L'application utilise des
               suggestions par défaut en attendant.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={resetErrorBoundary}
-                className="text-sm bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors"
+                className="rounded-md bg-orange-600 px-4 py-2 text-sm text-white transition-colors hover:bg-orange-700"
               >
                 Réessayer
               </button>
@@ -90,31 +91,31 @@ const AISpecificErrorFallback = ({
 
   if (isOpenAIError) {
     return (
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 my-4">
+      <div className="my-4 rounded-lg border border-yellow-200 bg-yellow-50 p-6">
         <div className="flex items-start gap-3">
-          <ExclamationTriangleIcon className="size-6 text-yellow-600 flex-shrink-0 mt-0.5" />
+          <ExclamationTriangleIcon className="mt-0.5 size-6 shrink-0 text-yellow-600" />
           <div className="flex-1">
-            <h3 className="font-medium text-yellow-800 mb-2">
+            <h3 className="mb-2 font-medium text-yellow-800">
               Configuration OpenAI requise
             </h3>
-            <p className="text-sm text-yellow-700 mb-4">
+            <p className="mb-4 text-sm text-yellow-700">
               La clé API OpenAI n'est pas configurée. Veuillez créer le fichier{' '}
-              <code className="bg-yellow-100 px-1 rounded">.env.local</code>{' '}
+              <code className="rounded bg-yellow-100 px-1">.env.local</code>{' '}
               avec votre clé API.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={() => window.location.reload()}
-                className="text-sm bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
+                className="rounded-md bg-yellow-600 px-4 py-2 text-sm text-white transition-colors hover:bg-yellow-700"
               >
                 Recharger
               </button>
             </div>
             <details className="mt-3">
-              <summary className="text-xs text-yellow-600 cursor-pointer">
+              <summary className="cursor-pointer text-xs text-yellow-600">
                 Instructions
               </summary>
-              <div className="text-xs text-yellow-800 mt-2">
+              <div className="mt-2 text-xs text-yellow-800">
                 <p>
                   1. Créez <code>.env.local</code> dans apps/nextjs-app/
                 </p>

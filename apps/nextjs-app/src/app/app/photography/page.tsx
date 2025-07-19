@@ -32,8 +32,8 @@ import { useState, useEffect } from 'react';
 import { AIButton } from '@/components/ai/ai-button';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useAI } from '@/hooks/use-ai';
+import { useWeddingProfile } from '@/hooks/use-wedding-profile';
 import { useUser } from '@/lib/auth';
 import { cn } from '@/utils/cn';
 
@@ -372,7 +372,7 @@ export default function PhotographyPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="flex items-center gap-2 text-3xl font-bold text-gray-900">
             <PhotoIcon className="size-8 text-pink-600" />
             Photographes
           </h1>
@@ -388,14 +388,14 @@ export default function PhotographyPage() {
               setActiveView(activeView === 'grid' ? 'portfolio' : 'grid')
             }
           >
-            <EyeIcon className="size-4 mr-2" />
+            <EyeIcon className="mr-2 size-4" />
             {activeView === 'grid' ? 'Vue Portfolio' : 'Vue Grille'}
           </Button>
           <AIButton onGenerate={generateAIRecommendations} loading={aiLoading}>
             Correspondances IA
           </AIButton>
           <Button variant="outline" size="sm">
-            <ShareIcon className="size-4 mr-2" />
+            <ShareIcon className="mr-2 size-4" />
             Partager
           </Button>
         </div>
@@ -404,17 +404,17 @@ export default function PhotographyPage() {
       {/* Barre de recherche et filtres */}
       <Card>
         <CardContent className="pt-6">
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col gap-4 lg:flex-row">
             {/* Recherche */}
             <div className="flex-1">
               <div className="relative">
-                <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-gray-400" />
+                <MagnifyingGlassIcon className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Rechercher par nom, style, localisation..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent text-lg"
+                  className="w-full rounded-lg border border-gray-200 py-3 pl-10 pr-4 text-lg focus:border-transparent focus:ring-2 focus:ring-pink-500"
                 />
               </div>
             </div>
@@ -457,11 +457,11 @@ export default function PhotographyPage() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-6 pt-6 border-t space-y-4"
+                className="mt-6 space-y-4 border-t pt-6"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Budget (€)
                     </label>
                     <div className="flex items-center gap-2">
@@ -478,7 +478,7 @@ export default function PhotographyPage() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                       <span>-</span>
                       <input
@@ -494,13 +494,13 @@ export default function PhotographyPage() {
                             ],
                           }))
                         }
-                        className="flex-1 px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                        className="flex-1 rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Expérience minimum
                     </label>
                     <select
@@ -511,7 +511,7 @@ export default function PhotographyPage() {
                           experience: Number(e.target.value),
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toute expérience</option>
                       <option value={2}>2+ années</option>
@@ -521,7 +521,7 @@ export default function PhotographyPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Note minimum
                     </label>
                     <select
@@ -532,7 +532,7 @@ export default function PhotographyPage() {
                           rating: Number(e.target.value),
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     >
                       <option value={0}>Toutes les notes</option>
                       <option value={4.5}>4.5+ étoiles</option>
@@ -542,7 +542,7 @@ export default function PhotographyPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="mb-2 block text-sm font-medium text-gray-700">
                       Localisation
                     </label>
                     <input
@@ -555,7 +555,7 @@ export default function PhotographyPage() {
                           location: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-gray-200 rounded-md focus:ring-2 focus:ring-pink-500"
+                      className="w-full rounded-md border border-gray-200 px-3 py-2 focus:ring-2 focus:ring-pink-500"
                     />
                   </div>
                 </div>
@@ -595,7 +595,7 @@ export default function PhotographyPage() {
         </p>
         <div className="flex items-center gap-2">
           <span className="text-sm text-gray-600">Trier par :</span>
-          <select className="px-3 py-1 border border-gray-200 rounded-md text-sm focus:ring-2 focus:ring-pink-500">
+          <select className="rounded-md border border-gray-200 px-3 py-1 text-sm focus:ring-2 focus:ring-pink-500">
             <option>Pertinence</option>
             <option>Prix croissant</option>
             <option>Prix décroissant</option>
@@ -606,7 +606,7 @@ export default function PhotographyPage() {
       </div>
 
       {/* Grille des photographes */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredPhotographers.map((photographer) => (
           <motion.div
             key={photographer.id}
@@ -614,27 +614,27 @@ export default function PhotographyPage() {
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <Card className="overflow-hidden h-full cursor-pointer group hover:shadow-lg transition-all duration-300">
+            <Card className="group h-full cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg">
               <div className="relative">
-                <div className="aspect-video relative bg-gray-200">
+                <div className="relative aspect-video bg-gray-200">
                   <Image
                     src={photographer.coverImage}
                     alt={`Travail de ${photographer.name}`}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute top-3 left-3 flex gap-2">
+                  <div className="absolute left-3 top-3 flex gap-2">
                     {photographer.availability ? (
-                      <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                      <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                         Disponible
                       </span>
                     ) : (
-                      <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">
+                      <span className="rounded-full bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
                         Complet
                       </span>
                     )}
                     {photographer.awards.length > 0 && (
-                      <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">
+                      <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700">
                         Primé
                       </span>
                     )}
@@ -644,7 +644,7 @@ export default function PhotographyPage() {
                       e.stopPropagation();
                       toggleFavorite(photographer.id);
                     }}
-                    className="absolute top-3 right-3 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+                    className="absolute right-3 top-3 rounded-full bg-white/90 p-2 transition-colors hover:bg-white"
                   >
                     {photographer.isFavorite ? (
                       <HeartSolidIcon className="size-4 text-red-500" />
@@ -656,7 +656,7 @@ export default function PhotographyPage() {
 
                 {/* Photo de profil */}
                 <div className="absolute -bottom-6 left-4">
-                  <div className="size-12 rounded-full border-4 border-white overflow-hidden">
+                  <div className="size-12 overflow-hidden rounded-full border-4 border-white">
                     <Image
                       src={photographer.profileImage}
                       alt={photographer.name}
@@ -668,23 +668,23 @@ export default function PhotographyPage() {
                 </div>
               </div>
 
-              <CardContent className="pt-8 p-4">
-                <div className="flex items-start justify-between mb-2">
+              <CardContent className="p-4 pt-8">
+                <div className="mb-2 flex items-start justify-between">
                   <div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                    <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-pink-600">
                       {photographer.name}
                     </h3>
                     <p className="text-sm text-gray-600">
                       {photographer.location}
                     </p>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="mt-1 text-xs text-gray-500">
                       {photographer.experience} ans d'expérience
                     </p>
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-1">
                       <StarSolidIcon className="size-4 text-yellow-400" />
-                      <span className="font-medium text-sm">
+                      <span className="text-sm font-medium">
                         {photographer.rating}
                       </span>
                     </div>
@@ -694,28 +694,28 @@ export default function PhotographyPage() {
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <p className="mb-3 line-clamp-2 text-sm text-gray-600">
                   {photographer.bio}
                 </p>
 
                 {/* Styles */}
-                <div className="flex flex-wrap gap-1 mb-3">
+                <div className="mb-3 flex flex-wrap gap-1">
                   {photographer.style.slice(0, 2).map((style) => (
                     <span
                       key={style}
-                      className="px-2 py-1 bg-pink-100 text-pink-700 rounded-full text-xs"
+                      className="rounded-full bg-pink-100 px-2 py-1 text-xs text-pink-700"
                     >
                       {style}
                     </span>
                   ))}
                   {photographer.style.length > 2 && (
-                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full text-xs">
+                    <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
                       +{photographer.style.length - 2}
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between mb-4">
+                <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-1 text-sm font-medium text-gray-900">
                     <CurrencyEuroIcon className="size-4" />
                     {photographer.priceRange.min}-{photographer.priceRange.max}€
@@ -732,7 +732,7 @@ export default function PhotographyPage() {
                     className="flex-1"
                     onClick={() => setSelectedPhotographer(photographer)}
                   >
-                    <CameraIcon className="size-4 mr-2" />
+                    <CameraIcon className="mr-2 size-4" />
                     Voir portfolio
                   </Button>
                   {photographer.contact.phone && (
@@ -754,14 +754,14 @@ export default function PhotographyPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
             onClick={() => setSelectedPhotographer(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+              className="max-h-[90vh] w-full max-w-6xl overflow-y-auto rounded-xl bg-white"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Cover image */}
@@ -774,15 +774,15 @@ export default function PhotographyPage() {
                 />
                 <button
                   onClick={() => setSelectedPhotographer(null)}
-                  className="absolute top-4 right-4 p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"
+                  className="absolute right-4 top-4 rounded-full bg-white p-2 transition-colors hover:bg-gray-100"
                 >
                   <XMarkIcon className="size-5" />
                 </button>
 
                 {/* Profile info overlay */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-6">
                   <div className="flex items-end gap-4">
-                    <div className="size-20 rounded-full border-4 border-white overflow-hidden">
+                    <div className="size-20 overflow-hidden rounded-full border-4 border-white">
                       <Image
                         src={selectedPhotographer.profileImage}
                         alt={selectedPhotographer.name}
@@ -798,7 +798,7 @@ export default function PhotographyPage() {
                       <p className="text-gray-200">
                         {selectedPhotographer.location}
                       </p>
-                      <div className="flex items-center gap-4 mt-2">
+                      <div className="mt-2 flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <StarSolidIcon className="size-4 text-yellow-400" />
                           <span className="font-medium">
@@ -819,12 +819,12 @@ export default function PhotographyPage() {
               </div>
 
               <div className="p-6">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                   {/* Colonne principale */}
-                  <div className="lg:col-span-2 space-y-6">
+                  <div className="space-y-6 lg:col-span-2">
                     {/* Bio */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
+                      <h3 className="mb-2 font-semibold text-gray-900">
                         À propos
                       </h3>
                       <p className="text-gray-700">
@@ -834,33 +834,33 @@ export default function PhotographyPage() {
 
                     {/* Portfolio */}
                     <div>
-                      <h3 className="font-semibold text-gray-900 mb-4">
+                      <h3 className="mb-4 font-semibold text-gray-900">
                         Portfolio
                       </h3>
                       {selectedPhotographer.portfolio.length > 0 ? (
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                           {selectedPhotographer.portfolio
                             .slice(0, 6)
                             .map((photo) => (
                               <div
                                 key={photo.id}
-                                className="aspect-square relative cursor-pointer group overflow-hidden rounded-lg"
+                                className="group relative aspect-square cursor-pointer overflow-hidden rounded-lg"
                                 onClick={() => setSelectedPhoto(photo)}
                               >
                                 <Image
                                   src={photo.url}
                                   alt={photo.title}
                                   fill
-                                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                                 />
                                 {photo.isVideo && (
                                   <div className="absolute inset-0 flex items-center justify-center">
                                     <PlayIcon className="size-12 text-white drop-shadow-lg" />
                                   </div>
                                 )}
-                                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity">
-                                  <div className="absolute bottom-2 left-2 right-2">
-                                    <p className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="absolute inset-0 bg-black/0 transition-opacity group-hover:bg-black/20">
+                                  <div className="absolute inset-x-2 bottom-2">
+                                    <p className="text-xs font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
                                       {photo.title}
                                     </p>
                                   </div>
@@ -869,8 +869,8 @@ export default function PhotographyPage() {
                             ))}
                         </div>
                       ) : (
-                        <div className="text-center py-8 text-gray-500">
-                          <PhotoIcon className="size-12 mx-auto mb-2 opacity-50" />
+                        <div className="py-8 text-center text-gray-500">
+                          <PhotoIcon className="mx-auto mb-2 size-12 opacity-50" />
                           <p>Portfolio en cours de mise à jour</p>
                         </div>
                       )}
@@ -919,7 +919,7 @@ export default function PhotographyPage() {
 
                         <div className="space-y-2">
                           <Button className="w-full">
-                            <CalendarDaysIcon className="size-4 mr-2" />
+                            <CalendarDaysIcon className="mr-2 size-4" />
                             Vérifier disponibilité
                           </Button>
                           <Button
@@ -930,9 +930,9 @@ export default function PhotographyPage() {
                             }
                           >
                             {selectedPhotographer.isFavorite ? (
-                              <HeartSolidIcon className="size-4 mr-2 text-red-500" />
+                              <HeartSolidIcon className="mr-2 size-4 text-red-500" />
                             ) : (
-                              <HeartIcon className="size-4 mr-2" />
+                              <HeartIcon className="mr-2 size-4" />
                             )}
                             {selectedPhotographer.isFavorite
                               ? 'Retirer favoris'
@@ -958,12 +958,12 @@ export default function PhotographyPage() {
                                 : 'border-gray-200 hover:border-pink-200',
                             )}
                           >
-                            <div className="flex items-start justify-between mb-2">
+                            <div className="mb-2 flex items-start justify-between">
                               <div>
-                                <h4 className="font-medium flex items-center gap-2">
+                                <h4 className="flex items-center gap-2 font-medium">
                                   {pkg.name}
                                   {pkg.popular && (
-                                    <span className="text-xs bg-pink-600 text-white px-2 py-1 rounded-full">
+                                    <span className="rounded-full bg-pink-600 px-2 py-1 text-xs text-white">
                                       Populaire
                                     </span>
                                   )}
@@ -982,7 +982,7 @@ export default function PhotographyPage() {
                               </div>
                             </div>
 
-                            <div className="text-xs text-gray-600 space-y-1">
+                            <div className="space-y-1 text-xs text-gray-600">
                               <div className="flex items-center gap-2">
                                 <PhotoIcon className="size-3" />
                                 <span>{pkg.photos}+ photos</span>
@@ -1012,7 +1012,7 @@ export default function PhotographyPage() {
                         {selectedPhotographer.contact.phone && (
                           <a
                             href={`tel:${selectedPhotographer.contact.phone}`}
-                            className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                            className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                           >
                             <PhoneIcon className="size-4" />
                             {selectedPhotographer.contact.phone}
@@ -1021,7 +1021,7 @@ export default function PhotographyPage() {
                         {selectedPhotographer.contact.email && (
                           <a
                             href={`mailto:${selectedPhotographer.contact.email}`}
-                            className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                            className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                           >
                             <EnvelopeIcon className="size-4" />
                             {selectedPhotographer.contact.email}
@@ -1032,7 +1032,7 @@ export default function PhotographyPage() {
                             href={selectedPhotographer.contact.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                            className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                           >
                             <GlobeAltIcon className="size-4" />
                             Site web
@@ -1043,9 +1043,9 @@ export default function PhotographyPage() {
                             href={`https://instagram.com/${selectedPhotographer.contact.instagram.replace('@', '')}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-sm text-gray-600 hover:text-pink-600 transition-colors"
+                            className="flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-pink-600"
                           >
-                            <span className="text-pink-500 font-bold">@</span>
+                            <span className="font-bold text-pink-500">@</span>
                             {selectedPhotographer.contact.instagram}
                           </a>
                         )}
@@ -1088,14 +1088,14 @@ export default function PhotographyPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
             onClick={() => setSelectedPhoto(null)}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="max-w-4xl max-h-[90vh] relative"
+              className="relative max-h-[90vh] max-w-4xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
@@ -1104,18 +1104,18 @@ export default function PhotographyPage() {
                   alt={selectedPhoto.title}
                   width={800}
                   height={600}
-                  className="max-w-full max-h-[80vh] object-contain"
+                  className="max-h-[80vh] max-w-full object-contain"
                 />
                 <button
                   onClick={() => setSelectedPhoto(null)}
-                  className="absolute top-4 right-4 p-2 bg-white rounded-full hover:bg-gray-100 transition-colors"
+                  className="absolute right-4 top-4 rounded-full bg-white p-2 transition-colors hover:bg-gray-100"
                 >
                   <XMarkIcon className="size-5" />
                 </button>
               </div>
               <div className="mt-4 text-center text-white">
                 <h3 className="text-lg font-medium">{selectedPhoto.title}</h3>
-                <p className="text-gray-300 capitalize">
+                <p className="capitalize text-gray-300">
                   {selectedPhoto.category}
                 </p>
               </div>

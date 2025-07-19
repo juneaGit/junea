@@ -1,11 +1,11 @@
 'use client';
 
-import { Component, ErrorInfo, ReactNode } from 'react';
 import {
   ExclamationTriangleIcon,
   ArrowPathIcon,
   HomeIcon,
 } from '@heroicons/react/24/outline';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -33,24 +33,24 @@ export const DefaultErrorFallback = ({
   resetErrorBoundary,
   errorInfo,
 }: ErrorFallbackProps) => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
-    <div className="text-center max-w-lg">
-      <ExclamationTriangleIcon className="size-20 text-red-500 mx-auto mb-6" />
+  <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 px-4">
+    <div className="max-w-lg text-center">
+      <ExclamationTriangleIcon className="mx-auto mb-6 size-20 text-red-500" />
 
-      <h1 className="text-3xl font-bold text-gray-900 mb-4">
+      <h1 className="mb-4 text-3xl font-bold text-gray-900">
         Oops ! Une erreur s'est produite
       </h1>
 
-      <p className="text-lg text-gray-600 mb-6">
+      <p className="mb-6 text-lg text-gray-600">
         L'application a rencontré un problème inattendu. Ne vous inquiétez pas,
         nous pouvons essayer de le résoudre.
       </p>
 
-      <div className="bg-white rounded-lg p-6 mb-6 text-left">
-        <h3 className="font-semibold text-gray-900 mb-2">
+      <div className="mb-6 rounded-lg bg-white p-6 text-left">
+        <h3 className="mb-2 font-semibold text-gray-900">
           Détails de l'erreur :
         </h3>
-        <p className="text-sm text-red-600 font-mono bg-red-50 p-3 rounded">
+        <p className="rounded bg-red-50 p-3 font-mono text-sm text-red-600">
           {error.message}
         </p>
       </div>
@@ -58,7 +58,7 @@ export const DefaultErrorFallback = ({
       <div className="space-y-4">
         <button
           onClick={resetErrorBoundary}
-          className="w-full bg-pink-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-700 transition-colors flex items-center justify-center gap-2"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-pink-600 px-6 py-3 font-medium text-white transition-colors hover:bg-pink-700"
         >
           <ArrowPathIcon className="size-5" />
           Réessayer
@@ -66,7 +66,7 @@ export const DefaultErrorFallback = ({
 
         <button
           onClick={() => (window.location.href = '/app')}
-          className="w-full bg-white text-pink-600 border border-pink-200 px-6 py-3 rounded-lg font-medium hover:bg-pink-50 transition-colors flex items-center justify-center gap-2"
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-pink-200 bg-white px-6 py-3 font-medium text-pink-600 transition-colors hover:bg-pink-50"
         >
           <HomeIcon className="size-5" />
           Retour au tableau de bord
@@ -74,7 +74,7 @@ export const DefaultErrorFallback = ({
 
         <button
           onClick={() => window.location.reload()}
-          className="w-full text-gray-600 px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="w-full rounded-lg px-6 py-2 text-gray-600 transition-colors hover:bg-gray-100"
         >
           Recharger la page
         </button>
@@ -85,13 +85,13 @@ export const DefaultErrorFallback = ({
           <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
             Informations techniques (développement)
           </summary>
-          <pre className="mt-2 text-xs text-gray-600 bg-gray-100 p-4 rounded overflow-auto max-h-48">
+          <pre className="mt-2 max-h-48 overflow-auto rounded bg-gray-100 p-4 text-xs text-gray-600">
             {errorInfo.componentStack}
           </pre>
         </details>
       )}
 
-      <p className="text-xs text-gray-400 mt-6">
+      <p className="mt-6 text-xs text-gray-400">
         Si le problème persiste, contactez notre support technique.
       </p>
     </div>
@@ -185,37 +185,37 @@ export const AIErrorFallback = ({
   error,
   resetErrorBoundary,
 }: ErrorFallbackProps) => (
-  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 my-4">
+  <div className="my-4 rounded-lg border border-yellow-200 bg-yellow-50 p-6">
     <div className="flex items-start gap-3">
-      <ExclamationTriangleIcon className="size-6 text-yellow-600 flex-shrink-0 mt-0.5" />
+      <ExclamationTriangleIcon className="mt-0.5 size-6 shrink-0 text-yellow-600" />
       <div className="flex-1">
-        <h3 className="font-medium text-yellow-800 mb-2">
+        <h3 className="mb-2 font-medium text-yellow-800">
           Intelligence Artificielle temporairement indisponible
         </h3>
-        <p className="text-sm text-yellow-700 mb-4">
+        <p className="mb-4 text-sm text-yellow-700">
           Les suggestions personnalisées sont momentanément inaccessibles. Vous
           pouvez continuer à utiliser l'application normalement.
         </p>
         <div className="flex gap-2">
           <button
             onClick={resetErrorBoundary}
-            className="text-sm bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
+            className="rounded-md bg-yellow-600 px-4 py-2 text-sm text-white transition-colors hover:bg-yellow-700"
           >
             Réessayer l'IA
           </button>
           <button
             onClick={() => window.location.reload()}
-            className="text-sm text-yellow-600 hover:text-yellow-800 px-4 py-2"
+            className="px-4 py-2 text-sm text-yellow-600 hover:text-yellow-800"
           >
             Recharger
           </button>
         </div>
         {process.env.NODE_ENV === 'development' && (
           <details className="mt-3">
-            <summary className="text-xs text-yellow-600 cursor-pointer">
+            <summary className="cursor-pointer text-xs text-yellow-600">
               Détails techniques
             </summary>
-            <code className="text-xs text-yellow-800 block mt-1">
+            <code className="mt-1 block text-xs text-yellow-800">
               {error.message}
             </code>
           </details>
