@@ -10,7 +10,7 @@ Copiez-collez exactement ce contenu dans le fichier :
 
 ```env
 # OpenAI Configuration
-NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
+NEXT_PUBLIC_OPENAI_API_KEY=sk-proj-YOUR_OPENAI_API_KEY_HERE
 
 # Next.js Configuration  
 NEXT_PUBLIC_APP_URL=http://localhost:3000
@@ -19,6 +19,8 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 # NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 # NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
+
+**⚠️ IMPORTANT**: Remplacez `YOUR_OPENAI_API_KEY_HERE` par votre vraie clé OpenAI qui commence par `sk-proj-`
 
 ### **3. Vérifications importantes**
 ✅ Le fichier s'appelle exactement `.env.local` (avec le point au début)
@@ -40,9 +42,9 @@ Vérifiez que `.env.local` est dans `.gitignore` pour ne pas l'uploader sur Git 
 ```
 
 ### **⚠️ Note importante**
-- Cette clé est maintenant **EXPOSÉE** dans ce chat
-- Après les tests, **RÉVOQUEZ** cette clé dans votre dashboard OpenAI
-- Générez une **nouvelle clé** pour la production
+- **JAMAIS** commiter la vraie clé API dans Git
+- Utilisez des variables d'environnement différentes pour dev/prod
+- Révoquez immédiatement toute clé exposée
 
 ---
 
@@ -81,7 +83,7 @@ Quand vous déployez sur Vercel :
 1. Dashboard Vercel → Project Settings → Environment Variables
 2. Ajouter : 
    - **Key** : `NEXT_PUBLIC_OPENAI_API_KEY`
-   - **Value** : `sk-proj-...` (nouvelle clé sécurisée)
+   - **Value** : `sk-proj-...` (votre clé sécurisée)
    - **Environment** : Production, Preview, Development
 
 **JAMAIS** la clé dans le code Git !

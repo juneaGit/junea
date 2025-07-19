@@ -1,228 +1,156 @@
-import React, { Suspense, ReactNode } from 'react';
-import { AIErrorBoundary } from './ErrorBoundary';
+'use client';
 
-interface AISuspenseWrapperProps {
-  children: ReactNode;
-  fallback?: ReactNode;
-  errorFallback?: ReactNode;
-}
+import { Suspense } from 'react';
+import { SparklesIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { ErrorBoundary, AIErrorFallback } from './ErrorBoundary';
 
-// Composant de skeleton loader pour les suggestions AI
-const AISkeletonLoader = () => (
-  <div className="space-y-4 animate-pulse">
-    <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-4">
-      <div className="flex items-start space-x-3">
-        <div className="w-8 h-8 bg-pink-200 rounded-full"></div>
-        <div className="flex-1 space-y-2">
-          <div className="h-4 bg-pink-200 rounded w-3/4"></div>
-          <div className="h-3 bg-pink-200 rounded w-full"></div>
-          <div className="h-3 bg-pink-200 rounded w-2/3"></div>
-        </div>
+/**
+ * Skeleton loader pour les composants AI
+ */
+const AISkeleton = ({ message = 'Génération des suggestions IA...' }: { message?: string }) => (
+  <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-6 animate-pulse">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="animate-spin">
+        <SparklesIcon className="size-6 text-pink-500" />
       </div>
-    </div>
-    
-    <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-4">
-      <div className="flex items-start space-x-3">
-        <div className="w-8 h-8 bg-pink-200 rounded-full"></div>
-        <div className="flex-1 space-y-2">
-          <div className="h-4 bg-pink-200 rounded w-2/3"></div>
-          <div className="h-3 bg-pink-200 rounded w-full"></div>
-          <div className="h-3 bg-pink-200 rounded w-4/5"></div>
-        </div>
-      </div>
-    </div>
-    
-    <div className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-4">
-      <div className="flex items-start space-x-3">
-        <div className="w-8 h-8 bg-pink-200 rounded-full"></div>
-        <div className="flex-1 space-y-2">
-          <div className="h-4 bg-pink-200 rounded w-1/2"></div>
-          <div className="h-3 bg-pink-200 rounded w-full"></div>
-          <div className="h-3 bg-pink-200 rounded w-3/4"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-// Composant de fallback pour les erreurs AI
-const AIErrorFallback = () => (
-  <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg p-4">
-    <div className="flex items-start space-x-3">
-      <div className="text-2xl">🤖</div>
       <div className="flex-1">
-        <h3 className="font-medium text-amber-800 mb-1">
-          Suggestions IA temporairement indisponibles
-        </h3>
-        <p className="text-sm text-amber-700 mb-3">
-          Le service d'intelligence artificielle rencontre des difficultés. 
-          Voici quelques suggestions par défaut pour vous aider :
-        </p>
-        
-        <div className="space-y-2">
-          <div className="bg-white/50 rounded p-2">
-            <div className="font-medium text-amber-800">💡 Conseil général</div>
-            <div className="text-sm text-amber-700">
-              Commencez par définir votre budget et le nombre d'invités pour obtenir des recommandations plus précises.
-            </div>
-          </div>
-          
-          <div className="bg-white/50 rounded p-2">
-            <div className="font-medium text-amber-800">📅 Planning</div>
-            <div className="text-sm text-amber-700">
-              Planifiez votre mariage au moins 12 mois à l'avance pour avoir le temps de comparer les prestataires.
-            </div>
-          </div>
-          
-          <div className="bg-white/50 rounded p-2">
-            <div className="font-medium text-amber-800">💰 Budget</div>
-            <div className="text-sm text-amber-700">
-              Réservez 40% de votre budget pour le lieu et 30% pour la restauration.
-            </div>
-          </div>
-        </div>
+        <div className="h-4 bg-pink-200 rounded w-3/4 mb-2"></div>
+        <div className="h-3 bg-pink-100 rounded w-1/2"></div>
       </div>
     </div>
-  </div>
-);
-
-export const AISuspenseWrapper: React.FC<AISuspenseWrapperProps> = ({
-  children,
-  fallback,
-  errorFallback,
-}) => {
-  return (
-    <AIErrorBoundary fallback={errorFallback || <AIErrorFallback />}>
-      <Suspense fallback={fallback || <AISkeletonLoader />}>
-        {children}
-      </Suspense>
-    </AIErrorBoundary>
-  );
-};
-
-// Hook pour gérer les états de chargement AI
-export const useAILoadingState = () => {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
-
-  const startLoading = React.useCallback(() => {
-    setIsLoading(true);
-    setError(null);
-  }, []);
-
-  const stopLoading = React.useCallback(() => {
-    setIsLoading(false);
-  }, []);
-
-  const setErrorState = React.useCallback((errorMessage: string) => {
-    setError(errorMessage);
-    setIsLoading(false);
-  }, []);
-
-  const clearError = React.useCallback(() => {
-    setError(null);
-  }, []);
-
-  return {
-    isLoading,
-    error,
-    startLoading,
-    stopLoading,
-    setErrorState,
-    clearError,
-  };
-};
-
-// Composant pour afficher les suggestions AI avec gestion d'état
-export const AISuggestionsDisplay: React.FC<{
-  suggestions: any[];
-  isLoading: boolean;
-  error: string | null;
-  onRetry?: () => void;
-}> = ({ suggestions, isLoading, error, onRetry }) => {
-  if (isLoading) {
-    return <AISkeletonLoader />;
-  }
-
-  if (error) {
-    return (
-      <div className="bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 rounded-lg p-4">
-        <div className="flex items-start space-x-3">
-          <div className="text-2xl">⚠️</div>
-          <div className="flex-1">
-            <h3 className="font-medium text-red-800 mb-1">
-              Erreur lors du chargement des suggestions
-            </h3>
-            <p className="text-sm text-red-700 mb-3">{error}</p>
-            {onRetry && (
-              <button
-                onClick={onRetry}
-                className="text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors"
-              >
-                Réessayer
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!suggestions || suggestions.length === 0) {
-    return (
-      <div className="bg-gradient-to-r from-gray-50 to-slate-50 border border-gray-200 rounded-lg p-4 text-center">
-        <div className="text-2xl mb-2">💭</div>
-        <p className="text-gray-600">
-          Aucune suggestion disponible pour le moment.
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-4">
-      {suggestions.map((suggestion, index) => (
-        <div
-          key={suggestion.id || index}
-          className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-        >
-          <div className="flex items-start space-x-3">
-            <div className="text-2xl">
-              {suggestion.type === 'venue' && '🏰'}
-              {suggestion.type === 'catering' && '🍽️'}
-              {suggestion.type === 'photography' && '📸'}
-              {suggestion.type === 'music' && '🎵'}
-              {suggestion.type === 'decor' && '🌸'}
-              {suggestion.type === 'general' && '💡'}
-            </div>
-            <div className="flex-1">
-              <h3 className="font-medium text-pink-800 mb-1">
-                {suggestion.title}
-              </h3>
-              <p className="text-sm text-pink-700 mb-2">
-                {suggestion.description}
-              </p>
-              {suggestion.estimatedCost && (
-                <div className="text-xs text-pink-600 bg-pink-100 px-2 py-1 rounded inline-block">
-                  💰 {suggestion.estimatedCost}
-                </div>
-              )}
-              {suggestion.tags && suggestion.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2">
-                  {suggestion.tags.map((tag: string, tagIndex: number) => (
-                    <span
-                      key={tagIndex}
-                      className="text-xs bg-pink-200 text-pink-700 px-2 py-1 rounded"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
+    
+    <div className="space-y-3">
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="bg-white/60 rounded-lg p-4">
+          <div className="h-4 bg-pink-100 rounded w-full mb-2"></div>
+          <div className="h-3 bg-pink-50 rounded w-2/3 mb-2"></div>
+          <div className="flex gap-2">
+            <div className="h-6 bg-pink-100 rounded-full w-16"></div>
+            <div className="h-6 bg-pink-100 rounded-full w-20"></div>
           </div>
         </div>
       ))}
     </div>
+    
+    <p className="text-sm text-pink-600 text-center mt-4 flex items-center justify-center gap-2">
+      <SparklesIcon className="size-4 animate-pulse" />
+      {message}
+    </p>
+  </div>
+);
+
+/**
+ * Composant de fallback pour les erreurs AI spécifiques
+ */
+const AISpecificErrorFallback = ({ error, resetErrorBoundary }: { 
+  error: Error; 
+  resetErrorBoundary: () => void;
+}) => {
+  const isOpenAIError = error.message.includes('OpenAI') || error.message.includes('API key');
+  const isQuotaError = error.message.includes('quota') || error.message.includes('billing');
+  
+  if (isQuotaError) {
+    return (
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-6 my-4">
+        <div className="flex items-start gap-3">
+          <ExclamationTriangleIcon className="size-6 text-orange-600 flex-shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <h3 className="font-medium text-orange-800 mb-2">
+              Quota OpenAI dépassé
+            </h3>
+            <p className="text-sm text-orange-700 mb-4">
+              Les crédits OpenAI sont épuisés. L'application utilise des suggestions par défaut en attendant.
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={resetErrorBoundary}
+                className="text-sm bg-orange-600 text-white px-4 py-2 rounded-md hover:bg-orange-700 transition-colors"
+              >
+                Réessayer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (isOpenAIError) {
+    return (
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 my-4">
+        <div className="flex items-start gap-3">
+          <ExclamationTriangleIcon className="size-6 text-yellow-600 flex-shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <h3 className="font-medium text-yellow-800 mb-2">
+              Configuration OpenAI requise
+            </h3>
+            <p className="text-sm text-yellow-700 mb-4">
+              La clé API OpenAI n'est pas configurée. Veuillez créer le fichier <code className="bg-yellow-100 px-1 rounded">.env.local</code> avec votre clé API.
+            </p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => window.location.reload()}
+                className="text-sm bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition-colors"
+              >
+                Recharger
+              </button>
+            </div>
+            <details className="mt-3">
+              <summary className="text-xs text-yellow-600 cursor-pointer">Instructions</summary>
+              <div className="text-xs text-yellow-800 mt-2">
+                <p>1. Créez <code>.env.local</code> dans apps/nextjs-app/</p>
+                <p>2. Ajoutez: <code>NEXT_PUBLIC_OPENAI_API_KEY=votre_clé</code></p>
+                <p>3. Redémarrez le serveur</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Erreur générique AI
+  return <AIErrorFallback error={error} resetErrorBoundary={resetErrorBoundary} />;
+};
+
+/**
+ * Wrapper Suspense + ErrorBoundary pour les composants AI
+ */
+export const AISuspenseWrapper = ({ 
+  children, 
+  fallbackMessage,
+  onError
+}: { 
+  children: React.ReactNode;
+  fallbackMessage?: string;
+  onError?: (error: Error, errorInfo: any) => void;
+}) => {
+  return (
+    <ErrorBoundary 
+      fallback={AISpecificErrorFallback}
+      onError={(error, errorInfo) => {
+        console.error('🤖 AI Component Error:', error);
+        if (onError) onError(error, errorInfo);
+      }}
+    >
+      <Suspense fallback={<AISkeleton message={fallbackMessage} />}>
+        {children}
+      </Suspense>
+    </ErrorBoundary>
   );
-}; 
+};
+
+/**
+ * Hook pour wrapper facilement les composants AI
+ */
+export const useAISuspense = () => {
+  return {
+    wrap: (component: React.ReactNode, message?: string) => (
+      <AISuspenseWrapper fallbackMessage={message}>
+        {component}
+      </AISuspenseWrapper>
+    )
+  };
+};
+
+export default AISuspenseWrapper; 

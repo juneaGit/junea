@@ -30,6 +30,7 @@ const nextConfig = {
       fs: false,
       net: false,
       tls: false,
+      punycode: false, // Fix punycode deprecation warning
     };
     
     return config;
@@ -39,9 +40,22 @@ const nextConfig = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
-  // Optimiser les images
+  // Fix images configuration (NEW)
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      }
+    ],
     formats: ['image/webp', 'image/avif'],
   },
   // Réduire la verbosité des logs

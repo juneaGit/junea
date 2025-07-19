@@ -33,6 +33,40 @@ export const paths = {
     profile: {
       getHref: () => '/app/profile',
     },
+    // Wedding planning pages
+    planning: {
+      getHref: () => '/app/planning',
+    },
+    budget: {
+      getHref: () => '/app/budget',
+    },
+    guests: {
+      getHref: () => '/app/guests',
+    },
+    seating: {
+      getHref: () => '/app/seating',
+    },
+    venue: {
+      getHref: () => '/app/venue',
+    },
+    catering: {
+      getHref: () => '/app/catering',
+    },
+    music: {
+      getHref: () => '/app/music',
+    },
+    photography: {
+      getHref: () => '/app/photography',
+    },
+    services: {
+      getHref: () => '/app/services',
+    },
+    dayPlanning: {
+      getHref: () => '/app/day-planning',
+    },
+    settings: {
+      getHref: () => '/app/settings',
+    },
   },
   public: {
     discussion: {
