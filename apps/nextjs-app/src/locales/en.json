@@ -36,7 +36,8 @@
     "users": "Users",
     "settings": "Settings",
     "profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "notifications": "Notifications"
   },
   "settings": {
     "title": "Settings",

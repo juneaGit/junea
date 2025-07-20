@@ -3,10 +3,8 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { Metadata } from 'next';
 
 import { ReduxProvider } from '@/providers/redux-provider';
+import { I18nProvider } from '@/providers/i18n-provider';
 import { AppProvider } from '../app/provider';
-
-// Initialiser i18n dès le démarrage de l'app
-import '../lib/i18n';
 
 import '../styles/globals.css';
 
@@ -27,13 +25,15 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <html lang="fr">
       <body>
-        <ReduxProvider>
-          <AppProvider>
-            <HydrationBoundary state={dehydratedState}>
-              {children}
-            </HydrationBoundary>
-          </AppProvider>
-        </ReduxProvider>
+        <I18nProvider>
+          <ReduxProvider>
+            <AppProvider>
+              <HydrationBoundary state={dehydratedState}>
+                {children}
+              </HydrationBoundary>
+            </AppProvider>
+          </ReduxProvider>
+        </I18nProvider>
       </body>
     </html>
   );

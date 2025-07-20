@@ -36,7 +36,8 @@
     "users": "Usuarios",
     "settings": "Configuración",
     "profile": "Perfil",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "notifications": "Notificaciones"
   },
   "settings": {
     "title": "Configuración",

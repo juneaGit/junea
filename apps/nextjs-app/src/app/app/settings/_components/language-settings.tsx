@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { saveUserLanguage, changeLanguageDemo, loadUserLanguage } from '@/store/slices/language-slice';
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '@/lib/i18n';
+import { getAvailableLanguages, getCurrentLanguage, changeLanguage, type SupportedLanguage } from '@/lib/i18n';
 import { useAuth } from '@/hooks/use-auth';
 import { cn } from '@/utils/cn';
 
@@ -60,8 +60,9 @@ export const LanguageSettings = () => {
   };
 
   const getCurrentLanguageName = () => {
-    const lang = SUPPORTED_LANGUAGES.find(l => l.code === selectedLanguage);
-    return lang ? lang.nativeName : 'Français';
+    const availableLanguages = getAvailableLanguages();
+    const lang = availableLanguages.find((l) => l.code === selectedLanguage);
+    return lang ? lang.name : 'Français';
   };
 
   return (
@@ -100,7 +101,7 @@ export const LanguageSettings = () => {
           <CardTitle>{t('settings.languageSettings.selectLanguage')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          {SUPPORTED_LANGUAGES.map((language) => (
+          {getAvailableLanguages().map((language) => (
             <div
               key={language.code}
               className={cn(
@@ -115,10 +116,10 @@ export const LanguageSettings = () => {
                 <span className="text-2xl">{language.flag}</span>
                 <div>
                   <div className="font-medium text-gray-900">
-                    {language.nativeName}
+                    {language.name}
                   </div>
                   <div className="text-sm text-gray-500">
-                    {language.name}
+                    {language.code.toUpperCase()}
                   </div>
                 </div>
               </div>

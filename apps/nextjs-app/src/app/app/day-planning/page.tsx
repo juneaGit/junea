@@ -25,7 +25,7 @@ interface WeddingEvent {
   ai_generated?: boolean;
 }
 
-// Événements de démonstration
+// Événements de démonstration avec couleurs améliorées
 const DEMO_EVENTS: WeddingEvent[] = [
   {
     id: '1',
@@ -35,7 +35,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Arrivée sur le lieu, derniers préparatifs et photos des préparations',
     responsible: 'Wedding planner',
     location: 'Suite nuptiale',
-    color: '#f3e8ff',
+    color: '#8B5CF6', // Violet saturé
   },
   {
     id: '2',
@@ -45,7 +45,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Photos du couple dans les jardins',
     responsible: 'Photographe',
     location: 'Jardins du château',
-    color: '#fef3c7',
+    color: '#F59E0B', // Jaune/orange saturé
   },
   {
     id: '3',
@@ -55,7 +55,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Cérémonie à l\'église Saint-Martin',
     responsible: 'Prêtre + Wedding planner',
     location: 'Église Saint-Martin',
-    color: '#ddd6fe',
+    color: '#DC2626', // Rouge saturé pour importance
   },
   {
     id: '4',
@@ -65,7 +65,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Cocktail avec canapés et champagne dans les jardins',
     responsible: 'Traiteur + Service',
     location: 'Terrasse du château',
-    color: '#fce7f3',
+    color: '#EC4899', // Rose saturé
   },
   {
     id: '5',
@@ -75,7 +75,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Dîner assis avec menu gastronomique 5 services',
     responsible: 'Traiteur',
     location: 'Grande salle de réception',
-    color: '#f0fdfa',
+    color: '#059669', // Vert saturé
   },
   {
     id: '6',
@@ -85,7 +85,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Première danse des mariés',
     responsible: 'DJ + Éclairagiste',
     location: 'Piste de danse',
-    color: '#fff7ed',
+    color: '#D97706', // Orange saturé
   },
   {
     id: '7',
@@ -95,7 +95,7 @@ const DEMO_EVENTS: WeddingEvent[] = [
     description: 'Soirée dansante avec DJ et bar ouvert',
     responsible: 'DJ + Barman',
     location: 'Salle de bal',
-    color: '#f0f9ff',
+    color: '#1D4ED8', // Bleu saturé
   },
 ];
 
@@ -154,7 +154,7 @@ export default function DayPlanningPage() {
           end: '2024-06-15T15:45:00',
           description: 'Sortie de l\'église avec lancer de pétales par les invités',
           responsible: 'Invités + Photographe',
-          color: '#fdf2f8',
+          color: '#7C3AED', // Violet saturé pour IA
           ai_generated: true,
         },
         {
@@ -164,7 +164,7 @@ export default function DayPlanningPage() {
           end: '2024-06-15T17:30:00',
           description: 'Coin enfants avec animatrice pendant le cocktail',
           responsible: 'Animatrice',
-          color: '#f0f9ff',
+          color: '#0891B2', // Cyan saturé pour IA
           ai_generated: true,
         },
       ];
@@ -302,9 +302,45 @@ export default function DayPlanningPage() {
               allDaySlot={false}
               slotDuration="00:30:00"
               eventDisplay="block"
-              eventClassNames="rounded-lg border-2 px-2 py-1 text-sm font-medium"
+              eventClassNames="rounded-lg border-2 px-2 py-1 text-sm font-medium shadow-md"
+              // Amélioration UX/UI
+              slotLabelFormat={{
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+              }}
+              dayHeaderFormat={{
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric'
+              }}
+              // Styles personnalisés via les options
+              eventContent={(eventInfo) => (
+                <div 
+                  className="p-2 rounded-md text-white font-semibold shadow-sm"
+                  style={{
+                    backgroundColor: eventInfo.event.backgroundColor,
+                    fontSize: '0.875rem',
+                    lineHeight: '1.2',
+                    minHeight: '40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <div className="font-bold">{eventInfo.event.title}</div>
+                  <div className="text-xs opacity-90">
+                    {new Date(eventInfo.event.start!).toLocaleTimeString('fr-FR', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </div>
+                </div>
+              )}
             />
           </div>
+          
+
         ) : (
           <div className="space-y-4">
             {/* Timeline en liste */}

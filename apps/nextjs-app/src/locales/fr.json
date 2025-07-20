@@ -36,7 +36,8 @@
     "users": "Utilisateurs",
     "settings": "Paramètres",
     "profile": "Profil",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "notifications": "Notifications"
   },
   "settings": {
     "title": "Paramètres",

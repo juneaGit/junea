@@ -171,3 +171,89 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ===================================
+   FULLCALENDAR CUSTOM STYLES 
+   ===================================*/
+
+/* Amélioration du contraste et de la visibilité */
+.fc-theme-standard .fc-scrollgrid {
+  border-color: #e5e7eb;
+}
+
+.fc-timegrid-slot-label {
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  color: #1f2937 !important;
+  padding: 0.5rem !important;
+}
+
+.fc-timegrid-slot {
+  height: 50px !important;
+}
+
+.fc-timegrid-axis {
+  background-color: #f9fafb;
+  border-right: 2px solid #e5e7eb !important;
+}
+
+.fc-col-header-cell {
+  background-color: #f3f4f6;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #111827 !important;
+  padding: 1rem !important;
+}
+
+.fc-timegrid-divider {
+  padding: 0;
+}
+
+.fc-timegrid-body {
+  border-left: 2px solid #e5e7eb;
+}
+
+.fc-event-main {
+  padding: 0.5rem;
+}
+
+.fc-timegrid-event {
+  border-radius: 0.5rem !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.fc-timegrid-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.fc-timegrid-slot-minor {
+  border-top-color: #f3f4f6;
+}
+
+.fc-timegrid-slot-major {
+  border-top: 2px solid #d1d5db !important;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .fc-timegrid-slot-label {
+    font-size: 0.75rem !important;
+    padding: 0.25rem !important;
+  }
+  
+  .fc-timegrid-slot {
+    height: 40px !important;
+  }
+  
+  .fc-event-main {
+    padding: 0.25rem;
+  }
+  
+  .fc-col-header-cell {
+    font-size: 1rem !important;
+    padding: 0.5rem !important;
+  }
+}
