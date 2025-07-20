@@ -1,0 +1,168 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Añadir",
+    "close": "Cerrar",
+    "yes": "Sí",
+    "no": "No",
+    "continue": "Continuar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "all": "Todos",
+    "none": "Ninguno",
+    "optional": "Opcional",
+    "required": "Requerido"
+  },
+  "navigation": {
+    "dashboard": "Tablero",
+    "planning": "Planificación",
+    "budget": "Presupuesto",
+    "guests": "Invitados",
+    "venue": "Lugar",
+    "catering": "Catering",
+    "music": "Música",
+    "photography": "Fotografía",
+    "seating": "Plan de Mesas",
+    "additionalServices": "Servicios Adicionales",
+    "dayPlanning": "Planificación del Día",
+    "discussions": "Discusiones",
+    "users": "Usuarios",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "logout": "Cerrar Sesión"
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Gestiona tu cuenta y preferencias",
+    "profile": "Perfil",
+    "notifications": "Notificaciones",
+    "appearance": "Apariencia",
+    "language": "Idioma",
+    "security": "Seguridad", 
+    "dangerZone": "Zona Peligrosa",
+    "languageSettings": {
+      "title": "Configuración de Idioma",
+      "description": "Elige tu idioma preferido para la aplicación",
+      "selectLanguage": "Seleccionar Idioma",
+      "currentLanguage": "Idioma Actual",
+      "autoDetect": "Detectar automáticamente",
+      "autoDetectDescription": "Usar el idioma de tu navegador",
+      "changesSaved": "¡Cambios guardados!"
+    }
+  },
+  "dashboard": {
+    "title": "Tablero",
+    "welcome": "Bienvenido/a {{name}}",
+    "daysUntilWedding": "{{count}} día hasta tu boda",
+    "daysUntilWedding_plural": "{{count}} días hasta tu boda",
+    "weddingOverview": "Resumen de la Boda",
+    "budget": "Presupuesto",
+    "tasks": "Tareas",
+    "guests": "Invitados",
+    "quickActions": "Acciones Rápidas"
+  },
+  "auth": {
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión",
+    "email": "Email",
+    "password": "Contraseña",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "hasAccount": "¿Ya tienes cuenta?"
+  },
+  "wedding": {
+    "types": {
+      "romantique": "Romántica",
+      "bohemien": "Bohemia",
+      "oriental": "Oriental",
+      "bollywood": "Bollywood",
+      "bonne_franquette": "Informal",
+      "moderne": "Moderna",
+      "traditionnel": "Tradicional"
+    },
+    "venues": {
+      "chateau": "Castillo",
+      "plein_air": "Al aire libre",
+      "salle": "Salón de Recepciones",
+      "plage": "Playa",
+      "jardin": "Jardín",
+      "musee": "Museo",
+      "autre": "Otro"
+    },
+    "meals": {
+      "aperitif_dinatoire": "Cóctel con Cena",
+      "diner_assis": "Cena Sentada",
+      "buffet": "Buffet",
+      "cocktail": "Cóctel",
+      "brunch": "Brunch"
+    }
+  },
+  "additionalServices": {
+    "title": "Servicios Adicionales",
+    "description": "Gestiona tus proveedores de servicios personalizados",
+    "addService": "Añadir Servicio",
+    "editService": "Editar Servicio",
+    "deleteService": "Eliminar Servicio",
+    "aiSuggestions": "Sugerencias IA",
+    "serviceName": "Nombre del Servicio",
+    "serviceType": "Tipo de Servicio",
+    "estimatedBudget": "Presupuesto Estimado",
+    "notes": "Notas",
+    "contacts": "Contactos",
+    "status": "Estado",
+    "provider": "Proveedor",
+    "totalServices": "{{count}} servicio",
+    "totalServices_plural": "{{count}} servicios",
+    "dragDropHint": "Arrastra y suelta para reordenar"
+  },
+  "dayPlanning": {
+    "title": "Planificación del Día de la Boda",
+    "description": "Organiza la cronología de tu día de boda",
+    "addEvent": "Añadir Evento",
+    "editEvent": "Editar Evento",
+    "deleteEvent": "Eliminar Evento",
+    "eventTime": "Hora",
+    "eventDuration": "Duración",
+    "eventDescription": "Descripción",
+    "eventResponsible": "Responsable",
+    "eventNotes": "Notas",
+    "aiSuggestions": "Cronología IA",
+    "timelineOverview": "Resumen de la Cronología",
+    "morningEvents": "Eventos de la Mañana",
+    "afternoonEvents": "Eventos de la Tarde",
+    "eveningEvents": "Eventos de la Noche",
+    "lateEvents": "Eventos Tardíos"
+  },
+  "ai": {
+    "generating": "Generando con IA...",
+    "suggestions": "Sugerencias IA",
+    "recommendationsFor": "Recomendaciones para {{type}}",
+    "generateIdeas": "Generar Ideas",
+    "aiRecommendation": "Recomendación IA",
+    "noRecommendations": "No se generaron recomendaciones",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "errors": {
+    "generic": "Ocurrió un error",
+    "networkError": "Error de conexión",
+    "unauthorized": "No autorizado",
+    "notFound": "No encontrado",
+    "validationError": "Error de validación"
+  },
+  "success": {
+    "saved": "Guardado exitosamente",
+    "updated": "Actualizado exitosamente",
+    "deleted": "Eliminado exitosamente",
+    "created": "Creado exitosamente"
+  }
+} 

@@ -1,0 +1,168 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "yes": "Yes",
+    "no": "No",
+    "continue": "Continue",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "all": "All",
+    "none": "None",
+    "optional": "Optional",
+    "required": "Required"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "planning": "Timeline Planning",
+    "budget": "Budget",
+    "guests": "Guests",
+    "venue": "Venue",
+    "catering": "Catering",
+    "music": "Music",
+    "photography": "Photography",
+    "seating": "Seating Plan",
+    "additionalServices": "Additional Services",
+    "dayPlanning": "Wedding Day Planning",
+    "discussions": "Discussions",
+    "users": "Users",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account and preferences",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "appearance": "Appearance", 
+    "language": "Language",
+    "security": "Security",
+    "dangerZone": "Danger Zone",
+    "languageSettings": {
+      "title": "Language Settings",
+      "description": "Choose your preferred language for the application",
+      "selectLanguage": "Select Language",
+      "currentLanguage": "Current Language",
+      "autoDetect": "Auto-detect",
+      "autoDetectDescription": "Use your browser's language",
+      "changesSaved": "Changes saved!"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome {{name}}",
+    "daysUntilWedding": "{{count}} day until your wedding",
+    "daysUntilWedding_plural": "{{count}} days until your wedding",
+    "weddingOverview": "Wedding Overview",
+    "budget": "Budget",
+    "tasks": "Tasks", 
+    "guests": "Guests",
+    "quickActions": "Quick Actions"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "wedding": {
+    "types": {
+      "romantique": "Romantic",
+      "bohemien": "Bohemian",
+      "oriental": "Oriental",
+      "bollywood": "Bollywood",
+      "bonne_franquette": "Casual",
+      "moderne": "Modern",
+      "traditionnel": "Traditional"
+    },
+    "venues": {
+      "chateau": "Castle",
+      "plein_air": "Outdoor",
+      "salle": "Reception Hall",
+      "plage": "Beach",
+      "jardin": "Garden",
+      "musee": "Museum",
+      "autre": "Other"
+    },
+    "meals": {
+      "aperitif_dinatoire": "Cocktail Reception",
+      "diner_assis": "Seated Dinner",
+      "buffet": "Buffet",
+      "cocktail": "Cocktail",
+      "brunch": "Brunch"
+    }
+  },
+  "additionalServices": {
+    "title": "Additional Services",
+    "description": "Manage your custom service providers",
+    "addService": "Add Service",
+    "editService": "Edit Service",
+    "deleteService": "Delete Service",
+    "aiSuggestions": "AI Suggestions",
+    "serviceName": "Service Name",
+    "serviceType": "Service Type",
+    "estimatedBudget": "Estimated Budget",
+    "notes": "Notes",
+    "contacts": "Contacts",
+    "status": "Status",
+    "provider": "Provider",
+    "totalServices": "{{count}} service",
+    "totalServices_plural": "{{count}} services",
+    "dragDropHint": "Drag and drop to reorder"
+  },
+  "dayPlanning": {
+    "title": "Wedding Day Planning",
+    "description": "Organize your wedding day timeline",
+    "addEvent": "Add Event",
+    "editEvent": "Edit Event", 
+    "deleteEvent": "Delete Event",
+    "eventTime": "Time",
+    "eventDuration": "Duration",
+    "eventDescription": "Description",
+    "eventResponsible": "Responsible",
+    "eventNotes": "Notes",
+    "aiSuggestions": "AI Timeline",
+    "timelineOverview": "Timeline Overview",
+    "morningEvents": "Morning Events",
+    "afternoonEvents": "Afternoon Events",
+    "eveningEvents": "Evening Events",
+    "lateEvents": "Late Events"
+  },
+  "ai": {
+    "generating": "AI generating...",
+    "suggestions": "AI Suggestions",
+    "recommendationsFor": "Recommendations for {{type}}",
+    "generateIdeas": "Generate Ideas",
+    "aiRecommendation": "AI Recommendation",
+    "noRecommendations": "No recommendations generated",
+    "tryAgain": "Try Again"
+  },
+  "errors": {
+    "generic": "An error occurred",
+    "networkError": "Network error",
+    "unauthorized": "Unauthorized",
+    "notFound": "Not found",
+    "validationError": "Validation error"
+  },
+  "success": {
+    "saved": "Successfully saved",
+    "updated": "Successfully updated",
+    "deleted": "Successfully deleted", 
+    "created": "Successfully created"
+  }
+} 

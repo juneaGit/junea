@@ -1,19 +1,19 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { Metadata } from 'next';
 
-import { AppProvider } from '@/app/provider';
 import { ReduxProvider } from '@/providers/redux-provider';
+import { AppProvider } from '../app/provider';
 
-import '@/styles/globals.css';
+// Initialiser i18n dès le démarrage de l'app
+import '../lib/i18n';
 
-export const metadata = {
-  title: 'Mon Mariage - Organisez votre mariage de rêve',
+import '../styles/globals.css';
+
+export const metadata: Metadata = {
+  title: 'Mon Mariage de Rêve - Organisez votre mariage facilement',
   description:
-    'Application SaaS pour organiser votre mariage facilement avec IA et recommandations personnalisées',
+    'Application complète pour organiser votre mariage : budget, invités, planning et bien plus !',
 };
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
