@@ -377,13 +377,13 @@ CREATE INDEX IF NOT EXISTS idx_budget_items_category ON budget_items(category);
 DO $$
 DECLARE
     required_tables TEXT[] := ARRAY['profiles', 'wedding_profiles', 'additional_services', 'day_planning_events', 'tasks', 'guests', 'budget_items'];
-    table_name TEXT;
+    current_table TEXT;
     missing_tables TEXT[] := '{}';
 BEGIN
-    FOREACH table_name IN ARRAY required_tables
+    FOREACH current_table IN ARRAY required_tables
     LOOP
-        IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = table_name) THEN
-            missing_tables := array_append(missing_tables, table_name);
+        IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE information_schema.tables.table_name = current_table) THEN
+            missing_tables := array_append(missing_tables, current_table);
         END IF;
     END LOOP;
     
